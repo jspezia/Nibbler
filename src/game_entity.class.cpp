@@ -1,8 +1,9 @@
-#include "game_entity.class.hpp"
 #include <iostream>
 #include <string>
 #include <stdexcept>
-#include <locale>
+#include "game_entity.class.hpp"
+#include "libft.hpp"
+
 
 game_entity::game_entity()
 {
@@ -14,6 +15,8 @@ game_entity::game_entity(char *height, char *width)
 	int		h;
 	int		w;
 
+	if (!strisdigit(height) || !strisdigit(width))
+		throw std::exception();
 	h = atoi(height);
 	w = atoi(width);
 	if (h > 100 || w > 100 || h < 1 || w < 1)

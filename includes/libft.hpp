@@ -1,0 +1,1 @@
+bool	strisdigit(char *str);
