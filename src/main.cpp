@@ -2,7 +2,7 @@
 #include <dlfcn.h>
 #include <iostream>
 #include <stdexcept>
-#include "game_entity.class.hpp"
+#include "GameEntity.class.hpp"
 
 void		dlerror_wrapper(void)
 {
@@ -12,9 +12,6 @@ void		dlerror_wrapper(void)
 
 int			main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-
 /*
 	void			*dl_handle;
 	std::string	*	(*test)(void);
@@ -33,7 +30,7 @@ int			main(int ac, char **av)
 	if (ac >= 3)
 	{
 		try {
-			game_entity(av[1], av[2]);
+			GameEntity(av[1], av[2]);
 		}
 		catch (std::exception) {
 			std::cout << "height & width e [1 ; 100]" << std::endl;

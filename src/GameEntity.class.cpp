@@ -1,16 +1,16 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
-#include "game_entity.class.hpp"
+#include "GameEntity.class.hpp"
 #include "libft.hpp"
 
 
-game_entity::game_entity()
+GameEntity::GameEntity()
 {
 	return;
 }
 
-game_entity::game_entity(char *height, char *width)
+GameEntity::GameEntity(char *height, char *width)
 {
 	int		h;
 	int		w;
@@ -19,31 +19,31 @@ game_entity::game_entity(char *height, char *width)
 		throw std::exception();
 	h = atoi(height);
 	w = atoi(width);
-	if (h > 100 || w > 100 || h < 1 || w < 1)
+	if (h > 100 || w > 100 || h < 10 || w < 10)
 		throw std::exception();
 	this->_height = h;
 	this->_width = w;
 
-	std::cout << "game_entity creation, h = " << h << " w = " << w << std::endl;
+	std::cout << "GameEntity creation, h = " << h << " w = " << w << std::endl;
 	return;
 }
 
-game_entity::~game_entity(void)
+GameEntity::~GameEntity(void)
 {
 	return;
 }
 
-int game_entity::getHeight(void) const
+int GameEntity::getHeight(void) const
 {
 	return this->_height;
 }
 
-int game_entity::getWidth(void) const
+int GameEntity::getWidth(void) const
 {
 	return this->_width;
 }
 
-game_entity		&game_entity::operator=(game_entity const &rhs)
+GameEntity		&GameEntity::operator=(GameEntity const &rhs)
 {
 	if (this != &rhs)
 	{
@@ -53,7 +53,7 @@ game_entity		&game_entity::operator=(game_entity const &rhs)
 	return *this;
 }
 
-std::iostream		&operator<<(std::iostream &o, game_entity const &i)
+std::iostream		&operator<<(std::iostream &o, GameEntity const &i)
 {
 	o << "h = " << i.getHeight() << " w = " << i.getWidth() << std::endl;
 	return o;
