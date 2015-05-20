@@ -1,7 +1,7 @@
+CC		= g++
 CPATH	= src
 OPATH	= obj
 HPATH	= includes
-CC		= g++ -Wall -Werror -Wextra
 FLAGS	= -Wall -Werror -Wextra
 
 NAME	= nibbler
@@ -18,7 +18,7 @@ C_GOOD	= "\033[32m"
 all: $(NAME)
 
 $(NAME): $(OPATH) $(OFILE)
-	@$(CC) $(OFILE) -I $(HPATH) -o $(NAME)
+	@$(CC) $(FLAGS) $(OFILE) -I $(HPATH) -o $(NAME)
 	@echo $(C_GOOD)Creation Executable$(C_NO)
 
 $(OPATH):
@@ -27,7 +27,7 @@ $(OPATH):
 
 $(OPATH)/%.o: $(CPATH)/%.cpp
 	@echo "Creating file $@"
-	@$(CC) -o $@ -c $^ -I $(HPATH)
+	@$(CC) $(FLAGS) -o $@ -c $^ -I $(HPATH)
 
 clean:
 	@echo "Deletion of building directory"
