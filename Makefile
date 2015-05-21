@@ -1,4 +1,4 @@
-CC		= g++
+CC		= g++ -std=c++11
 CPATH	= src
 OPATH	= obj
 HPATH	= includes
@@ -10,6 +10,7 @@ SRC		= main.cpp				\
 		Map.class.cpp			\
 		GameEntity.class.cpp 	\
 		Snake.class.cpp 	\
+		Time.class.cpp		\
 		libft.cpp
 
 CFILE	= $(patsubst %, $(CPATH)/%, $(SRC))
