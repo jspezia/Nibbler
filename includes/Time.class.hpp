@@ -10,6 +10,7 @@ class Time
 	public:
 		~Time(void);
 
+		/* returns unique instance of Time */
 		static Time & Instance()
 		{
 			static Time		instance;
@@ -17,22 +18,37 @@ class Time
 			return instance;
 		}
 
+		/* returns time since epoch in milliseconds */
 		static int	 	GetTime();
+
+		/* pause thread for an amount of milliseconds */
 		static void 	Sleep(int milliseconds);
+
+		/*
+		** update time properties based on intern clock
+		** - call this at the the start of game loop
+		*/
 		static void		Update();
 
+		/* the time in seconds since the start of the game (Read Only) */
 		static double	time;
-		static double	currentTime;
-		static double	lastTime;
+
+		/* the time in seconds it took to complete the last frame (Read Only) */
 		static double	deltaTime;
 
+		/* the frame rate - frames per second (Read Only) */
 		static double	fps;
+
+		/* the total of frames since the start of the game (Read Only) */
 		static int		frameCount;
 
 	private:
 		Time(void);
 		Time(Time const & ref);
 		Time & operator=(Time const & ref);
+
+		static double	_currentTime;
+		static double	_lastTime;
 };
 
 #endif
