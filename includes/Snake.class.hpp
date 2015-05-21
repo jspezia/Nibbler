@@ -19,8 +19,8 @@ public:
 	void		setDirection(char const direction);
 	int			getSpeed(void) const;
 	void		upSpeed(int const speed);
-	int			getLenght(void) const;
-	void		upLenght(int const lenght);
+	int			getLength(void) const;
+	void		upLength(int const length);
 	std::string	getState(void) const;
 	void		setState(std::string const state);
 
@@ -34,7 +34,7 @@ protected:
 private:
 	char			_direction;
 	int				_speed;
-	int				_lenght;
+	int				_length;
 	std::string		_state;
 	std::list<GameEntity>	_body;
 

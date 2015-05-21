@@ -11,14 +11,14 @@ Snake::Snake(int x, int y) :
 	GameEntity(x, y),
 	_direction('N'),
 	_speed(1),
-	_lenght(3),
+	_length(3),
 	_state("normal")
 {
 	this->setType("head");
 
 	std::list<GameEntity>	body;
 
-	for (int i = 0; i < this->_lenght; i++)
+	for (int i = 0; i < this->_length; i++)
 		body.push_back(GameEntity(x, y + 1 + i));
 
 	return;
@@ -54,14 +54,14 @@ void		Snake::upSpeed(int const speed)
 	this->_speed += speed;
 }
 
-int			Snake::getLenght(void) const
+int			Snake::getLength(void) const
 {
-	return this->_lenght;
+	return this->_length;
 }
 
-void		Snake::upLenght(int const lenght)
+void		Snake::upLength(int const length)
 {
-	this->_lenght += lenght;
+	this->_length += length;
 }
 
 std::string	Snake::getState(void) const
@@ -80,11 +80,11 @@ void		Snake::move(char const direction)
 		this->_body.pop_back();
 	else if (this->_state == "grow")
 	{
-		this->_lenght += 1;
+		this->_length += 1;
 		this->_state = "normal";
 	}
 	this->_body.push_front(GameEntity(this->_X, this->_Y));
-	if ((direction == 'N' || direction == 'S') && (this->_direction == 'N' || this->_direction == 'S'))
+	//if ((direction == 'N' || direction == 'S') && (this->_direction == 'N' || this->_direction == 'S'))
 	if (direction == 'N')
 		this->_Y -= 1;
 	else if (direction == 'S')
