@@ -11,7 +11,7 @@ class Time
 		~Time(void);
 
 		/* returns unique instance of Time */
-		static Time & Instance()
+		static Time & instance()
 		{
 			static Time		instance;
 
@@ -19,16 +19,16 @@ class Time
 		}
 
 		/* returns time since epoch in milliseconds */
-		static int	 	GetTime();
+		static int	 	getTime();
 
 		/* pause thread for an amount of milliseconds */
-		static void 	Sleep(int milliseconds);
+		static void 	sleep(int milliseconds);
 
 		/*
 		** update time properties based on intern clock
 		** - call this at the the start of game loop
 		*/
-		static void		Update();
+		static void		update();
 
 		/* the time in seconds since the start of the game (Read Only) */
 		static double	time;

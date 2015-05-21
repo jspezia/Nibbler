@@ -16,7 +16,7 @@ public:
 	Game(int const width, int const height);
 	~Game(void);
 
-	void	Loop(void);
+	void	loop(void);
 
 private:
 	Game(void);

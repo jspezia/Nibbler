@@ -3,22 +3,22 @@
 Time::Time(void) {}
 Time::~Time(void) {}
 
-int Time::GetTime()
+int Time::getTime()
 {
 	auto timeSinceEpoch = std::chrono::system_clock::now().time_since_epoch();
 	auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(timeSinceEpoch).count();
 	return ms;
 }
 
-void Time::Sleep(int ms)
+void Time::sleep(int ms)
 {
 	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-void Time::Update()
+void Time::update()
 {
 	/* get current time in milliseconds */
-	_currentTime = GetTime();
+	_currentTime = getTime();
 
 	/* calculate elapsed time in seconds since last frame */
 	if (_lastTime)

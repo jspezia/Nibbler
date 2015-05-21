@@ -1,5 +1,6 @@
 #include "Game.class.hpp"
 #include "Map.class.hpp"
+#include "Time.class.hpp"
 
 /*
 	initiatialize game
@@ -33,7 +34,15 @@ Game::~Game(void)
 	return;
 }
 
-void	Game::Loop(void)
+void	Game::loop(void)
 {
+	while (!this->_shouldExit)
+	{
+		Time::update();
+		// do stuff..
 
+		std::cout << "Time: " << Time::time << " sec" << std::endl;
+
+		Time::sleep(100);
+	}
 }
