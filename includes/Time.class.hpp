@@ -47,7 +47,10 @@ class Time
 		Time(Time const & ref);
 		Time & operator=(Time const & ref);
 
+		/* the current time in milliseconds */
 		static double	_currentTime;
+
+		/* the time of last frame in milliseconds */
 		static double	_lastTime;
 };
 
