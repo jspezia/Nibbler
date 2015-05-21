@@ -2,6 +2,8 @@
 #include <dlfcn.h>
 #include <iostream>
 #include <stdexcept>
+#include "Map.class.hpp"
+#include "Snake.class.hpp"
 #include "GameEntity.class.hpp"
 
 void		dlerror_wrapper(void)
@@ -26,11 +28,10 @@ int			main(int ac, char **av)
 	dlclose(dl_handle);
 */
 
-
 	if (ac >= 3)
 	{
 		try {
-			GameEntity(av[1], av[2]);
+			Map		GE(av[1], av[2]);
 		}
 		catch (std::exception) {
 			std::cout << "height & width e [1 ; 100]" << std::endl;
@@ -38,6 +39,15 @@ int			main(int ac, char **av)
 	}
 	else
 		std::cout << "./nibbler height width" << std::endl;
+
+	GameEntity		john(1, 2);
+	std::cout << john;
+
+	Snake			snake(12, 12);
+	std::cout << snake;
+	snake.setPosition(14, 18);
+	snake.upSpeed(3);
+	std::cout << snake;
 
 	return (EXIT_SUCCESS);
 }

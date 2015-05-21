@@ -1,31 +1,20 @@
-#include <iostream>
-#include <string>
-#include <stdexcept>
 #include "GameEntity.class.hpp"
-#include "libft.hpp"
 
-
-GameEntity::GameEntity()
+GameEntity::GameEntity(void)
 {
 	return;
 }
 
-GameEntity::GameEntity(char *height, char *width)
+GameEntity::GameEntity(int x, int y) :
+	_X(x),
+	_Y(y)
 {
-	int		h;
-	int		w;
-
-	if (!strisdigit(height) || !strisdigit(width))
-		throw std::exception();
-	h = atoi(height);
-	w = atoi(width);
-	if (h > 100 || w > 100 || h < 10 || w < 10)
-		throw std::exception();
-	this->_height = h;
-	this->_width = w;
-
-	std::cout << "GameEntity creation, h = " << h << " w = " << w << std::endl;
 	return;
+}
+
+GameEntity::GameEntity(GameEntity const &src)
+{
+	*this = src;
 }
 
 GameEntity::~GameEntity(void)
@@ -33,29 +22,29 @@ GameEntity::~GameEntity(void)
 	return;
 }
 
-int GameEntity::getHeight(void) const
+int GameEntity::getX(void) const
 {
-	return this->_height;
+	return this->_X;
 }
 
-int GameEntity::getWidth(void) const
+int GameEntity::getY(void) const
 {
-	return this->_width;
+	return this->_Y;
 }
 
 GameEntity		&GameEntity::operator=(GameEntity const &rhs)
 {
 	if (this != &rhs)
 	{
-		this->_height = rhs.getHeight();
-		this->_width = rhs.getWidth();
+		this->_X = rhs.getX();
+		this->_Y = rhs.getY();
 	}
 	return *this;
 }
 
-std::iostream		&operator<<(std::iostream &o, GameEntity const &i)
+std::ostream		&operator<<(std::ostream &o, GameEntity const &i)
 {
-	o << "h = " << i.getHeight() << " w = " << i.getWidth() << std::endl;
+	o << "object in x = " << i.getX() << " y = " << i.getY() << std::endl;
 	return o;
 }
 

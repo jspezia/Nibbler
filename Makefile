@@ -7,7 +7,9 @@ FLAGS	= -Wall -Werror -Wextra
 NAME	= nibbler
 
 SRC		= main.cpp				\
-		GameEntity.class.cpp	\
+		Map.class.cpp			\
+		GameEntity.class.cpp 	\
+		Snake.class.cpp 	\
 		libft.cpp
 
 CFILE	= $(patsubst %, $(CPATH)/%, $(SRC))
