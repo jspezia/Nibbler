@@ -1,11 +1,13 @@
 #include "Player.class.hpp"
+#include "Snake.class.hpp"
 
-Player::Player(void)
+Player::Player(int x, int y)
 {
-	return;
+	this->_snake = new Snake(x, y);
 }
 
-Player::~Player(void)
+Player::~Player(void) {}
+
+void		Player::init(void)
 {
-	return;
 }

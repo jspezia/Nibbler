@@ -27,7 +27,12 @@
 Game::Game(int const width, int const height) : _width(width), _height(height), _shouldExit(false)
 {
 	this->_map = new Map(width, height);
-	this->init();
+
+	// gen player position
+	int x = width / 2;
+	int y = height / 2;
+
+	this->_player = new Player(x, y);
 }
 
 
