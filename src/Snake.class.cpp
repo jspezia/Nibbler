@@ -1,4 +1,6 @@
 #include "Snake.class.hpp"
+#include <list>
+#include "GameEntity.class.hpp"
 
 Snake::Snake(void)
 {
@@ -7,8 +9,18 @@ Snake::Snake(void)
 
 Snake::Snake(int x, int y) :
 	GameEntity(x, y),
-	_speed(1)
+	_direction('N'),
+	_speed(1),
+	_lenght(3),
+	_state("normal")
 {
+	this->setType("head");
+
+	std::list<GameEntity>	body;
+
+	for (int i = 0; i < this->_lenght; i++)
+		body.push_back(GameEntity(x, y + 1 + i));
+
 	return;
 }
 
@@ -22,9 +34,14 @@ Snake::~Snake(void)
 	return;
 }
 
-void		Snake::upSpeed(int const speed)
+char	Snake::getDirection(void) const
 {
-	this->_speed += speed;
+	return this->_direction;
+}
+
+void	Snake::setDirection(char const direction)
+{
+	this->_direction = direction;
 }
 
 int			Snake::getSpeed(void) const
@@ -32,18 +49,62 @@ int			Snake::getSpeed(void) const
 	return this->_speed;
 }
 
-void		Snake::setPosition(int const x, int const y)
+void		Snake::upSpeed(int const speed)
 {
-	this->_X = x;
-	this->_Y = y;
+	this->_speed += speed;
+}
+
+int			Snake::getLenght(void) const
+{
+	return this->_lenght;
+}
+
+void		Snake::upLenght(int const lenght)
+{
+	this->_lenght += lenght;
+}
+
+std::string	Snake::getState(void) const
+{
+	return this->_state;
+}
+
+void	Snake::setState(std::string const state)
+{
+	this->_state = state;
+}
+
+void		Snake::move(char const direction)
+{
+	if (this->_state == "normal")
+		this->_body.pop_back();
+	else if (this->_state == "grow")
+	{
+		this->_lenght += 1;
+		this->_state = "normal";
+	}
+	this->_body.push_front(GameEntity(this->_X, this->_Y));
+	if ((direction == 'N' || direction == 'S') && (this->_direction == 'N' || this->_direction == 'S'))
+	if (direction == 'N')
+		this->_Y -= 1;
+	else if (direction == 'S')
+		this->_Y += 1;
+	else if (direction == 'E')
+		this->_X += 1;
+	else if (direction == 'W')
+		this->_X -= 1;
+	this->_direction = direction;
+
 	std::cout << "Snake as move" << std::endl;
 }
 
 Snake		&Snake::operator=(Snake const &rhs)
 {
 	if (this != &rhs)
+	{
 		this->_X = rhs.getX();
 		this->_Y = rhs.getY();
+	}
 	return *this;
 }
 

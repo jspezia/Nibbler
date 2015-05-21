@@ -32,6 +32,22 @@ int GameEntity::getY(void) const
 	return this->_Y;
 }
 
+void		GameEntity::setType(std::string const type)
+{
+	this->_type = type;
+}
+
+std::string		GameEntity::getType(void) const
+{
+	return this->_type;
+}
+
+void		GameEntity::setPosition(int const x, int const y)
+{
+	this->_X = x;
+	this->_Y = y;
+}
+
 GameEntity		&GameEntity::operator=(GameEntity const &rhs)
 {
 	if (this != &rhs)

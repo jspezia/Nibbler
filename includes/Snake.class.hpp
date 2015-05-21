@@ -2,6 +2,7 @@
 # define SNAKE_HPP
 
 #include <iostream>
+#include <list>
 #include "GameEntity.class.hpp"
 
 class Snake : public GameEntity
@@ -14,9 +15,16 @@ public:
 	Snake(Snake const &src);
 	~Snake();
 
-	void	setPosition(int const x, int const y);
-	int		getSpeed(void) const;
-	void	upSpeed(int const speed);
+	char		getDirection(void) const;
+	void		setDirection(char const direction);
+	int			getSpeed(void) const;
+	void		upSpeed(int const speed);
+	int			getLenght(void) const;
+	void		upLenght(int const lenght);
+	std::string	getState(void) const;
+	void		setState(std::string const state);
+
+	void	move(char const direction);
 
 	Snake		&operator=(Snake const &rhs);
 
@@ -24,7 +32,11 @@ protected:
 
 
 private:
-	int		_speed;
+	char			_direction;
+	int				_speed;
+	int				_lenght;
+	std::string		_state;
+	std::list<GameEntity>	_body;
 
 };
 

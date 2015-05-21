@@ -14,12 +14,16 @@ public:
 	~GameEntity();
 	int 		getX(void) const;
 	int 		getY(void) const;
+	void		setType(std::string const type);
+	std::string	getType(void) const;
+	void		setPosition(int const x, int const y);
 
 	GameEntity		&operator=(GameEntity const &rhs);
 
 protected:
-	int		_X;
-	int		_Y;
+	int			_X;
+	int			_Y;
+	std::string	_type;
 
 private:
 
