@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "GameEntity.class.hpp"
+#include "Time.class.hpp"
 
 void		dlerror_wrapper(void)
 {
@@ -25,6 +26,22 @@ int			main(int ac, char **av)
 	std::cout << *test() << std::endl;
 	dlclose(dl_handle);
 */
+	std::cout << "Time.time = " << Time::time << std::endl;
+	std::cout << "Time.deltaTime = " << Time::deltaTime << std::endl;
+	//std::cout << "Time.currentTime = " << Time::currentTime << std::endl;
+	//std::cout << "Time.lastTime = " << Time::lastTime << std::endl;
+
+	while (1) {
+		Time::Update();
+
+		std::cout << "Time.time = " << Time::time << std::endl;
+		std::cout << "Time.deltaTime = " << Time::deltaTime << std::endl;
+		std::cout << "Time.fps = " << Time::fps << std::endl;
+		//std::cout << "Time.currentTime = " << Time::currentTime << std::endl;
+		//std::cout << "Time.lastTime = " << Time::lastTime << std::endl;
+
+		Time::Sleep(100);
+	}
 
 
 	if (ac >= 3)
@@ -41,20 +58,3 @@ int			main(int ac, char **av)
 
 	return (EXIT_SUCCESS);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

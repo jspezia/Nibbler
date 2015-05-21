@@ -1,4 +1,4 @@
-CC		= g++
+CC		= g++ -std=c++11
 CPATH	= src
 OPATH	= obj
 HPATH	= includes
@@ -7,8 +7,9 @@ FLAGS	= -Wall -Werror -Wextra
 NAME	= nibbler
 
 SRC		= main.cpp				\
-		GameEntity.class.cpp	\
-		libft.cpp
+		  GameEntity.class.cpp	\
+		  Time.class.cpp		\
+		  libft.cpp
 
 CFILE	= $(patsubst %, $(CPATH)/%, $(SRC))
 OFILE	= $(patsubst %.cpp, $(OPATH)/%.o, $(SRC))
