@@ -16,6 +16,8 @@ public:
 	Game(int const width, int const height);
 	~Game(void);
 
+	void	Loop(void);
+
 private:
 	Game(void);
 	Game(Game const &ref);
@@ -27,6 +29,9 @@ private:
 
 	/* game map */
 	Map *	_map;
+
+	/* shutdown condition */
+	bool	_shouldExit;
 };
 
 #endif

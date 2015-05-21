@@ -15,21 +15,25 @@
 			|			(collitions detection)
 			|			(update score | lives | ...)
 			|		render
-			|		check chutdown conditions
+			|		check shutdown conditions
 			|___)		|
 						|__ unload resources
 								|
 								|__ exit
 */
 
-Game::Game(int const width, int const height) : _width(width), _height(height)
+Game::Game(int const width, int const height) : _width(width), _height(height), _shouldExit(false)
 {
 	this->_map = new Map(width, height);
-	/* init */
 }
 
 
 Game::~Game(void)
 {
 	return;
+}
+
+void	Game::Loop(void)
+{
+
 }
