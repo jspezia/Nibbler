@@ -16,6 +16,10 @@ public:
 	Game(int const width, int const height);
 	~Game(void);
 
+	void	getMap(void) const;
+	void	getPlayer(void) const;
+
+	void	init(void);
 	void	loop(void);
 
 private:
