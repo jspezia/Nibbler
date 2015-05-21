@@ -40,6 +40,8 @@ int			main(int ac, char *av[])
 	}
 	else
 		std::cout << av[0] << " [width] [height]" << std::endl;
+
+	return (EXIT_SUCCESS);
 }
 
 /*
@@ -75,27 +77,6 @@ int			main(int ac, char **av)
 		Time::Sleep(100);
 	}
 
-	if (ac >= 3)
-	{
-		try {
-			Map		GE(av[1], av[2]);
-		}
-		catch (std::exception) {
-			std::cout << "height & width e [1 ; 100]" << std::endl;
-		}
-	}
-	else
-		std::cout << "./nibbler height width" << std::endl;
 
-	GameEntity		john(1, 2);
-	std::cout << john;
-
-	Snake			snake(12, 12);
-	std::cout << snake;
-	snake.setPosition(14, 18);
-	snake.upSpeed(3);
-	std::cout << snake;
-
-	return (EXIT_SUCCESS);
 }
 */
