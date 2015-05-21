@@ -24,14 +24,17 @@ private:
 	Game & operator=(Game const & ref);
 
 	/* game size */
-	int		_width;
-	int		_height;
+	int			_width;
+	int			_height;
 
 	/* game map */
-	Map *	_map;
+	Map *		_map;
+
+	/* player */
+	Player *	_player;
 
 	/* shutdown condition */
-	bool	_shouldExit;
+	bool		_shouldExit;
 };
 
 #endif
