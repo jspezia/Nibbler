@@ -1,5 +1,5 @@
-#ifndef GameEntity_HPP
-# define GameEntity_HPP
+#ifndef GAMEENTITY_HPP
+# define GAMEENTITY_HPP
 
 #include <iostream>
 
@@ -8,24 +8,23 @@ class GameEntity
 
 public:
 
-	GameEntity(char *height, char *width);
+	GameEntity(void);
+	GameEntity(int x, int y);
+	GameEntity(GameEntity const &src);
 	~GameEntity();
-	int getHeight(void) const;
-	int getWidth(void) const;
+	int 		getX(void) const;
+	int 		getY(void) const;
+
 	GameEntity		&operator=(GameEntity const &rhs);
 
 protected:
-
-	GameEntity(void);
-
+	int		_X;
+	int		_Y;
 
 private:
 
-	int 	_height;
-	int		_width;
-
 };
 
-std::ostream		&operator<<(std::ostream &o, GameEntity const &i);
+std::ostream	&operator<<(std::ostream &o, GameEntity const &i);
 
 #endif
