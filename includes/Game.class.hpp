@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include "Map.class.hpp"
+# include "Player.class.hpp"
 
 # define MIN_WIDTH		10
 # define MAX_WIDTH		100
@@ -16,15 +17,15 @@ public:
 	Game(int const width, int const height);
 	~Game(void);
 
-	void	getMap(void) const;
-	void	getPlayer(void) const;
+	Map *		getMap(void) const;
+	Player *	getPlayer(void) const;
 
-	void	init(void);
-	void	loop(void);
+	void		init(void);
+	void		loop(void);
 
 private:
 	Game(void);
-	Game(Game const &ref);
+	Game(Game const & ref);
 	Game & operator=(Game const & ref);
 
 	/* game size */

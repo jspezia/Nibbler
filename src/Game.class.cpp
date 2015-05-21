@@ -1,4 +1,5 @@
 #include "Game.class.hpp"
+#include "Player.class.hpp"
 #include "Map.class.hpp"
 #include "Time.class.hpp"
 
@@ -36,12 +37,12 @@ Game::~Game(void)
 }
 
 /* GETTERS */
-void	Game::getMap(void)
+Map *		Game::getMap(void) const
 {
 	return this->_map;
 }
 
-void	Game::getPlayer(void)
+Player *	Game::getPlayer(void) const
 {
 	return this->_player;
 }
@@ -49,12 +50,12 @@ void	Game::getPlayer(void)
 /* SETTERS */
 
 /* CORE */
-void	Game::init(void)
+void		Game::init(void)
 {
 
 }
 
-void	Game::loop(void)
+void		Game::loop(void)
 {
 	while (!this->_shouldExit)
 	{

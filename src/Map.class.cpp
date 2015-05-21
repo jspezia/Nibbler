@@ -17,17 +17,17 @@ Map::~Map(void)
 	return;
 }
 
-int Map::getHeight(void) const
+int			Map::getHeight(void) const
 {
 	return this->_height;
 }
 
-int Map::getWidth(void) const
+int			Map::getWidth(void) const
 {
 	return this->_width;
 }
 
-Map			&Map::operator=(Map const &rhs)
+Map &		Map::operator=(Map const &rhs)
 {
 	if (this != &rhs)
 	{

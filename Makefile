@@ -10,6 +10,7 @@ SRC		= main.cpp					\
 		  Game.class.cpp			\
 		  Map.class.cpp				\
 		  GameEntity.class.cpp		\
+		  Player.class.cpp			\
 		  Snake.class.cpp			\
 		  Time.class.cpp			\
 		  Lib.cpp
