@@ -7,28 +7,27 @@ class GameEntity
 {
 
 public:
-
-	GameEntity(void);
 	GameEntity(int x, int y);
-	GameEntity(GameEntity const &src);
+	GameEntity(int x, int y, std::string type);
 	~GameEntity();
-	int 		getX(void) const;
-	int 		getY(void) const;
-	void		setType(std::string const type);
-	std::string	getType(void) const;
-	void		setPosition(int const x, int const y);
 
-	GameEntity		&operator=(GameEntity const &rhs);
+	int 			getX(void) const;
+	int 			getY(void) const;
+	void			setType(std::string const type);
+	std::string		getType(void) const;
+	void			setPosition(int const x, int const y);
+
+	int				_x;
+	int				_y;
+	std::string		_type;
 
 protected:
-	int			_X;
-	int			_Y;
-	std::string	_type;
 
 private:
+	GameEntity(void);
+	GameEntity(GameEntity const & ref);
+	GameEntity &		operator=(GameEntity const & ref);
 
 };
-
-std::ostream	&operator<<(std::ostream &o, GameEntity const &i);
 
 #endif

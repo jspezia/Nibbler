@@ -5,39 +5,41 @@
 #include <list>
 #include "GameEntity.class.hpp"
 
-class Snake : public GameEntity
+class Snake
 {
 
 public:
-
-	Snake(void);
 	Snake(int x, int y);
-	Snake(Snake const &src);
 	~Snake();
 
-	char		getDirection(void) const;
-	void		setDirection(char const direction);
+	int			getDirection(void) const;
 	int			getSpeed(void) const;
-	void		upSpeed(int const speed);
 	int			getLength(void) const;
-	void		upLength(int const length);
 	std::string	getState(void) const;
+
+	void		setDirection(int const direction);
 	void		setState(std::string const state);
 
-	void	move(char const direction);
+	void		upSpeed(int const speed);
+	void		upLength(int const length);
 
-	Snake		&operator=(Snake const &rhs);
+	void		init(int x, int y);
+	void		move(char const direction);
 
 protected:
 
 
 private:
-	char			_direction;
-	int				_speed;
-	int				_length;
-	std::string		_state;
-	std::list<GameEntity>	_body;
+	Snake(void);
+	Snake(Snake const &src);
+	Snake &		operator=(Snake const &rhs);
 
+	int							_direction;
+	int							_speed;
+	int							_length;
+	std::string					_state;
+	GameEntity *				_head;
+	std::list<GameEntity *>		_body;
 };
 
 std::ostream		&operator<<(std::ostream &o, Snake const &i);

@@ -1,40 +1,24 @@
 #include "GameEntity.class.hpp"
 
-GameEntity::GameEntity(void)
+GameEntity::GameEntity(int x, int y) : _x(x), _y(y)
 {
-	return;
 }
 
-GameEntity::GameEntity(int x, int y) :
-	_X(x),
-	_Y(y)
+GameEntity::GameEntity(int x, int y, std::string type) : _x(x), _y(y), _type(type)
 {
-	return;
 }
 
-GameEntity::GameEntity(GameEntity const &src)
+GameEntity::~GameEntity(void) {}
+
+/* GETTERS */
+int				GameEntity::getX(void) const
 {
-	*this = src;
+	return this->_x;
 }
 
-GameEntity::~GameEntity(void)
+int				GameEntity::getY(void) const
 {
-	return;
-}
-
-int GameEntity::getX(void) const
-{
-	return this->_X;
-}
-
-int GameEntity::getY(void) const
-{
-	return this->_Y;
-}
-
-void		GameEntity::setType(std::string const type)
-{
-	this->_type = type;
+	return this->_y;
 }
 
 std::string		GameEntity::getType(void) const
@@ -42,23 +26,19 @@ std::string		GameEntity::getType(void) const
 	return this->_type;
 }
 
-void		GameEntity::setPosition(int const x, int const y)
+/* SETTERS */
+void			GameEntity::setType(std::string const type)
 {
-	this->_X = x;
-	this->_Y = y;
+	this->_type = type;
 }
 
-GameEntity		&GameEntity::operator=(GameEntity const &rhs)
+void			GameEntity::setPosition(int const x, int const y)
 {
-	if (this != &rhs)
-	{
-		this->_X = rhs.getX();
-		this->_Y = rhs.getY();
-	}
-	return *this;
+	this->_x = x;
+	this->_y = y;
 }
 
-std::ostream		&operator<<(std::ostream &o, GameEntity const &i)
+std::ostream &		operator<<(std::ostream &o, GameEntity const &i)
 {
 	o << "object in x = " << i.getX() << " y = " << i.getY() << std::endl;
 	return o;
