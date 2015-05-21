@@ -7,24 +7,21 @@ class Map
 {
 
 public:
-
-	Map(char *height, char *width);
+	Map(int width, int height);
 	~Map();
-	int 		getHeight(void) const;
-	int 		getWidth(void) const;
-	std::string	printHW(void) const;
-	Map		&operator=(Map const &rhs);
+
+	int 			getHeight(void) const;
+	int 			getWidth(void) const;
+	std::string		printHW(void) const;
 
 protected:
 
-	Map(void);
-
-
 private:
+	Map(void);
+	Map &	operator=(Map const & ref);
 
-	int 	_height;
 	int		_width;
-
+	int 	_height;
 };
 
 std::ostream		&operator<<(std::ostream &o, Map const &i);

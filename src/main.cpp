@@ -2,9 +2,9 @@
 #include <dlfcn.h>
 #include <iostream>
 #include <stdexcept>
-#include "Map.class.hpp"
-#include "Snake.class.hpp"
-#include "GameEntity.class.hpp"
+
+#include "Lib.hpp"
+#include "Game.class.hpp"
 #include "Time.class.hpp"
 
 void		dlerror_wrapper(void)
@@ -13,9 +13,39 @@ void		dlerror_wrapper(void)
 	exit(EXIT_FAILURE);
 }
 
+int			main(int ac, char *av[])
+{
+	Game	*game;
+	int		width;
+	int		height;
+
+	if (ac >= 3)
+	{
+		if (!str_is_digit(av[1]) || !str_is_digit(av[2]))
+			handle_error("invalid width or height value", IS_CRITIC);
+		else
+		{
+			width = atoi(av[1]);
+			height = atoi(av[2]);
+
+			if (width < MIN_WIDTH || width > MAX_WIDTH
+					|| height < MIN_HEIGHT || height > MAX_HEIGHT)
+				handle_error("width or height out of range", IS_CRITIC);
+			else
+			{
+				game = new Game(width, height);
+				//game.start();
+			}
+		}
+	}
+	else
+		std::cout << av[0] << " [width] [height]" << std::endl;
+}
+
+/*
 int			main(int ac, char **av)
 {
-/*
+
 	void			*dl_handle;
 	std::string	*	(*test)(void);
 
@@ -27,7 +57,7 @@ int			main(int ac, char **av)
 		dlerror_wrapper();
 	std::cout << *test() << std::endl;
 	dlclose(dl_handle);
-*/
+
 	std::cout << "Time.time = " << Time::time << std::endl;
 	std::cout << "Time.deltaTime = " << Time::deltaTime << std::endl;
 	//std::cout << "Time.currentTime = " << Time::currentTime << std::endl;
@@ -68,3 +98,4 @@ int			main(int ac, char **av)
 
 	return (EXIT_SUCCESS);
 }
+*/

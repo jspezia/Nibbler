@@ -3,28 +3,10 @@
 #include <stdexcept>
 
 #include "Map.class.hpp"
-#include "libft.hpp"
+#include "Lib.hpp"
 
-
-Map::Map()
+Map::Map(int width, int height) : _width(width), _height(height)
 {
-	return;
-}
-
-Map::Map(char *height, char *width)
-{
-	int		h;
-	int		w;
-
-	if (!strisdigit(height) || !strisdigit(width))
-		throw std::exception();
-	h = atoi(height);
-	w = atoi(width);
-	if (h > 100 || w > 100 || h < 10 || w < 10)
-		throw std::exception();
-	this->_height = h;
-	this->_width = w;
-
 	std::cout << "Map creation" << std::endl;
 	std::cout << this->printHW() << std::endl;
 	return;
