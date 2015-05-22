@@ -13,21 +13,20 @@ enum		e_direction
 
 class Player
 {
+	public:
+		Player(int x, int y);
+		~Player();
 
-public:
-	Player(int x, int y);
-	~Player();
+		void		init();
 
-	void		init();
+	protected:
 
-protected:
+	private:
+		Player(void);
+		Player(Player const & ref);
+		Player &	operator=(Player const & ref);
 
-private:
-	Player(void);
-	Player(Player const & ref);
-	Player &	operator=(Player const & ref);
-
-	Snake *		_snake;
+		Snake *		_snake;
 };
 
 #endif

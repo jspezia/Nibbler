@@ -1,17 +1,14 @@
 #include <string>
-#include <dlfcn.h>
 #include <iostream>
-#include <stdexcept>
-
 #include "Lib.hpp"
 #include "Game.class.hpp"
-#include "Time.class.hpp"
 
 int			main(int ac, char *av[])
 {
-	Game	*game;
-	int		width;
-	int		height;
+	Game			*game;
+	int				width;
+	int				height;
+	std::string		dlib_path;
 
 	if (ac >= 3)
 	{
@@ -21,7 +18,12 @@ int			main(int ac, char *av[])
 		{
 			width = atoi(av[1]);
 			height = atoi(av[2]);
-
+			/* load dl if passed as argv */
+			if (ac == 4)
+			{
+				dlib_path = av[3];
+				// try load..
+			}
 			if (width < MIN_WIDTH || width > MAX_WIDTH
 					|| height < MIN_HEIGHT || height > MAX_HEIGHT)
 				handle_error("width or height out of range", IS_CRITIC);
@@ -33,43 +35,6 @@ int			main(int ac, char *av[])
 		}
 	}
 	else
-		std::cout << av[0] << " [width] [height]" << std::endl;
-
+		std::cout << av[0] << " width height [dlib path]" << std::endl;
 	return (EXIT_SUCCESS);
 }
-
-/*
-int			main(int ac, char **av)
-{
-
-	void			*dl_handle;
-	std::string	*	(*test)(void);
-
-	dl_handle = dlopen(av[1], RTLD_LAZY | RTLD_LOCAL);
-	if (!dl_handle)
-		dlerror_wrapper();
-	test = (std::string *(*)(void)) dlsym(dl_handle, "test");
-	if (!test)
-		dlerror_wrapper();
-	std::cout << *test() << std::endl;
-	dlclose(dl_handle);
-
-	std::cout << "Time.time = " << Time::time << std::endl;
-	std::cout << "Time.deltaTime = " << Time::deltaTime << std::endl;
-	//std::cout << "Time.currentTime = " << Time::currentTime << std::endl;
-	//std::cout << "Time.lastTime = " << Time::lastTime << std::endl;
-
-	// while (1) {
-	// 	Time::Update();
-
-	// 	std::cout << "Time.time = " << Time::time << std::endl;
-	// 	std::cout << "Time.deltaTime = " << Time::deltaTime << std::endl;
-	// 	std::cout << "Time.fps = " << Time::fps << std::endl;
-	// 	//std::cout << "Time.currentTime = " << Time::currentTime << std::endl;
-	// 	//std::cout << "Time.lastTime = " << Time::lastTime << std::endl;
-
-	// 	Time::Sleep(100);
-	// }
-
-}
-*/
