@@ -2,3 +2,10 @@ obj/
 
 #exec
 nibbler
+
+#CMake
+*.cmake
+CMakeFiles/
+CMakeCache.txt
+
+Makefile*
