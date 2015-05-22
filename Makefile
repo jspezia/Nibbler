@@ -1,4 +1,4 @@
-CC		= g++ -std=c++11 -g
+CC		= g++ -std=c++11
 CPATH	= src
 OPATH	= obj
 HPATH	= includes
@@ -6,13 +6,14 @@ FLAGS	= #-Wall -Werror -Wextra
 
 NAME	= nibbler
 
-SRC		= main.cpp					\
-		  Game.class.cpp			\
-		  Map.class.cpp				\
-		  GameEntity.class.cpp		\
-		  Player.class.cpp			\
-		  Snake.class.cpp			\
-		  Time.class.cpp			\
+SRC		= main.cpp								\
+		  Game.class.cpp						\
+		  Map.class.cpp							\
+		  GameEntity.class.cpp					\
+		  Player.class.cpp						\
+		  Snake.class.cpp						\
+		  Time.class.cpp						\
+		  DynamicLibHandler.class.cpp			\
 		  Lib.cpp
 
 CFILE	= $(patsubst %, $(CPATH)/%, $(SRC))

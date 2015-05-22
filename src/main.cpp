@@ -7,12 +7,6 @@
 #include "Game.class.hpp"
 #include "Time.class.hpp"
 
-void		dlerror_wrapper(void)
-{
-	std::cerr << "Err: " << dlerror() << std::endl;
-	exit(EXIT_FAILURE);
-}
-
 int			main(int ac, char *av[])
 {
 	Game	*game;
