@@ -67,7 +67,8 @@ void		Game::loop(void)
 		Time::update();
 		// do stuff..
 
-		std::cout << "Time: " << Time::time << " sec" << std::endl;
+		// std::cout << "Time: " << Time::time << " sec" << std::endl;
+		std::cout << "Fps = " << Time::frameCount / Time::time << " sec" << std::endl;
 
 		Time::sleep(100);
 	}

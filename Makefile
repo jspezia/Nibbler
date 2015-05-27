@@ -33,27 +33,27 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /nfs/zfs-student-3/users/2013_paris/ycribier/.brew/Cellar/cmake/3.2.2/bin/cmake
+CMAKE_COMMAND = /nfs/zfs-student-3/users/2013/jspezia/Homebrew/Cmake_build/bin/cmake
 
 # The command to remove a file.
-RM = /nfs/zfs-student-3/users/2013_paris/ycribier/.brew/Cellar/cmake/3.2.2/bin/cmake -E remove -f
+RM = /nfs/zfs-student-3/users/2013/jspezia/Homebrew/Cmake_build/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /nfs/zfs-student-3/users/2013_paris/ycribier/Work/cpp/nibbler
+CMAKE_SOURCE_DIR = /nfs/zfs-student-3/users/2013/jspezia/Github/Nibbler
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /nfs/zfs-student-3/users/2013_paris/ycribier/Work/cpp/nibbler
+CMAKE_BINARY_DIR = /nfs/zfs-student-3/users/2013/jspezia/Github/Nibbler
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/Volumes/Data/nfs/zfs-student-3/users/2013_paris/ycribier/.brew/Cellar/cmake/3.2.2/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@echo "Running CMake cache editor..."
+	/Volumes/Data/nfs/zfs-student-3/users/2013/jspezia/Homebrew/Cmake_build/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -62,19 +62,50 @@ edit_cache/fast: edit_cache
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Volumes/Data/nfs/zfs-student-3/users/2013_paris/ycribier/.brew/Cellar/cmake/3.2.2/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@echo "Running CMake to regenerate build system..."
+	/Volumes/Data/nfs/zfs-student-3/users/2013/jspezia/Homebrew/Cmake_build/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target install
+install: preinstall
+	@echo "Install the project..."
+	/Volumes/Data/nfs/zfs-student-3/users/2013/jspezia/Homebrew/Cmake_build/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@echo "Install the project..."
+	/Volumes/Data/nfs/zfs-student-3/users/2013/jspezia/Homebrew/Cmake_build/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@echo "Available install components are: \"Unspecified\" \"bin\" \"devel\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@echo "Installing only the local directory..."
+	/Volumes/Data/nfs/zfs-student-3/users/2013/jspezia/Homebrew/Cmake_build/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+.PHONY : install/local/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/zfs-student-3/users/2013_paris/ycribier/Work/cpp/nibbler/CMakeFiles /nfs/zfs-student-3/users/2013_paris/ycribier/Work/cpp/nibbler/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/zfs-student-3/users/2013/jspezia/Github/Nibbler/CMakeFiles /nfs/zfs-student-3/users/2013/jspezia/Github/Nibbler/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/zfs-student-3/users/2013_paris/ycribier/Work/cpp/nibbler/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/zfs-student-3/users/2013/jspezia/Github/Nibbler/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -102,233 +133,69 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named nibbler
+# Target rules for targets named sfml-system
 
 # Build rule for target.
-nibbler: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 nibbler
-.PHONY : nibbler
+sfml-system: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sfml-system
+.PHONY : sfml-system
 
 # fast build rule for target.
-nibbler/fast:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/build
-.PHONY : nibbler/fast
+sfml-system/fast:
+	$(MAKE) -f sfml/src/SFML/System/CMakeFiles/sfml-system.dir/build.make sfml/src/SFML/System/CMakeFiles/sfml-system.dir/build
+.PHONY : sfml-system/fast
 
-src/DynamicLibHandler.class.o: src/DynamicLibHandler.class.cpp.o
-.PHONY : src/DynamicLibHandler.class.o
+#=============================================================================
+# Target rules for targets named sfml-window
 
-# target to build an object file
-src/DynamicLibHandler.class.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/DynamicLibHandler.class.cpp.o
-.PHONY : src/DynamicLibHandler.class.cpp.o
+# Build rule for target.
+sfml-window: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sfml-window
+.PHONY : sfml-window
 
-src/DynamicLibHandler.class.i: src/DynamicLibHandler.class.cpp.i
-.PHONY : src/DynamicLibHandler.class.i
+# fast build rule for target.
+sfml-window/fast:
+	$(MAKE) -f sfml/src/SFML/Window/CMakeFiles/sfml-window.dir/build.make sfml/src/SFML/Window/CMakeFiles/sfml-window.dir/build
+.PHONY : sfml-window/fast
 
-# target to preprocess a source file
-src/DynamicLibHandler.class.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/DynamicLibHandler.class.cpp.i
-.PHONY : src/DynamicLibHandler.class.cpp.i
+#=============================================================================
+# Target rules for targets named sfml-network
 
-src/DynamicLibHandler.class.s: src/DynamicLibHandler.class.cpp.s
-.PHONY : src/DynamicLibHandler.class.s
+# Build rule for target.
+sfml-network: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sfml-network
+.PHONY : sfml-network
 
-# target to generate assembly for a file
-src/DynamicLibHandler.class.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/DynamicLibHandler.class.cpp.s
-.PHONY : src/DynamicLibHandler.class.cpp.s
+# fast build rule for target.
+sfml-network/fast:
+	$(MAKE) -f sfml/src/SFML/Network/CMakeFiles/sfml-network.dir/build.make sfml/src/SFML/Network/CMakeFiles/sfml-network.dir/build
+.PHONY : sfml-network/fast
 
-src/Game.class.o: src/Game.class.cpp.o
-.PHONY : src/Game.class.o
+#=============================================================================
+# Target rules for targets named sfml-graphics
 
-# target to build an object file
-src/Game.class.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Game.class.cpp.o
-.PHONY : src/Game.class.cpp.o
+# Build rule for target.
+sfml-graphics: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sfml-graphics
+.PHONY : sfml-graphics
 
-src/Game.class.i: src/Game.class.cpp.i
-.PHONY : src/Game.class.i
+# fast build rule for target.
+sfml-graphics/fast:
+	$(MAKE) -f sfml/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/build.make sfml/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/build
+.PHONY : sfml-graphics/fast
 
-# target to preprocess a source file
-src/Game.class.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Game.class.cpp.i
-.PHONY : src/Game.class.cpp.i
+#=============================================================================
+# Target rules for targets named sfml-audio
 
-src/Game.class.s: src/Game.class.cpp.s
-.PHONY : src/Game.class.s
+# Build rule for target.
+sfml-audio: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sfml-audio
+.PHONY : sfml-audio
 
-# target to generate assembly for a file
-src/Game.class.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Game.class.cpp.s
-.PHONY : src/Game.class.cpp.s
-
-src/GameEntity.class.o: src/GameEntity.class.cpp.o
-.PHONY : src/GameEntity.class.o
-
-# target to build an object file
-src/GameEntity.class.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/GameEntity.class.cpp.o
-.PHONY : src/GameEntity.class.cpp.o
-
-src/GameEntity.class.i: src/GameEntity.class.cpp.i
-.PHONY : src/GameEntity.class.i
-
-# target to preprocess a source file
-src/GameEntity.class.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/GameEntity.class.cpp.i
-.PHONY : src/GameEntity.class.cpp.i
-
-src/GameEntity.class.s: src/GameEntity.class.cpp.s
-.PHONY : src/GameEntity.class.s
-
-# target to generate assembly for a file
-src/GameEntity.class.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/GameEntity.class.cpp.s
-.PHONY : src/GameEntity.class.cpp.s
-
-src/Lib.o: src/Lib.cpp.o
-.PHONY : src/Lib.o
-
-# target to build an object file
-src/Lib.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Lib.cpp.o
-.PHONY : src/Lib.cpp.o
-
-src/Lib.i: src/Lib.cpp.i
-.PHONY : src/Lib.i
-
-# target to preprocess a source file
-src/Lib.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Lib.cpp.i
-.PHONY : src/Lib.cpp.i
-
-src/Lib.s: src/Lib.cpp.s
-.PHONY : src/Lib.s
-
-# target to generate assembly for a file
-src/Lib.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Lib.cpp.s
-.PHONY : src/Lib.cpp.s
-
-src/Map.class.o: src/Map.class.cpp.o
-.PHONY : src/Map.class.o
-
-# target to build an object file
-src/Map.class.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Map.class.cpp.o
-.PHONY : src/Map.class.cpp.o
-
-src/Map.class.i: src/Map.class.cpp.i
-.PHONY : src/Map.class.i
-
-# target to preprocess a source file
-src/Map.class.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Map.class.cpp.i
-.PHONY : src/Map.class.cpp.i
-
-src/Map.class.s: src/Map.class.cpp.s
-.PHONY : src/Map.class.s
-
-# target to generate assembly for a file
-src/Map.class.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Map.class.cpp.s
-.PHONY : src/Map.class.cpp.s
-
-src/Player.class.o: src/Player.class.cpp.o
-.PHONY : src/Player.class.o
-
-# target to build an object file
-src/Player.class.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Player.class.cpp.o
-.PHONY : src/Player.class.cpp.o
-
-src/Player.class.i: src/Player.class.cpp.i
-.PHONY : src/Player.class.i
-
-# target to preprocess a source file
-src/Player.class.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Player.class.cpp.i
-.PHONY : src/Player.class.cpp.i
-
-src/Player.class.s: src/Player.class.cpp.s
-.PHONY : src/Player.class.s
-
-# target to generate assembly for a file
-src/Player.class.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Player.class.cpp.s
-.PHONY : src/Player.class.cpp.s
-
-src/Snake.class.o: src/Snake.class.cpp.o
-.PHONY : src/Snake.class.o
-
-# target to build an object file
-src/Snake.class.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Snake.class.cpp.o
-.PHONY : src/Snake.class.cpp.o
-
-src/Snake.class.i: src/Snake.class.cpp.i
-.PHONY : src/Snake.class.i
-
-# target to preprocess a source file
-src/Snake.class.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Snake.class.cpp.i
-.PHONY : src/Snake.class.cpp.i
-
-src/Snake.class.s: src/Snake.class.cpp.s
-.PHONY : src/Snake.class.s
-
-# target to generate assembly for a file
-src/Snake.class.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Snake.class.cpp.s
-.PHONY : src/Snake.class.cpp.s
-
-src/Time.class.o: src/Time.class.cpp.o
-.PHONY : src/Time.class.o
-
-# target to build an object file
-src/Time.class.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Time.class.cpp.o
-.PHONY : src/Time.class.cpp.o
-
-src/Time.class.i: src/Time.class.cpp.i
-.PHONY : src/Time.class.i
-
-# target to preprocess a source file
-src/Time.class.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Time.class.cpp.i
-.PHONY : src/Time.class.cpp.i
-
-src/Time.class.s: src/Time.class.cpp.s
-.PHONY : src/Time.class.s
-
-# target to generate assembly for a file
-src/Time.class.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/Time.class.cpp.s
-.PHONY : src/Time.class.cpp.s
-
-src/main.o: src/main.cpp.o
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/nibbler.dir/build.make CMakeFiles/nibbler.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+# fast build rule for target.
+sfml-audio/fast:
+	$(MAKE) -f sfml/src/SFML/Audio/CMakeFiles/sfml-audio.dir/build.make sfml/src/SFML/Audio/CMakeFiles/sfml-audio.dir/build
+.PHONY : sfml-audio/fast
 
 # Help Target
 help:
@@ -338,34 +205,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... nibbler"
-	@echo "... src/DynamicLibHandler.class.o"
-	@echo "... src/DynamicLibHandler.class.i"
-	@echo "... src/DynamicLibHandler.class.s"
-	@echo "... src/Game.class.o"
-	@echo "... src/Game.class.i"
-	@echo "... src/Game.class.s"
-	@echo "... src/GameEntity.class.o"
-	@echo "... src/GameEntity.class.i"
-	@echo "... src/GameEntity.class.s"
-	@echo "... src/Lib.o"
-	@echo "... src/Lib.i"
-	@echo "... src/Lib.s"
-	@echo "... src/Map.class.o"
-	@echo "... src/Map.class.i"
-	@echo "... src/Map.class.s"
-	@echo "... src/Player.class.o"
-	@echo "... src/Player.class.i"
-	@echo "... src/Player.class.s"
-	@echo "... src/Snake.class.o"
-	@echo "... src/Snake.class.i"
-	@echo "... src/Snake.class.s"
-	@echo "... src/Time.class.o"
-	@echo "... src/Time.class.i"
-	@echo "... src/Time.class.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... install"
+	@echo "... list_install_components"
+	@echo "... install/local"
+	@echo "... sfml-system"
+	@echo "... sfml-window"
+	@echo "... sfml-network"
+	@echo "... sfml-graphics"
+	@echo "... sfml-audio"
 .PHONY : help
 
 

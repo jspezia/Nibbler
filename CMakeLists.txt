@@ -10,7 +10,17 @@ include_directories(
 	includes/
 )
 
-# add_subdirectory(sfml)
+add_subdirectory(sfml)
+    find_file(SFML_CMAKE_DIR "SFML/cmake/Modules/FindSFML.cmake")
+ 
+    if (SFML_CMAKE_DIR)
+        string(REPLACE "FindSFML.cmake" "" SFML_CMAKE_DIR ${SFML_CMAKE_DIR})
+        set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${SFML_CMAKE_DIR}")
+    endif()
+ 
+    # find_package(SFML REQUIRED system window graphics audio network) 
+find_package(SFML 2 REQUIRED system window graphics audio network)
+
 
 # link_directories()
 # target_link_libraries()
