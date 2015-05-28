@@ -1,12 +1,12 @@
 NAME		=	a.out
 
 INCLUDE		=	~/.brew/include
-SFML_LIB	=	~/.brew/lib -lsfml-graphics -lsfml-window -lsfml-system
-SFML		=	~/.brew/lib/libsfml-audio.dylib			\
-				~/.brew/lib/libsfml-graphics.dylib		\
-				~/.brew/lib/libsfml-network.dylib		\
-				~/.brew/lib/libsfml-system.dylib		\
-				~/.brew/lib/libsfml-window.dylib
+SFML_LIB	=	~/.brew/lib -lsfml-graphics.2.2.0 -lsfml-window.2.2.0 -lsfml-system.2.2.0
+SFML		=	~/.brew/lib/libsfml-audio.2.2.0.dylib			\
+				~/.brew/lib/libsfml-graphics.2.2.0.dylib		\
+				~/.brew/lib/libsfml-network.2.2.0.dylib			\
+				~/.brew/lib/libsfml-system.2.2.0.dylib			\
+				~/.brew/lib/libsfml-window.2.2.0.dylib
 
 SRC			=	sfmlLib_class.cpp
 
