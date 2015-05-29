@@ -16,13 +16,17 @@ class Sfml : public IGraphic {
 		~Sfml(void);
 
 		void	draw(void);
-		void	destroy(void);
 
 	private:
+		Sfml(void);
 		Sfml(Sfml const & ref);
 		Sfml &	operator=(Sfml const & ref);
 
-		Sfml(void);
+		_init(void);
+		_destroy(void);
+		_clear(void);
+		_drawGrid(void);
+
 		int					_x;
 		int					_y;
 
