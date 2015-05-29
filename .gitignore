@@ -4,6 +4,4 @@ obj/
 nibbler
 
 #CMake
-*.cmake
-CMakeFiles/
-CMakeCache.txt
+.cmake/

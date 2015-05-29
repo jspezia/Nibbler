@@ -2,6 +2,7 @@
 #include "Player.class.hpp"
 #include "Map.class.hpp"
 #include "Time.class.hpp"
+#include "DynamicLibHandler.class.hpp"
 
 /*
 	initiatialize game
@@ -57,7 +58,9 @@ Player *	Game::getPlayer(void) const
 /* CORE */
 void		Game::init(void)
 {
+	std::string				path = "./libnibbler_sfml.so";
 
+	DynamicLibHandler::instance().setHandle(path, this->_width, this->_height);
 }
 
 void		Game::loop(void)

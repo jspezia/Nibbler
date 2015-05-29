@@ -1,14 +1,13 @@
 #include <iostream>
 #include <math.h>
-#include <Sfml.class.hpp>
+#include "Sfml.class.hpp"
 
 Sfml::Sfml(int x, int y) : _x(x), _y(y)
 {
-	this->_squareWidth = Math.floor(MAX_WIDTH / x);
-	this->_squareHeight = Math.floor(MAX_HEIGHT / y);
+	this->_squareSize = (int) fmin(MAX_WIDTH / x, MAX_HEIGHT / y);
 
-	this->_winWidth = this->_squareWidth * x;
-	this->_winHeight = this->_squareHeight * y;
+	this->_winWidth = this->_squareSize * x;
+	this->_winHeight = this->_squareSize * y;
 
 	this->_init();
 }
@@ -20,7 +19,7 @@ void			Sfml::_init(void)
 {
 	this->_win = new sf::RenderWindow(sf::VideoMode(this->_winWidth, this->_winHeight), "Nibbler");
 	this->_win->setKeyRepeatEnabled(false);
-	this->clear();
+	this->_clear();
 }
 
 void			Sfml::_destroy(void)
@@ -47,12 +46,13 @@ void			Sfml::draw()
 
 void			Sfml::_clear(void)
 {
-	this->_win.clear(sf::Color::Black);
+	this->_win->clear(sf::Color::Black);
 }
 
 void			Sfml::_drawGrid()
 {
-	this->_win.clear(sf::Color::Green); // full background
+	this->_win->clear(sf::Color::Green); // full background
+	sf::Color		color = sf::Color::Black;
 
 	//vertical
 	for (int x = 0; x < this->_x; x++)
@@ -60,11 +60,10 @@ void			Sfml::_drawGrid()
 		int posX = x * this->_squareSize;
 		sf::Vertex line[] =
 		{
-		    sf::Vertex(sf::Vector2f(posX, 0)),
-		    sf::Vertex(sf::Vector2f(posX, this->_winHeight))
+		    sf::Vertex(sf::Vector2f(posX, 0), color),
+		    sf::Vertex(sf::Vector2f(posX, this->_winHeight), color)
 		};
-		line.setFillColor(sf::Color::Black);
-		this->_win.draw(line, 2, sf::Lines);
+		this->_win->draw(line, 2, sf::Lines);
 	}
 
 	//horizontal
@@ -73,11 +72,10 @@ void			Sfml::_drawGrid()
 		int posY = y * this->_squareSize;
 		sf::Vertex line[] =
 		{
-		    sf::Vertex(sf::Vector2f(0, posY)),
-		    sf::Vertex(sf::Vector2f(this->_winWidth, posY))
+		    sf::Vertex(sf::Vector2f(0, posY), color),
+		    sf::Vertex(sf::Vector2f(this->_winWidth, posY), color)
 		};
-		line.setFillColor(sf::Color::Black);
-		this->_win.draw(line, 2, sf::Lines);
+		this->_win->draw(line, 2, sf::Lines);
 	}
 }
 
@@ -88,6 +86,5 @@ extern "C" IGraphic *		init(int width, int height)
 
 extern "C" void				destroy(IGraphic * p)
 {
-	this->_destroy();
 	delete p;
 }

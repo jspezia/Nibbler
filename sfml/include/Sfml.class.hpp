@@ -1,10 +1,9 @@
 #ifndef SFML_CLASS_HPP
 # define SFML_CLASS_HPP
 
-# include <array>
-# include <IGraphic.class.hpp>
 # include <SFML/Window.hpp>
 # include <SFML/Graphics.hpp>
+# include "IGraphic.class.hpp"
 
 # define MAX_WIDTH		800
 # define MAX_HEIGHT		600
@@ -22,10 +21,10 @@ class Sfml : public IGraphic {
 		Sfml(Sfml const & ref);
 		Sfml &	operator=(Sfml const & ref);
 
-		_init(void);
-		_destroy(void);
-		_clear(void);
-		_drawGrid(void);
+		void		_init(void);
+		void		_destroy(void);
+		void		_clear(void);
+		void		_drawGrid(void);
 
 		int					_x;
 		int					_y;

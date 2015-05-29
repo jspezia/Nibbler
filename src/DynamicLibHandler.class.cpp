@@ -3,10 +3,7 @@
 #include <DynamicLibHandler.class.hpp>
 #include <Lib.hpp>
 
-DynamicLibHandler::DynamicLibHandler(void) : _handle(NULL), _lib(NULL)
-{
-
-}
+DynamicLibHandler::DynamicLibHandler(void) : _handle(NULL), _lib(NULL) {}
 
 DynamicLibHandler::~DynamicLibHandler(void)
 {
