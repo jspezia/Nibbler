@@ -4,6 +4,7 @@
 # include <iostream>
 # include "Map.class.hpp"
 # include "Player.class.hpp"
+# include "IGraphic.class.hpp"
 
 # define MIN_WIDTH		10
 # define MAX_WIDTH		100
@@ -37,6 +38,9 @@ private:
 
 	/* player */
 	Player *	_player;
+
+	/* graphic dynamic lib */
+	IGraphic *	_dlib;
 
 	/* shutdown condition */
 	bool		_shouldExit;

@@ -62,6 +62,7 @@ void		Game::init(void)
 	std::string				path = "./libnibbler_sfml.so";
 
 	DynamicLibHandler::instance().setHandle(path, this->_width, this->_height);
+	this->_dlib = DynamicLibHandler::instance().getLib();
 }
 
 void		Game::loop(void)
@@ -70,6 +71,8 @@ void		Game::loop(void)
 	{
 		Time::update();
 		// do stuff..
+
+		this->_dlib->draw();
 
 		// std::cout << "Time: " << Time::time << " sec" << std::endl;
 		std::cout << "Fps = " << Time::frameCount / Time::time << " sec" << std::endl;

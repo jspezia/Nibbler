@@ -58,7 +58,7 @@ obj/%.obj: src/%.cpp
 	@echo "Linking" [ $< ] $(OK)
 
 
-$(SFML_NAME): $(SFML) $(SFML_LN)
+$(SFML_NAME): $(SFML) $(SFML_LN) $(SFML_SRCS)
 	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(SFML_INCLUDE) -L $(SFML_LIBS) $(SFML_SRCS)
 	@echo "Compiling" [ $@ ] $(SUCCESS)
 

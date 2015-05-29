@@ -33,6 +33,7 @@ void			Sfml::draw()
 {
 	if (this->_win->isOpen())
 	{
+		printf("Draw call\n");
 		//clear window
 		this->_clear();
 
@@ -41,6 +42,8 @@ void			Sfml::draw()
 
 		//draw snake -> (liste de <pos, color>)
 
+		//display
+		this->_win->display();
 	}
 }
 
@@ -51,7 +54,7 @@ void			Sfml::_clear(void)
 
 void			Sfml::_drawGrid()
 {
-	this->_win->clear(sf::Color::Green); // full background
+	this->_win->clear(sf::Color(GREEN)); // full background
 	sf::Color		color = sf::Color::Black;
 
 	//vertical
