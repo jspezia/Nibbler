@@ -54,31 +54,18 @@ void			Sfml::_clear(void)
 
 void			Sfml::_drawGrid()
 {
-	this->_win->clear(sf::Color(GREEN)); // full background
-	sf::Color		color = sf::Color::Black;
+	int	margin = 1; //px
 
-	//vertical
-	for (int x = 0; x < this->_x; x++)
-	{
-		int posX = x * this->_squareSize;
-		sf::Vertex line[] =
-		{
-		    sf::Vertex(sf::Vector2f(posX, 0), color),
-		    sf::Vertex(sf::Vector2f(posX, this->_winHeight), color)
-		};
-		this->_win->draw(line, 2, sf::Lines);
-	}
+	for (int y = 0; y < this->_y; y++) {
+		for (int x = 0; x < this->_x; x++) {
+			int size = this->_squareSize - 2 * margin;
+			sf::RectangleShape	rect(sf::Vector2f(size, size));
+			rect.setPosition(margin + x * this->_squareSize, margin + y * this->_squareSize);
+			rect.setFillColor(sf::Color(GREEN));
 
-	//horizontal
-	for (int y = 0; y < this->_y; y++)
-	{
-		int posY = y * this->_squareSize;
-		sf::Vertex line[] =
-		{
-		    sf::Vertex(sf::Vector2f(0, posY), color),
-		    sf::Vertex(sf::Vector2f(this->_winWidth, posY), color)
-		};
-		this->_win->draw(line, 2, sf::Lines);
+			this->_win->draw(rect);
+		}
+
 	}
 }
 
