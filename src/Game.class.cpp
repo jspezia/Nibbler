@@ -41,6 +41,8 @@ Game::Game(int const width, int const height) : _width(width), _height(height), 
 Game::~Game(void)
 {
 	// delete all
+	delete this->_player;
+	delete this->_map;
 }
 
 /* GETTERS */
@@ -59,10 +61,11 @@ Player *	Game::getPlayer(void) const
 /* CORE */
 void		Game::init(void)
 {
+	//tmp
 	std::string				path = "./libnibbler_sfml.so";
-
 	DynamicLibHandler::instance().setHandle(path, this->_width, this->_height);
 	this->_dlib = DynamicLibHandler::instance().getLib();
+	//
 }
 
 void		Game::loop(void)
@@ -74,7 +77,6 @@ void		Game::loop(void)
 		// do stuff..
 		this->_dlib->draw();
 
-		// std::cout << "Time: " << Time::time << " sec" << std::endl;
 		std::cout << "Fps = " << Time::fps << std::endl;
 
 		Time::sleep(10);
