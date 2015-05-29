@@ -4,6 +4,7 @@
 # include <SFML/Window.hpp>
 # include <SFML/Graphics.hpp>
 # include "IGraphic.class.hpp"
+# include "GameEntity.class.hpp"
 
 # define MAX_WIDTH		800
 # define MAX_HEIGHT		600
@@ -41,6 +42,7 @@ class Sfml : public IGraphic {
 		void		_destroy(void);
 		void		_clear(void);
 		void		_drawGrid(void);
+		void		_drawSnake(void);
 
 		int					_x;
 		int					_y;

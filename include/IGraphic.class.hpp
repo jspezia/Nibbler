@@ -2,6 +2,7 @@
 # define IGRAPHIC_CLASS_HPP
 
 # include <array>
+# include "GameEntity.class.hpp"
 
 class IGraphic
 {

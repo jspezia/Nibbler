@@ -18,6 +18,7 @@ class Player
 		~Player();
 
 		void		init();
+		Snake *		getSnake();
 
 	protected:
 

@@ -70,13 +70,13 @@ void		Game::loop(void)
 	while (!this->_shouldExit)
 	{
 		Time::update();
-		// do stuff..
 
+		// do stuff..
 		this->_dlib->draw();
 
 		// std::cout << "Time: " << Time::time << " sec" << std::endl;
-		std::cout << "Fps = " << Time::frameCount / Time::time << " sec" << std::endl;
+		std::cout << "Fps = " << Time::fps << std::endl;
 
-		Time::sleep(100);
+		Time::sleep(10);
 	}
 }

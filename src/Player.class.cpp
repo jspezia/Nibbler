@@ -11,3 +11,8 @@ Player::~Player(void) {}
 void		Player::init(void)
 {
 }
+
+Snake *		Player::getSnake()
+{
+	return this->_snake;
+}

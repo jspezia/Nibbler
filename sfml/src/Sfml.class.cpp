@@ -1,5 +1,7 @@
 #include <iostream>
 #include <math.h>
+#include <list>
+// #include <algorithm>
 #include "Sfml.class.hpp"
 
 Sfml::Sfml(int x, int y) : _x(x), _y(y)
@@ -41,6 +43,7 @@ void			Sfml::draw()
 		this->_drawGrid();
 
 		//draw snake -> (liste de <pos, color>)
+		// this->_drawSnake(bodyPartsList);
 
 		//display
 		this->_win->display();
@@ -50,6 +53,11 @@ void			Sfml::draw()
 void			Sfml::_clear(void)
 {
 	this->_win->clear(sf::Color::Black);
+}
+
+void			Sfml::_drawSnake()
+{
+	// ...
 }
 
 void			Sfml::_drawGrid()
