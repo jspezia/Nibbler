@@ -10,7 +10,7 @@ class IGraphic
 		virtual ~IGraphic(void) {}
 
 		virtual void		draw(void) = 0;
-		// virtual void		getInput(void) = 0;
+		virtual int			getInput(void) = 0;
 		// virtual void		exit(void) = 0;
 };
 

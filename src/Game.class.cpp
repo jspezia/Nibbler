@@ -77,7 +77,13 @@ void		Game::loop(void)
 		// do stuff..
 		this->_dlib->draw();
 
-		std::cout << "Fps = " << Time::fps << std::endl;
+		int keycode = 0;
+		if ((keycode = this->_dlib->getInput()) != 0)
+		{
+			printf("Key pressed: %d\n", keycode);
+		}
+
+		// std::cout << "Fps = " << Time::fps << std::endl;
 
 		Time::sleep(10);
 	}

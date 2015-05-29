@@ -35,7 +35,7 @@ void			Sfml::draw()
 {
 	if (this->_win->isOpen())
 	{
-		printf("Draw call\n");
+		// printf("Draw call\n");
 		//clear window
 		this->_clear();
 
@@ -76,6 +76,35 @@ void			Sfml::_drawGrid()
 
 	}
 }
+
+/* INPUT EVENTS */
+int				Sfml::getInput(void)
+{
+	sf::Event event;
+
+	while (this->_win->pollEvent(event))
+	{
+		// on regarde le type de l'évènement...
+		switch (event.type)
+		{
+			case sf::Event::Closed:
+				this->_win->close();
+				return sf::Keyboard::Escape;
+				break;
+
+			case sf::Event::KeyPressed:
+				// printf("code: %d\n", event.key.code);
+				return event.key.code;
+				break;
+
+			// on ne traite pas les autres types d'évènements
+			default:
+				break;
+		}
+	}
+	return (0);
+}
+
 
 extern "C" IGraphic *		init(int width, int height)
 {

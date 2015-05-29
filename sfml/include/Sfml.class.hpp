@@ -32,6 +32,7 @@ class Sfml : public IGraphic {
 		~Sfml(void);
 
 		void	draw(void);
+		int		getInput(void);
 
 	private:
 		Sfml(void);
