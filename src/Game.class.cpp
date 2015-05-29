@@ -34,6 +34,7 @@ Game::Game(int const width, int const height) : _width(width), _height(height), 
 	int y = height / 2;
 
 	this->_player = new Player(x, y);
+	this->init();
 }
 
 
