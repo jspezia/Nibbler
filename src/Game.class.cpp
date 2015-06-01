@@ -3,6 +3,9 @@
 #include "Map.class.hpp"
 #include "Time.class.hpp"
 #include "DynamicLibHandler.class.hpp"
+#include "KeyValue.hpp"
+#include "Lib.hpp"
+#include "Snake.class.hpp"
 
 /*
 	initiatialize game
@@ -70,19 +73,32 @@ void		Game::init(void)
 
 void		Game::loop(void)
 {
+	//test class Snake
+	Snake		snake(3, 3);
+
+	printf("head.x = %d\n", snake._head->getX());
 	while (!this->_shouldExit)
 	{
 		Time::update();
 
 		// do stuff..
-		this->_dlib->draw();
+		this->_dlib->draw(&snake);
 
 		int keycode = 0;
 		if ((keycode = this->_dlib->getInput()) != 0)
 		{
+			if (keycode == KeyEscape)
+				this->_shouldExit = TRUE;
 			printf("Key pressed: %d\n", keycode);
 		}
-
+		if (keycode == KeyUp)
+			snake.move(NORTH);
+		if (keycode == KeyDown)
+			snake.move(SOUTH);
+		if (keycode == KeyLeft)
+			snake.move(WEST);
+		if (keycode == KeyRight)
+			snake.move(EAST);
 		// std::cout << "Fps = " << Time::fps << std::endl;
 
 		Time::sleep(10);

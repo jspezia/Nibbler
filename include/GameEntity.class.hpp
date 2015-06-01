@@ -9,6 +9,7 @@ class GameEntity
 public:
 	GameEntity(int x, int y);
 	GameEntity(int x, int y, std::string type);
+	GameEntity(void);
 	~GameEntity();
 
 	int 			getX(void) const;
@@ -24,7 +25,6 @@ public:
 protected:
 
 private:
-	GameEntity(void);
 	GameEntity(GameEntity const & ref);
 	GameEntity &		operator=(GameEntity const & ref);
 

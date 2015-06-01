@@ -31,7 +31,7 @@ SFML_NAME			=	libnibbler_sfml.so
 SFML_INCLUDE		=	sfml/include
 SFML_SRC			=	Sfml.class.cpp
 SFML_SRCS			=	$(patsubst %, sfml/src/%, $(SFML_SRC))
-SFML_LN				=	SFML
+SFML_LN				=	sfml/include/SFML
 
 # COLORS
 C_NO			=	"\033[00m"
@@ -59,7 +59,7 @@ obj/%.obj: src/%.cpp
 
 
 $(SFML_NAME): $(SFML) $(SFML_LN) $(SFML_SRCS)
-	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(SFML_INCLUDE) -L $(SFML_LIBS) $(SFML_SRCS)
+	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(SFML_INCLUDE) -L $(SFML_LIBS) $(SFML_SRCS) obj/GameEntity.class.obj
 	@echo "Compiling" [ $@ ] $(SUCCESS)
 
 $(SFML_LN):

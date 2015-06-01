@@ -30,6 +30,7 @@ int			main(int ac, char *av[])
 			else
 			{
 				game = new Game(width, height);
+				printf("\n Game loop. \n\n");
 				game->loop();
 			}
 		}

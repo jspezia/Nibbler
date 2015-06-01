@@ -24,8 +24,9 @@ public:
 	void		upLength(int const length);
 
 	void		init(int x, int y);
-	void		move(char const direction);
+	void		move(int const direction);
 
+	GameEntity *				_head;
 	std::list<GameEntity *>		_body; //
 protected:
 
@@ -39,7 +40,6 @@ private:
 	int							_speed;
 	int							_length;
 	std::string					_state;
-	GameEntity *				_head;
 };
 
 std::ostream		&operator<<(std::ostream &o, Snake const &i);

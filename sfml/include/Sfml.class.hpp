@@ -6,6 +6,7 @@
 # include "IGraphic.class.hpp"
 # include "GameEntity.class.hpp"
 
+
 # define MAX_WIDTH		800
 # define MAX_HEIGHT		600
 
@@ -13,6 +14,8 @@
 **		COLOR
 **							|R|, |G|, |B|
 */
+# define RED				255,   0,   0
+# define BLUE				  0,   0, 255
 # define PINK				217,  36, 105
 # define PURPLE				157, 124, 255
 # define CYAN				117, 176, 195
@@ -25,13 +28,15 @@
 # define BLACK				  0,   0,   0
 # define WHITE				255, 255, 255
 
+#include "Snake.class.hpp"
+
 class Sfml : public IGraphic {
 
 	public:
 		Sfml(int width, int height);
 		~Sfml(void);
 
-		void	draw(void);
+		void	draw(Snake *snake);
 		int		getInput(void);
 
 	private:
@@ -39,11 +44,11 @@ class Sfml : public IGraphic {
 		Sfml(Sfml const & ref);
 		Sfml &	operator=(Sfml const & ref);
 
+		void		_drawSnake(Snake *snake);
 		void		_init(void);
 		void		_destroy(void);
 		void		_clear(void);
 		void		_drawGrid(void);
-		void		_drawSnake(void);
 
 		int					_x;
 		int					_y;

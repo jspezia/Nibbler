@@ -31,7 +31,7 @@ void			Sfml::_destroy(void)
 }
 
 /* DRAW CALLS */
-void			Sfml::draw()
+void			Sfml::draw(Snake *snake)
 {
 	if (this->_win->isOpen())
 	{
@@ -43,7 +43,7 @@ void			Sfml::draw()
 		this->_drawGrid();
 
 		//draw snake -> (liste de <pos, color>)
-		// this->_drawSnake(bodyPartsList);
+		this->_drawSnake(snake);
 
 		//display
 		this->_win->display();
@@ -55,21 +55,48 @@ void			Sfml::_clear(void)
 	this->_win->clear(sf::Color::Black);
 }
 
-void			Sfml::_drawSnake()
+void			Sfml::_drawSnake(Snake *snake)
 {
-	// ...
+	printf("snake position = %dx, %dy\n", snake->_head->getX(), snake->_head->getY());
+
+//head
+	sf::CircleShape	shape(this->_squareSize / 2 - 1);
+	shape.setFillColor(sf::Color(BLACK));
+
+	shape.setPosition(snake->_head->getX() * this->_squareSize + 1, snake->_head->getY() * this->_squareSize + 1);
+	this->_win->draw(shape);
+//eyes
+	sf::CircleShape	eyes(1.f);
+	eyes.setFillColor(sf::Color(WHITE));
+	eyes.setPosition(snake->_head->getX() * this->_squareSize + this->_squareSize * 1 / 4, snake->_head->getY() * this->_squareSize + 1 + this->_squareSize * 1 / 4);
+	this->_win->draw(eyes);
+	eyes.setPosition(snake->_head->getX() * this->_squareSize + this->_squareSize * 3 / 4 - 1, snake->_head->getY() * this->_squareSize + 1 + this->_squareSize * 1 / 4);
+	this->_win->draw(eyes);
+
+
+	int		i = 1;
+	shape.setFillColor(sf::Color(RED));
+	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
+	{
+		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
+		this->_win->draw(shape);
+		
+		std::cout << "body nb " << i << " in position ";
+		std::cout << "x = " << (*it)->getY() << " y = " << (*it)->getX() << std::endl;
+		i++;
+	}
 }
 
 void			Sfml::_drawGrid()
 {
 	int	margin = 1; //px
+	int size = this->_squareSize - 2 * margin;
+	sf::RectangleShape	rect(sf::Vector2f(size, size));
+	rect.setFillColor(sf::Color(GREEN));
 
 	for (int y = 0; y < this->_y; y++) {
 		for (int x = 0; x < this->_x; x++) {
-			int size = this->_squareSize - 2 * margin;
-			sf::RectangleShape	rect(sf::Vector2f(size, size));
 			rect.setPosition(margin + x * this->_squareSize, margin + y * this->_squareSize);
-			rect.setFillColor(sf::Color(GREEN));
 
 			this->_win->draw(rect);
 		}

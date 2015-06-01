@@ -1,6 +1,7 @@
 
 #include <dlfcn.h>
 #include "IGraphic.hpp"
+#include "SfmlKeyValue.hpp"
 
 void        dlerror_wrapper(void)
 {

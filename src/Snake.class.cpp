@@ -70,7 +70,7 @@ void		Snake::upLength(int const length)
 	this->_length += length;
 }
 
-void		Snake::move(char const direction)
+void		Snake::move(int const direction)
 {
 	if (this->_state == "normal")
 		this->_body.pop_back();
