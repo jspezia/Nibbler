@@ -7,6 +7,7 @@
 #include "Lib.hpp"
 #include "Snake.class.hpp"
 #include "GameEntity.class.hpp"
+#include <cstdlib>
 
 /*
 	initiatialize game
@@ -79,11 +80,11 @@ int			Game::collision(void)
 
 	map = getMap();
 	snake = map->getSnake();
-	if (snake->_head->getX() < 0  || snake->_head->getX() > map->getWidth()
-		|| snake->_head->getY() < 0 || snake->_head->getY() > map->getHeight())
+	if (snake->_head->getX() < 0  || snake->_head->getX() > map->getWidth() - 1
+		|| snake->_head->getY() < 0 || snake->_head->getY() > map->getHeight() - 1)
 	{
-		return TRUE;
 		printf("bang the wall.\n GAME OVER ! \n");
+		return TRUE;
 	}
 
 	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
@@ -141,7 +142,11 @@ void		Game::update(void)
 		{
 			if ((*it)->getX() == -1)
 			{
-				(*it)->setPosition(5, 5);
+				int x;
+				int y;
+				x = rand() % map->getHeight();
+				y = rand() % map->getWidth();
+				(*it)->setPosition(x, y);
 				break;
 			}
 		}
@@ -158,6 +163,8 @@ void		Game::loop(void)
 	Snake		snake(map->getHeight() / 2, map->getWidth() / 2);
 	map->setSnake(&snake);
 
+	srand (time(NULL));
+
 	// map->addApple(3, 4);
 	while (!this->_shouldExit)
 	{
@@ -170,7 +177,7 @@ void		Game::loop(void)
 
 		this->update();
 
-		std::cout << "Fps = " << Time::getTime() << std::endl;
+		// std::cout << "Fps = " << Time:: << std::endl;
 
 		Time::sleep(100);
 	}
