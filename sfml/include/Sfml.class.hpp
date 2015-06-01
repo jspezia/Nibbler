@@ -32,6 +32,7 @@
 
 #include "Snake.class.hpp"
 #include "Map.class.hpp"
+#include "GameEntity.class.hpp"
 
 
 class Sfml : public IGraphic {
@@ -49,6 +50,7 @@ class Sfml : public IGraphic {
 		Sfml &	operator=(Sfml const & ref);
 
 		void		_drawSnake(Snake *snake);
+		void		_drawApple(std::list<GameEntity *>		apple);
 		void		_init(void);
 		void		_destroy(void);
 		void		_clear(void);

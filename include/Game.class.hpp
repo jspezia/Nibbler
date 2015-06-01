@@ -21,7 +21,8 @@ public:
 	Map *		getMap(void) const;
 	Player *	getPlayer(void) const;
 
-	int			collision(Map const *map);
+	int			collision(void);
+	void		update(void);
 	void		init(void);
 	void		loop(void);
 

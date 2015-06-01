@@ -42,6 +42,8 @@ void			Sfml::draw(Map *map)
 		//draw background (grid)
 		this->_drawGrid();
 
+		this->_drawApple(map->_apple);
+
 		//draw snake -> (liste de <pos, color>)
 		this->_drawSnake(map->getSnake());
 
@@ -76,6 +78,19 @@ void			Sfml::_drawSnake(Snake *snake)
 
 	shape.setFillColor(sf::Color(BODY_COLOR));
 	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
+	{
+		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
+		this->_win->draw(shape);
+	}
+}
+
+
+void			Sfml::_drawApple(std::list<GameEntity *>		apple)
+{
+	sf::CircleShape	shape(this->_squareSize / 2);
+	shape.setFillColor(sf::Color(RED));
+
+	for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++)
 	{
 		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
 		this->_win->draw(shape);

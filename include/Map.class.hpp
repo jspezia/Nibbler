@@ -19,15 +19,17 @@ public:
 	void			setSnake(Snake *snake);
 	Snake			*getSnake(void) const;
 
+	std::list<GameEntity *>			_apple;
 protected:
 
 private:
+	void			addApple(int const x, int const y);
 	Map(void);
 	Map &	operator=(Map const & ref);
 
-	Snake	*_snake;
-	int		_width;
-	int 	_height;
+	Snake						*_snake;
+	int							_width;
+	int 						_height;
 };
 
 std::ostream		&operator<<(std::ostream &o, Map const &i);

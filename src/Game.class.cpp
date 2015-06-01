@@ -6,6 +6,7 @@
 #include "KeyValue.hpp"
 #include "Lib.hpp"
 #include "Snake.class.hpp"
+#include "GameEntity.class.hpp"
 
 /*
 	initiatialize game
@@ -71,10 +72,12 @@ void		Game::init(void)
 	//
 }
 
-int			Game::collision(Map const *map)
+int			Game::collision(void)
 {
 	Snake		*snake;
+	Map			*map;
 
+	map = getMap();
 	snake = map->getSnake();
 	if (snake->_head->getX() < 0  || snake->_head->getX() > map->getWidth()
 		|| snake->_head->getY() < 0 || snake->_head->getY() > map->getHeight())
@@ -92,7 +95,57 @@ int			Game::collision(Map const *map)
 		}
 	}
 
+	for (std::list<GameEntity *>::iterator it = map->_apple.begin(); it != map->_apple.end(); it++)
+	{
+		if ((*it)->getX() == snake->_head->getX() && (*it)->getY() == snake->_head->getY())
+		{
+			printf("Miam Miam Miam\n");
+			snake->setState("grow");
+			(*it)->setPosition(-1, -1);
+		}
+	}
+
 	return FALSE;
+}
+
+void		Game::update(void)
+{
+	Map			*map;
+	Snake		*snake;
+
+	map = getMap();
+	snake = getMap()->getSnake();
+
+	int keycode = 0;
+	if ((keycode = this->_dlib->getInput()) != 0)
+	{
+		if (keycode == KeyEscape)
+			this->_shouldExit = TRUE;
+	}
+	if (keycode == KeySpace)
+		snake->setState("grow");
+	if (keycode == KeyUp)
+		snake->move(NORTH);
+	else if (keycode == KeyDown)
+		snake->move(SOUTH);
+	else if (keycode == KeyLeft)
+		snake->move(WEST);
+	else if (keycode == KeyRight)
+		snake->move(EAST);
+	else
+		snake->move(snake->getDirection());
+
+	if ((Time::getTime() % 50) == 0)
+	{
+		for (std::list<GameEntity *>::iterator it = map->_apple.begin(); it != map->_apple.end(); it++)
+		{
+			if ((*it)->getX() == -1)
+			{
+				(*it)->setPosition(5, 5);
+				break;
+			}
+		}
+	}
 }
 
 void		Game::loop(void)
@@ -104,6 +157,8 @@ void		Game::loop(void)
 
 	Snake		snake(map->getHeight() / 2, map->getWidth() / 2);
 	map->setSnake(&snake);
+
+	// map->addApple(3, 4);
 	while (!this->_shouldExit)
 	{
 		Time::update();
@@ -111,31 +166,11 @@ void		Game::loop(void)
 		// draw map
 		this->_dlib->draw(map);
 
-		this->_shouldExit = this->collision(map);
+		this->_shouldExit = this->collision();
 
-		// check input && update snake
-		int keycode = 0;
-		if ((keycode = this->_dlib->getInput()) != 0)
-		{
-			if (keycode == KeyEscape)
-				this->_shouldExit = TRUE;
-		}
-		if (keycode == KeySpace)
-			snake.setState("grow");
-		if (keycode == KeyUp)
-			snake.move(NORTH);
-		else if (keycode == KeyDown)
-			snake.move(SOUTH);
-		else if (keycode == KeyLeft)
-			snake.move(WEST);
-		else if (keycode == KeyRight)
-			snake.move(EAST);
-		else
-			snake.move(snake.getDirection());
+		this->update();
 
-
-
-		// std::cout << "Fps = " << Time::fps << std::endl;
+		std::cout << "Fps = " << Time::getTime() << std::endl;
 
 		Time::sleep(100);
 	}
