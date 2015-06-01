@@ -61,11 +61,11 @@ void			Sfml::_drawSnake(Snake *snake)
 {
 
 //head
-	sf::CircleShape	shape(this->_squareSize / 2);
-	shape.setFillColor(sf::Color(BLACK));
+	sf::CircleShape	head(this->_squareSize / 2);
+	head.setFillColor(sf::Color(BLACK));
 
-	shape.setPosition(snake->_head->getX() * this->_squareSize + 1, snake->_head->getY() * this->_squareSize + 1);
-	this->_win->draw(shape);
+	head.setPosition(snake->_head->getX() * this->_squareSize + 1, snake->_head->getY() * this->_squareSize + 1);
+	this->_win->draw(head);
 //eyes
 	sf::CircleShape	eyes((this->_squareSize / 2 - 1) / 4);
 	eyes.setFillColor(sf::Color(WHITE));
@@ -75,25 +75,34 @@ void			Sfml::_drawSnake(Snake *snake)
 	eyes.setPosition(snake->_head->getX() * this->_squareSize + this->_squareSize * 3 / 4 - 1, snake->_head->getY() * this->_squareSize + 1 + this->_squareSize * 1 / 4);
 	this->_win->draw(eyes);
 
+	sf::CircleShape	body(this->_squareSize / 2);
+	body.setFillColor(sf::Color(BODY_COLOR));
 
-	shape.setFillColor(sf::Color(BODY_COLOR));
 	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
 	{
-		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
-		this->_win->draw(shape);
+		body.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
+		this->_win->draw(body);
 	}
 }
 
 
 void			Sfml::_drawApple(std::list<GameEntity *>		apple)
 {
-	sf::CircleShape	shape(this->_squareSize / 2);
+	sf::CircleShape	shape(this->_squareSize / 2, 8);
+	sf::CircleShape	leaf(this->_squareSize / 8, 4);
+	sf::CircleShape	leaf2(this->_squareSize / 6, 4);
 	shape.setFillColor(sf::Color(RED));
+	leaf.setFillColor(sf::Color(GREEN));
+	leaf2.setFillColor(sf::Color(GREEN));
 
 	for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++)
 	{
 		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
 		this->_win->draw(shape);
+		leaf.setPosition((*it)->getX() * this->_squareSize + 1 + this->_squareSize / 4, (*it)->getY() * this->_squareSize + 1);
+		this->_win->draw(leaf);
+		leaf2.setPosition((*it)->getX() * this->_squareSize + 1 + this->_squareSize / 2, (*it)->getY() * this->_squareSize + 1);
+		this->_win->draw(leaf2);
 	}
 }
 
@@ -101,13 +110,20 @@ void			Sfml::_drawGrid()
 {
 	int	margin = 0; //px
 	int size = this->_squareSize - 2 * margin;
-	sf::RectangleShape	rect(sf::Vector2f(size, size));
-	rect.setFillColor(sf::Color(NICE_GREEN));
+	sf::RectangleShape	rect(sf::Vector2f(size * 4, size * 4));
 
-	for (int y = 0; y < this->_y; y++) {
-		for (int x = 0; x < this->_x; x++) {
-			rect.setPosition(margin + x * this->_squareSize, margin + y * this->_squareSize);
+	sf::Texture texture;
+	if (!texture.loadFromFile("sfml/texture/grass.png"))
+	    rect.setFillColor(sf::Color(NICE_GREEN));
+	else
+	{
+		rect.setTexture(&texture);
+		rect.setTextureRect(sf::IntRect(10, 10, 100, 100));
+	}
 
+	for (int y = 0; y < this->_y / 4 + 1; y++) {
+		for (int x = 0; x < this->_x / 4 + 1; x++) {
+			rect.setPosition(margin + x * 4 * this->_squareSize, margin + y * 4 * this->_squareSize);
 			this->_win->draw(rect);
 		}
 

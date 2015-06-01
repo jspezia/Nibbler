@@ -24,6 +24,7 @@
 # define GREEN				177, 227,  54
 # define NICE_GREEN			  0, 102,  51
 # define BODY_COLOR			255, 204,   0
+# define BODY_COLOR2		255, 255,   0
 # define BROWN				115, 111,  79
 # define DARK_GREY			 44,  44,  39
 # define LIGHT_GREY			142, 143, 137
