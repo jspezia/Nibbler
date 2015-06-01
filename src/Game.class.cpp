@@ -76,7 +76,6 @@ void		Game::loop(void)
 	//test class Snake
 	Snake		snake(3, 3);
 
-	printf("head.x = %d\n", snake._head->getX());
 	while (!this->_shouldExit)
 	{
 		Time::update();
@@ -89,18 +88,19 @@ void		Game::loop(void)
 		{
 			if (keycode == KeyEscape)
 				this->_shouldExit = TRUE;
-			printf("Key pressed: %d\n", keycode);
 		}
 		if (keycode == KeyUp)
 			snake.move(NORTH);
-		if (keycode == KeyDown)
+		else if (keycode == KeyDown)
 			snake.move(SOUTH);
-		if (keycode == KeyLeft)
+		else if (keycode == KeyLeft)
 			snake.move(WEST);
-		if (keycode == KeyRight)
+		else if (keycode == KeyRight)
 			snake.move(EAST);
+		else
+			snake.move(snake.getDirection());
 		// std::cout << "Fps = " << Time::fps << std::endl;
 
-		Time::sleep(10);
+		Time::sleep(100);
 	}
 }

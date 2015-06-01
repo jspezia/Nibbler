@@ -85,15 +85,49 @@ void		Snake::move(int const direction)
 	weogipweweewgwehbbgerb = new GameEntity(this->_head->_x, this->_head->_y);
 	this->_body.push_front(weogipweweewgwehbbgerb);
 
-	if (direction == NORTH)
+	if (direction == NORTH && this->_direction != SOUTH)
+	{
 		this->_head->_y -= 1;
-	else if (direction == SOUTH)
+		this->_direction = direction;
+	}
+	else if (direction == NORTH && this->_direction == SOUTH)
 		this->_head->_y += 1;
-	else if (direction == EAST)
-		this->_head->_x += 1;
-	else if (direction == WEST)
-		this->_head->_x -= 1;
-	this->_direction = direction;
 
-	std::cout << "Snake has moved" << std::endl;
+	else if (direction == SOUTH && this->_direction != NORTH)
+	{
+		this->_head->_y += 1;
+		this->_direction = direction;
+	}
+	else if (direction == SOUTH && this->_direction == NORTH)
+		this->_head->_y -= 1;
+
+	else if (direction == EAST && this->_direction != WEST)
+	{
+		this->_head->_x += 1;
+		this->_direction = direction;
+	}
+	else if (direction == EAST && this->_direction == WEST)
+		this->_head->_x -= 1;
+
+	else if (direction == WEST && this->_direction != EAST)
+	{
+		this->_head->_x -= 1;
+		this->_direction = direction;
+	}
+	else if (direction == WEST && this->_direction == EAST)
+		this->_head->_x += 1;
+
+	// std::cout << "Snake has moved" << std::endl;
 }
+
+
+
+
+
+
+
+
+
+
+
+

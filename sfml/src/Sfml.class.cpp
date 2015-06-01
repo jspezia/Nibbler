@@ -57,7 +57,6 @@ void			Sfml::_clear(void)
 
 void			Sfml::_drawSnake(Snake *snake)
 {
-	printf("snake position = %dx, %dy\n", snake->_head->getX(), snake->_head->getY());
 
 //head
 	sf::CircleShape	shape(this->_squareSize / 2 - 1);
@@ -68,6 +67,7 @@ void			Sfml::_drawSnake(Snake *snake)
 //eyes
 	sf::CircleShape	eyes(1.f);
 	eyes.setFillColor(sf::Color(WHITE));
+
 	eyes.setPosition(snake->_head->getX() * this->_squareSize + this->_squareSize * 1 / 4, snake->_head->getY() * this->_squareSize + 1 + this->_squareSize * 1 / 4);
 	this->_win->draw(eyes);
 	eyes.setPosition(snake->_head->getX() * this->_squareSize + this->_squareSize * 3 / 4 - 1, snake->_head->getY() * this->_squareSize + 1 + this->_squareSize * 1 / 4);
@@ -81,8 +81,8 @@ void			Sfml::_drawSnake(Snake *snake)
 		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
 		this->_win->draw(shape);
 		
-		std::cout << "body nb " << i << " in position ";
-		std::cout << "x = " << (*it)->getY() << " y = " << (*it)->getX() << std::endl;
+		// std::cout << "body nb " << i << " in position ";
+		// std::cout << "x = " << (*it)->getY() << " y = " << (*it)->getX() << std::endl;
 		i++;
 	}
 }
