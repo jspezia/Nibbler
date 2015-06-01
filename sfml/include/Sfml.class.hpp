@@ -22,6 +22,8 @@
 # define YELLOW				227, 219, 115
 # define ORANGE				228, 126,   0
 # define GREEN				177, 227,  54
+# define NICE_GREEN			  0, 102,  51
+# define BODY_COLOR			255, 204,   0
 # define BROWN				115, 111,  79
 # define DARK_GREY			 44,  44,  39
 # define LIGHT_GREY			142, 143, 137
@@ -29,6 +31,8 @@
 # define WHITE				255, 255, 255
 
 #include "Snake.class.hpp"
+#include "Map.class.hpp"
+
 
 class Sfml : public IGraphic {
 
@@ -36,7 +40,7 @@ class Sfml : public IGraphic {
 		Sfml(int width, int height);
 		~Sfml(void);
 
-		void	draw(Snake *snake);
+		void	draw(Map *map);
 		int		getInput(void);
 
 	private:

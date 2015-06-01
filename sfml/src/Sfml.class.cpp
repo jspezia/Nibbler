@@ -31,7 +31,7 @@ void			Sfml::_destroy(void)
 }
 
 /* DRAW CALLS */
-void			Sfml::draw(Snake *snake)
+void			Sfml::draw(Map *map)
 {
 	if (this->_win->isOpen())
 	{
@@ -43,7 +43,7 @@ void			Sfml::draw(Snake *snake)
 		this->_drawGrid();
 
 		//draw snake -> (liste de <pos, color>)
-		this->_drawSnake(snake);
+		this->_drawSnake(map->getSnake());
 
 		//display
 		this->_win->display();
@@ -59,13 +59,13 @@ void			Sfml::_drawSnake(Snake *snake)
 {
 
 //head
-	sf::CircleShape	shape(this->_squareSize / 2 - 1);
+	sf::CircleShape	shape(this->_squareSize / 2);
 	shape.setFillColor(sf::Color(BLACK));
 
 	shape.setPosition(snake->_head->getX() * this->_squareSize + 1, snake->_head->getY() * this->_squareSize + 1);
 	this->_win->draw(shape);
 //eyes
-	sf::CircleShape	eyes(1.f);
+	sf::CircleShape	eyes((this->_squareSize / 2 - 1) / 4);
 	eyes.setFillColor(sf::Color(WHITE));
 
 	eyes.setPosition(snake->_head->getX() * this->_squareSize + this->_squareSize * 1 / 4, snake->_head->getY() * this->_squareSize + 1 + this->_squareSize * 1 / 4);
@@ -74,25 +74,20 @@ void			Sfml::_drawSnake(Snake *snake)
 	this->_win->draw(eyes);
 
 
-	int		i = 1;
-	shape.setFillColor(sf::Color(RED));
+	shape.setFillColor(sf::Color(BODY_COLOR));
 	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
 	{
 		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
 		this->_win->draw(shape);
-		
-		// std::cout << "body nb " << i << " in position ";
-		// std::cout << "x = " << (*it)->getY() << " y = " << (*it)->getX() << std::endl;
-		i++;
 	}
 }
 
 void			Sfml::_drawGrid()
 {
-	int	margin = 1; //px
+	int	margin = 0; //px
 	int size = this->_squareSize - 2 * margin;
 	sf::RectangleShape	rect(sf::Vector2f(size, size));
-	rect.setFillColor(sf::Color(GREEN));
+	rect.setFillColor(sf::Color(NICE_GREEN));
 
 	for (int y = 0; y < this->_y; y++) {
 		for (int x = 0; x < this->_x; x++) {

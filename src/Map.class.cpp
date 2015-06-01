@@ -17,6 +17,8 @@ Map::~Map(void)
 	return;
 }
 
+/* GETTER */
+
 int			Map::getHeight(void) const
 {
 	return this->_height;
@@ -25,6 +27,18 @@ int			Map::getHeight(void) const
 int			Map::getWidth(void) const
 {
 	return this->_width;
+}
+
+Snake			*Map::getSnake(void) const
+{
+	return this->_snake;
+}
+
+/* SETTER */
+
+void			Map::setSnake(Snake *snake)
+{
+	this->_snake = snake;
 }
 
 Map &		Map::operator=(Map const &rhs)

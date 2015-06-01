@@ -1,6 +1,8 @@
 #ifndef Map_HPP
 # define Map_HPP
 
+# include "Snake.class.hpp"
+
 #include <iostream>
 
 class Map
@@ -14,12 +16,16 @@ public:
 	int 			getWidth(void) const;
 	std::string		printHW(void) const;
 
+	void			setSnake(Snake *snake);
+	Snake			*getSnake(void) const;
+
 protected:
 
 private:
 	Map(void);
 	Map &	operator=(Map const & ref);
 
+	Snake	*_snake;
 	int		_width;
 	int 	_height;
 };

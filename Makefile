@@ -59,7 +59,7 @@ obj/%.obj: src/%.cpp
 
 
 $(SFML_NAME): $(SFML) $(SFML_LN) $(SFML_SRCS)
-	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(SFML_INCLUDE) -L $(SFML_LIBS) $(SFML_SRCS) obj/GameEntity.class.obj
+	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(SFML_INCLUDE) -L $(SFML_LIBS) $(SFML_SRCS) obj/GameEntity.class.obj obj/Map.class.obj
 	@echo "Compiling" [ $@ ] $(SUCCESS)
 
 $(SFML_LN):

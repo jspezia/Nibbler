@@ -80,10 +80,9 @@ void		Snake::move(int const direction)
 		this->_state = "normal";
 	}
 
-	/* ?E?GEWg/#@@3/g23 */
-	GameEntity *	weogipweweewgwehbbgerb;
-	weogipweweewgwehbbgerb = new GameEntity(this->_head->_x, this->_head->_y);
-	this->_body.push_front(weogipweweewgwehbbgerb);
+	GameEntity *	newBodyPart;
+	newBodyPart = new GameEntity(this->_head->_x, this->_head->_y);
+	this->_body.push_front(newBodyPart);
 
 	if (direction == NORTH && this->_direction != SOUTH)
 	{
