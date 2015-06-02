@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <list>
+#include <cstdlib>
 // #include <algorithm>
 #include "Sfml.class.hpp"
 

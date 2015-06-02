@@ -38,7 +38,6 @@ Game::Game(int const width, int const height) : _width(width), _height(height), 
 	int x = width / 2;
 	int y = height / 2;
 
-	this->_player = new Player(x, y);
 	this->init();
 }
 
@@ -46,7 +45,6 @@ Game::Game(int const width, int const height) : _width(width), _height(height), 
 Game::~Game(void)
 {
 	// delete all
-	delete this->_player;
 	delete this->_map;
 }
 
@@ -102,6 +100,7 @@ int			Game::collision(void)
 		{
 			printf("Miam Miam Miam\n");
 			snake->setState("grow");
+			snake->upSpeed(1);
 			(*it)->setPosition(-1, -1);
 		}
 	}
@@ -122,33 +121,37 @@ void		Game::update(void)
 	{
 		if (keycode == KeyEscape)
 			this->_shouldExit = TRUE;
+		// Pause
+		if (keycode == KeySpace)
+			while ((keycode = this->_dlib->getInput()) != KeySpace) {}
+
+	// Snake move
+		else if (keycode == KeyUp)
+			snake->move(NORTH);
+		else if (keycode == KeyDown)
+			snake->move(SOUTH);
+		else if (keycode == KeyLeft)
+			snake->move(WEST);
+		else if (keycode == KeyRight)
+			snake->move(EAST);
 	}
-	if (keycode == KeySpace)
-		snake->setState("grow");
-	if (keycode == KeyUp)
-		snake->move(NORTH);
-	else if (keycode == KeyDown)
-		snake->move(SOUTH);
-	else if (keycode == KeyLeft)
-		snake->move(WEST);
-	else if (keycode == KeyRight)
-		snake->move(EAST);
 	else
 		snake->move(snake->getDirection());
 
-	if ((Time::getTime() % 50) == 0)
+	// Apple generation (at least 1 and more in random)
+	std::list<GameEntity *>::iterator it = map->_apple.begin();
+	if ((*it)->getX() == -1)
+		(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
+	if ((Time::getTime() % 100) == 0)
 	{
-		for (std::list<GameEntity *>::iterator it = map->_apple.begin(); it != map->_apple.end(); it++)
+		while (it != map->_apple.end())
 		{
 			if ((*it)->getX() == -1)
 			{
-				int x;
-				int y;
-				x = rand() % map->getHeight();
-				y = rand() % map->getWidth();
-				(*it)->setPosition(x, y);
+				(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
 				break;
 			}
+			it++;
 		}
 	}
 }
@@ -160,12 +163,11 @@ void		Game::loop(void)
 
 	map = this->getMap();
 
-	Snake		snake(map->getHeight() / 2, map->getWidth() / 2);
+	Snake		snake(map->getWidth() / 2, map->getHeight() / 2);
 	map->setSnake(&snake);
 
 	srand (time(NULL));
 
-	// map->addApple(3, 4);
 	while (!this->_shouldExit)
 	{
 		Time::update();
@@ -179,6 +181,6 @@ void		Game::loop(void)
 
 		// std::cout << "Fps = " << Time:: << std::endl;
 
-		Time::sleep(100);
+		Time::sleep(200 - snake.getSpeed() * 10);
 	}
 }
