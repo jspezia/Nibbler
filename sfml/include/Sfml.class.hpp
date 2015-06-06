@@ -51,6 +51,7 @@ class Sfml : public IGraphic {
 		Sfml &	operator=(Sfml const & ref);
 
 		void		_drawSnake(Snake *snake);
+		void		_drawScore(int score);
 		void		_drawApple(std::list<GameEntity *>		apple);
 		void		_init(void);
 		void		_destroy(void);

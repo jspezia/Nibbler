@@ -3,7 +3,7 @@
 #include "Player.class.hpp"
 #include "GameEntity.class.hpp"
 
-Snake::Snake(int x, int y) : _direction(NORTH), _speed(1), _length(4), _state("normal")
+Snake::Snake(int x, int y) : _direction(NORTH), _speed(1), _state("normal")
 {
 	this->init(x, y);
 }
@@ -16,7 +16,7 @@ void		Snake::init(int x, int y)
 	this->_head = new GameEntity(x, y, "head");
 
 	/* init body parts */
-	for (int i = 0; i < this->_length - 1; i++)
+	for (int i = 0; i < 4 - 1; i++)
 	{
 		GameEntity *	newBodyPart;
 
@@ -37,10 +37,10 @@ int			Snake::getSpeed(void) const
 	return this->_speed;
 }
 
-int			Snake::getLength(void) const
-{
-	return this->_length;
-}
+// int			Snake::getLength(void) const
+// {
+// 	return this->_length;
+// }
 
 std::string	Snake::getState(void) const
 {
@@ -65,20 +65,17 @@ void		Snake::upSpeed(int const speed)
 }
 
 
-void		Snake::upLength(int const length)
-{
-	this->_length += length;
-}
+// void		Snake::upLength(int const length)
+// {
+// 	this->_length += length;
+// }
 
 void		Snake::move(int const direction)
 {
 	if (this->_state == "normal")
 		this->_body.pop_back();
-	else if (this->_state == "grow")
-	{
-		this->_length += 1;
+	else
 		this->_state = "normal";
-	}
 
 	GameEntity *	newBodyPart;
 	newBodyPart = new GameEntity(this->_head->_x, this->_head->_y);
@@ -115,8 +112,6 @@ void		Snake::move(int const direction)
 	}
 	else if (direction == WEST && this->_direction == EAST)
 		this->_head->_x += 1;
-
-	// std::cout << "Snake has moved" << std::endl;
 }
 
 

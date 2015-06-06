@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <list>
-// #include <algorithm>
+#include <cstdlib>
 #include "Sfml.class.hpp"
 
 Sfml::Sfml(int x, int y) : _x(x), _y(y)
@@ -47,6 +47,7 @@ void			Sfml::draw(Map *map)
 		//draw snake -> (liste de <pos, color>)
 		this->_drawSnake(map->getSnake());
 
+		// this->_drawScore(map->getSnake()->getSpeed());
 		//display
 		this->_win->display();
 	}

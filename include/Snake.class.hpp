@@ -14,14 +14,14 @@ public:
 
 	int			getDirection(void) const;
 	int			getSpeed(void) const;
-	int			getLength(void) const;
+	// int			getLength(void) const;
 	std::string	getState(void) const;
 
 	void		setDirection(int const direction);
 	void		setState(std::string const state);
 
 	void		upSpeed(int const speed);
-	void		upLength(int const length);
+	// void		upLength(int const length);
 
 	void		init(int x, int y);
 	void		move(int const direction);
@@ -38,7 +38,7 @@ private:
 
 	int							_direction;
 	int							_speed;
-	int							_length;
+	// int							_length;
 	std::string					_state;
 };
 
