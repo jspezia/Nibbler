@@ -29,6 +29,7 @@ int			main(int ac, char *av[])
 				handle_error("width or height out of range", IS_CRITIC);
 			else
 			{
+				printf("new Game\n");
 				game = new Game(width, height);
 				game->loop();
 			}

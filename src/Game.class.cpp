@@ -59,16 +59,13 @@ Player *	Game::getPlayer(void) const
 	return this->_player;
 }
 
-/* SETTERS */
-
 /* CORE */
 void		Game::init(void)
 {
 	//tmp
-	std::string				path = "./libnibbler_sfml.so";
+	std::string				path = "./libnibbler_ncurses.so";
 	DynamicLibHandler::instance().setHandle(path, this->_width, this->_height);
 	this->_dlib = DynamicLibHandler::instance().getLib();
-	//
 }
 
 int			Game::collision(void)
@@ -78,27 +75,26 @@ int			Game::collision(void)
 
 	map = getMap();
 	snake = map->getSnake();
+
+	// with the edge
 	if (snake->_head->getX() < 0  || snake->_head->getX() > map->getWidth() - 1
-		|| snake->_head->getY() < 0 || snake->_head->getY() > map->getHeight() - 1)
-	{
+		|| snake->_head->getY() < 0 || snake->_head->getY() > map->getHeight() - 1) {
 		printf("bang the wall.\n GAME OVER ! \n");
 		return TRUE;
 	}
 
-	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
-	{
-		if ((*it)->getX() == snake->_head->getX() && (*it)->getY() == snake->_head->getY())
-		{
+	// with himself
+	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++) {
+		if ((*it)->getX() == snake->_head->getX() && (*it)->getY() == snake->_head->getY()) {
 			printf("the head in the ass\n GAME OVER ! \n");
 			return TRUE;
 		}
 	}
 
-	for (std::list<GameEntity *>::iterator it = map->_apple.begin(); it != map->_apple.end(); it++)
-	{
-		if ((*it)->getX() == snake->_head->getX() && (*it)->getY() == snake->_head->getY())
-		{
-			printf("Miam Miam Miam\n");
+	// with an apple
+	std::list<GameEntity *> 	apple = map->getApple();
+	for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++) {
+		if ((*it)->getX() == snake->_head->getX() && (*it)->getY() == snake->_head->getY()) {
 			snake->setState("grow");
 			snake->upSpeed(1);
 			(*it)->setPosition(-1, -1);
@@ -106,6 +102,28 @@ int			Game::collision(void)
 	}
 
 	return FALSE;
+}
+
+void		Game::input(int keycode)
+{
+	Snake		*snake;
+
+	snake = getMap()->getSnake();
+	if (keycode == KeyEscape)
+		this->_shouldExit = TRUE;
+	// Pause
+	else if (keycode == KeySpace)
+		while ((keycode = this->_dlib->getInput()) != KeySpace) {}
+	// Snake movements
+	else if (keycode == KeyUp)
+		snake->move(NORTH);
+	else if (keycode == KeyDown)
+		snake->move(SOUTH);
+	else if (keycode == KeyLeft)
+		snake->move(WEST);
+	else if (keycode == KeyRight)
+		snake->move(EAST);
+
 }
 
 void		Game::update(void)
@@ -117,37 +135,20 @@ void		Game::update(void)
 	snake = getMap()->getSnake();
 
 	int keycode = 0;
-	if ((keycode = this->_dlib->getInput()) != 0)
-	{
-		if (keycode == KeyEscape)
-			this->_shouldExit = TRUE;
-		// Pause
-		if (keycode == KeySpace)
-			while ((keycode = this->_dlib->getInput()) != KeySpace) {}
-
-	// Snake move
-		else if (keycode == KeyUp)
-			snake->move(NORTH);
-		else if (keycode == KeyDown)
-			snake->move(SOUTH);
-		else if (keycode == KeyLeft)
-			snake->move(WEST);
-		else if (keycode == KeyRight)
-			snake->move(EAST);
+	if ((keycode = this->_dlib->getInput()) != 0) {
+		this->input(keycode);
 	}
 	else
 		snake->move(snake->getDirection());
 
 	// Apple generation (at least 1 and more in random)
-	std::list<GameEntity *>::iterator it = map->_apple.begin();
+	std::list<GameEntity *>			apple = map->getApple();
+	std::list<GameEntity *>::iterator it = apple.begin();
 	if ((*it)->getX() == -1)
 		(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
-	if ((Time::getTime() % 100) == 0)
-	{
-		while (it != map->_apple.end())
-		{
-			if ((*it)->getX() == -1)
-			{
+	if ((Time::getTime() % 100) == 0) {
+		while (it != apple.end()) {
+			if ((*it)->getX() == -1) {
 				(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
 				break;
 			}
@@ -159,11 +160,11 @@ void		Game::update(void)
 void		Game::loop(void)
 {
 	Map			*map;
+	Snake		*snake;
 
 	map = this->getMap();
-
-	Snake		snake(map->getWidth() / 2, map->getHeight() / 2);
-	map->setSnake(&snake);
+	snake = new	Snake(map->getWidth() / 2, map->getHeight() / 2);
+	map->setSnake(snake);
 
 	srand (time(NULL));
 
@@ -177,6 +178,6 @@ void		Game::loop(void)
 
 		this->update();
 
-		Time::sleep(200 - snake.getSpeed() * 10);
+		Time::sleep(200 - snake->getSpeed() * 10);
 	}
 }

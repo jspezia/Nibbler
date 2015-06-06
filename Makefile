@@ -33,6 +33,13 @@ SFML_SRC			=	Sfml.class.cpp
 SFML_SRCS			=	$(patsubst %, sfml/src/%, $(SFML_SRC))
 SFML_LN				=	sfml/include/SFML
 
+# NCURSES
+NCURSES_NAME		=	libnibbler_ncurses.so
+NCURSES_LIB			=	-lncurses
+NCURSES_INCLUDE		=	ncurses/include
+NCURSES_SRC			=	Ncurses.class.cpp
+NCURSES_SRCS		=	$(patsubst %, ncurses/src/%, $(NCURSES_SRC))
+
 # COLORS
 C_NO			=	"\033[00m"
 C_OK			=	"\033[35m"
@@ -44,7 +51,7 @@ C_WARN			=	"\033[33m"
 SUCCESS			=	$(C_GOOD)SUCCESS$(C_NO)
 OK				=	$(C_OK)OK$(C_NO)
 
-all: obj $(NAME) $(SFML_NAME)
+all: obj $(NAME) $(SFML_NAME) $(NCURSES_NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) -o $@ $^ -I $(INCLUDE)
@@ -68,6 +75,9 @@ $(SFML_LN):
 $(SFML):
 	brew install sfml
 
+$(NCURSES_NAME): $(NCURSES_SRCS)
+	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(NCURSES_INCLUDE) $(NCURSES_LIB) $(NCURSES_SRCS) obj/GameEntity.class.obj obj/Map.class.obj
+
 clean:
 	@rm -f $(OBJS)
 	@rm -rf obj
@@ -79,6 +89,9 @@ fclean: clean
 	@rm -f $(SFML_NAME)
 	@echo "Delete" [ $(SFML_NAME) ] $(OK)
 
+update_env:
+	sh script.sh
+
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re update_env

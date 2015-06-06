@@ -12,21 +12,20 @@ public:
 	Map(int width, int height);
 	~Map();
 
-	int 			getHeight(void) const;
-	int 			getWidth(void) const;
-	std::string		printHW(void) const;
+	int 						getHeight(void) const;
+	int 						getWidth(void) const;
+	Snake						*getSnake(void) const;
+	std::list<GameEntity *>		getApple(void) const;
 
-	void			setSnake(Snake *snake);
-	Snake			*getSnake(void) const;
+	void						setSnake(Snake *snake);
 
-	std::list<GameEntity *>			_apple;
 protected:
 
 private:
-	void			addApple(int const x, int const y);
 	Map(void);
 	Map &	operator=(Map const & ref);
 
+	std::list<GameEntity *>		_apple;
 	Snake						*_snake;
 	int							_width;
 	int 						_height;

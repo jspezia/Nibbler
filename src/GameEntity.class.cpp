@@ -27,10 +27,6 @@ std::string		GameEntity::getType(void) const
 }
 
 /* SETTERS */
-void			GameEntity::setType(std::string const type)
-{
-	this->_type = type;
-}
 
 void			GameEntity::setPosition(int const x, int const y)
 {

@@ -22,10 +22,11 @@ public:
 	Player *	getPlayer(void) const;
 
 	int			collision(void);
+	void		input(int keycode);
 	void		update(void);
 	void		init(void);
 	void		loop(void);
-
+	
 private:
 	Game(void);
 	Game(Game const & ref);

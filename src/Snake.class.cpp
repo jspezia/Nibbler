@@ -37,11 +37,6 @@ int			Snake::getSpeed(void) const
 	return this->_speed;
 }
 
-// int			Snake::getLength(void) const
-// {
-// 	return this->_length;
-// }
-
 std::string	Snake::getState(void) const
 {
 	return this->_state;
@@ -58,17 +53,10 @@ void		Snake::setState(std::string const state)
 	this->_state = state;
 }
 
-/* */
 void		Snake::upSpeed(int const speed)
 {
 	this->_speed += speed;
 }
-
-
-// void		Snake::upLength(int const length)
-// {
-// 	this->_length += length;
-// }
 
 void		Snake::move(int const direction)
 {
@@ -81,37 +69,41 @@ void		Snake::move(int const direction)
 	newBodyPart = new GameEntity(this->_head->_x, this->_head->_y);
 	this->_body.push_front(newBodyPart);
 
-	if (direction == NORTH && this->_direction != SOUTH)
-	{
-		this->_head->_y -= 1;
-		this->_direction = direction;
+	if (direction == NORTH){
+		if (this->_direction != SOUTH){
+			this->_head->_y -= 1;
+			this->_direction = direction;
+		}
+		else
+			this->_head->_y += 1;
 	}
-	else if (direction == NORTH && this->_direction == SOUTH)
-		this->_head->_y += 1;
-
-	else if (direction == SOUTH && this->_direction != NORTH)
+	else if (direction == SOUTH)
 	{
-		this->_head->_y += 1;
-		this->_direction = direction;
+		if (this->_direction != NORTH) {
+			this->_head->_y += 1;
+			this->_direction = direction;
+		}
+		else
+			this->_head->_y -= 1;
 	}
-	else if (direction == SOUTH && this->_direction == NORTH)
-		this->_head->_y -= 1;
-
-	else if (direction == EAST && this->_direction != WEST)
+	else if (direction == EAST)
 	{
-		this->_head->_x += 1;
-		this->_direction = direction;
+		if (this->_direction != WEST) {
+			this->_head->_x += 1;
+			this->_direction = direction;
+		}
+		else
+			this->_head->_x -= 1;
 	}
-	else if (direction == EAST && this->_direction == WEST)
-		this->_head->_x -= 1;
-
-	else if (direction == WEST && this->_direction != EAST)
+	else if (direction == WEST)
 	{
-		this->_head->_x -= 1;
-		this->_direction = direction;
+		if (this->_direction != EAST) {
+			this->_head->_x -= 1;
+			this->_direction = direction;
+		}
+		else
+			this->_head->_x += 1;
 	}
-	else if (direction == WEST && this->_direction == EAST)
-		this->_head->_x += 1;
 }
 
 

@@ -35,20 +35,16 @@ void			Sfml::draw(Map *map)
 {
 	if (this->_win->isOpen())
 	{
-		// printf("Draw call\n");
 		//clear window
 		this->_clear();
 
 		//draw background (grid)
 		this->_drawGrid();
 
-		this->_drawApple(map->_apple);
+		this->_drawApple(map->getApple());
 
-		//draw snake -> (liste de <pos, color>)
 		this->_drawSnake(map->getSnake());
 
-		// this->_drawScore(map->getSnake()->getSpeed());
-		//display
 		this->_win->display();
 	}
 }
@@ -89,6 +85,7 @@ void			Sfml::_drawSnake(Snake *snake)
 
 void			Sfml::_drawApple(std::list<GameEntity *>		apple)
 {
+	//draw 1 circle && 2 lozenge
 	sf::CircleShape	shape(this->_squareSize / 2, 8);
 	sf::CircleShape	leaf(this->_squareSize / 8, 4);
 	sf::CircleShape	leaf2(this->_squareSize / 6, 4);
@@ -121,13 +118,11 @@ void			Sfml::_drawGrid()
 		rect.setTexture(&texture);
 		rect.setTextureRect(sf::IntRect(10, 10, 100, 100));
 	}
-
 	for (int y = 0; y < this->_y / 4 + 1; y++) {
 		for (int x = 0; x < this->_x / 4 + 1; x++) {
 			rect.setPosition(margin + x * 4 * this->_squareSize, margin + y * 4 * this->_squareSize);
 			this->_win->draw(rect);
 		}
-
 	}
 }
 
@@ -138,20 +133,15 @@ int				Sfml::getInput(void)
 
 	while (this->_win->pollEvent(event))
 	{
-		// on regarde le type de l'évènement...
 		switch (event.type)
 		{
 			case sf::Event::Closed:
 				this->_win->close();
 				return sf::Keyboard::Escape;
 				break;
-
 			case sf::Event::KeyPressed:
-				// printf("code: %d\n", event.key.code);
 				return event.key.code;
 				break;
-
-			// on ne traite pas les autres types d'évènements
 			default:
 				break;
 		}
