@@ -24,9 +24,9 @@ public:
 	int			collision(void);
 	void		input(int keycode);
 	void		update(void);
-	void		init(void);
+	void		init(std::string dlib_path);
 	void		loop(void);
-	
+
 private:
 	Game(void);
 	Game(Game const & ref);

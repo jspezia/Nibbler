@@ -53,8 +53,6 @@ void					DynamicLibHandler::setHandle(std::string & path, int width, int heigth)
 	this->_initLib(width, heigth);
 }
 
-/*  */
-
 void					DynamicLibHandler::_closeHandle(void)
 {
 	if (this->_handle)

@@ -37,8 +37,6 @@ Game::Game(int const width, int const height) : _width(width), _height(height), 
 	// gen player position
 	int x = width / 2;
 	int y = height / 2;
-
-	this->init();
 }
 
 
@@ -60,11 +58,9 @@ Player *	Game::getPlayer(void) const
 }
 
 /* CORE */
-void		Game::init(void)
+void		Game::init(std::string dlib_path)
 {
-	//tmp
-	std::string				path = "./libnibbler_ncurses.so";
-	DynamicLibHandler::instance().setHandle(path, this->_width, this->_height);
+	DynamicLibHandler::instance().setHandle(dlib_path, this->_width, this->_height);
 	this->_dlib = DynamicLibHandler::instance().getLib();
 }
 
@@ -166,7 +162,7 @@ void		Game::loop(void)
 	snake = new	Snake(map->getWidth() / 2, map->getHeight() / 2);
 	map->setSnake(snake);
 
-	srand (time(NULL));
+	srand(time(NULL)); //what for ?
 
 	while (!this->_shouldExit)
 	{
