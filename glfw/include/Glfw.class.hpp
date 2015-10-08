@@ -46,9 +46,6 @@ class Glfw : public IGraphic {
     private:
         Glfw(void);
 
-        // Glfw(Glfw const & ref);
-        // Glfw &  operator=(Glfw const & ref);
-
         void        _drawGrid(void);
         void        _drawSnake(Snake *snake);
         void        _drawApple(std::list<GameEntity *> apple);

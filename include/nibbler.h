@@ -2,7 +2,7 @@
 # define NIBBLER_H
 
 /*
-	libnibbler_sdl2.so
+	libnibbler_ncurses.so
 	libnibbler_sfml.so
 	libnibbler_glfw.so
 */

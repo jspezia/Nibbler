@@ -33,10 +33,6 @@
 Game::Game(int const width, int const height) : _width(width), _height(height), _shouldExit(false)
 {
 	this->_map = new Map(width, height);
-
-	// gen player position
-	int x = width / 2;
-	int y = height / 2;
 }
 
 
@@ -104,7 +100,7 @@ void		Game::input(int keycode)
 {
 	Snake		*snake;
 
-	printf("key: %d\n", keycode);
+	// printf("key: %d\n", keycode);
 	snake = getMap()->getSnake();
 	if (keycode == KeyEscape)
 		this->_shouldExit = TRUE;

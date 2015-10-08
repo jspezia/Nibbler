@@ -1,8 +1,6 @@
 #include "Glfw.class.hpp"
-// #include <iostream>
 #include <math.h>
 #include <list>
-// #include <cstdlib>
 
 int g_keycode = 0;
 
@@ -63,10 +61,8 @@ void            Glfw::_destroy(void)
     glfwTerminate();
 }
 
-/* DRAW CALLS */
 void            reset_viewport(GLFWwindow *window)
 {
-    float   ratio;
     int     width;
     int     height;
 

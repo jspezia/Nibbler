@@ -12,7 +12,6 @@ class IGraphic
 
 		virtual void		draw(Map *map) = 0;
 		virtual int			getInput(void) = 0;
-		// virtual void		exit(void) = 0;
 };
 
 #endif
