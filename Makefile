@@ -104,8 +104,8 @@ $(GLFW_LIB):
 	make
 
 $(CMAKE):
-	brew update
-	brew install cmake
+	#brew update
+	#brew install cmake
 
 glfw/lib/CMakeLists.txt:
 	git submodule init

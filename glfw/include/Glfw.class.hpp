@@ -58,11 +58,11 @@ class Glfw : public IGraphic {
         int                 _x;
         int                 _y;
 
-        // int                 _squareSize;
-        // int                 _winWidth;
-        // int                 _winHeight;
+        int                 _squareSize;
+        int                 _winWidth;
+        int                 _winHeight;
 
-        // GLFWwindow *  _win;
+        GLFWwindow *  _win;
 };
 
 #endif

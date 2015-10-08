@@ -1,28 +1,38 @@
 #include "Glfw.class.hpp"
 // #include <iostream>
-// #include <math.h>
+#include <math.h>
 // #include <list>
 // #include <cstdlib>
 
 Glfw::Glfw(int x, int y) : _x(x), _y(y)
 {
-    // this->_squareSize = (int) fmin(MAX_WIDTH / x, MAX_HEIGHT / y);
+    this->_squareSize = (int) fmin(MAX_WIDTH / x, MAX_HEIGHT / y);
 
-    // this->_winWidth = this->_squareSize * x;
-    // this->_winHeight = this->_squareSize * y;
+    this->_winWidth = this->_squareSize * x;
+    this->_winHeight = this->_squareSize * y;
 
-    // this->_init();
+    this->_init();
 }
 
 Glfw::~Glfw(void) {}
 
+static void     error_callback(int error, const char* description)
+{
+    fputs(description, stderr);
+}
 
 void            Glfw::_init(void)
 {
+    // create window
+    if (!glfwInit())
+        exit(EXIT_FAILURE);
+    glfwSetErrorCallback(error_callback);
+    this->_win = glfwCreateWindow(this->_winWidth, this->_winHeight, "Snake", NULL, NULL);
 }
 
 void            Glfw::_destroy(void)
 {
+    glfwTerminate();
 }
 
 /* DRAW CALLS */
