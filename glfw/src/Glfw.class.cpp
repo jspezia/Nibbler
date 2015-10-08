@@ -13,6 +13,8 @@ Glfw::Glfw(int x, int y) : _x(x), _y(y)
     this->_winWidth = this->_squareSize * x;
     this->_winHeight = this->_squareSize * y;
 
+    printf("sq size: %d, grid: (%d, %d)\n", this->_squareSize, this->_x, this->_y);
+
     this->_init();
 }
 
@@ -90,49 +92,48 @@ void            Glfw::draw(Map *map)
         glMatrixMode(GL_MODELVIEW);
 
         // Render
-        glLoadIdentity();
-        glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
-        glBegin(GL_TRIANGLES);
-        glColor3f(1.f, 0.f, 0.f);
-        glVertex3f(-0.6f, -0.4f, 0.f);
-        glColor3f(0.f, 1.f, 0.f);
-        glVertex3f(0.6f, -0.4f, 0.f);
-        glColor3f(0.f, 0.f, 1.f);
-        glVertex3f(0.f, 0.6f, 0.f);
-        glEnd();
+        // glLoadIdentity();
+        // glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
+        // glBegin(GL_TRIANGLES);
+        // glColor3f(1.f, 0.f, 0.f);
+        // glVertex3f(-0.6f, -0.4f, 0.f);
+        // glColor3f(0.f, 1.f, 0.f);
+        // glVertex3f(0.6f, -0.4f, 0.f);
+        // glColor3f(0.f, 0.f, 1.f);
+        // glVertex3f(0.f, 0.6f, 0.f);
+        // glEnd();
+
+
+        // this->_drawGrid();
+
+        // this->_drawApple(map->getApple());
+
+        this->_drawSnake(map->getSnake());
 
         glfwSwapBuffers(this->_win);
         glfwPollEvents();
     }
 }
 
-// void            Glfw::_drawSnake(Snake *snake)
-// {
+void            Glfw::_drawSnake(Snake *snake)
+{
+    printf("head: (%d, %d)\n", snake->_head->getX(), snake->_head->getY());
 
-// //head
-//     sf::CircleShape head(this->_squareSize / 2);
-//     head.setFillColor(sf::Color(BLACK));
+    float   x;
+    float   y;
 
-//     head.setPosition(snake->_head->getX() * this->_squareSize + 1, snake->_head->getY() * this->_squareSize + 1);
-//     this->_win->draw(head);
-// //eyes
-//     sf::CircleShape eyes((this->_squareSize / 2 - 1) / 4);
-//     eyes.setFillColor(sf::Color(WHITE));
+    x =   ((float)snake->_head->getX() / this->_x) * 2 - 1.f;
+    y = -(((float)snake->_head->getY() / this->_y) * 2 - 1.f);
 
-//     eyes.setPosition(snake->_head->getX() * this->_squareSize + this->_squareSize * 1 / 4, snake->_head->getY() * this->_squareSize + 1 + this->_squareSize * 1 / 4);
-//     this->_win->draw(eyes);
-//     eyes.setPosition(snake->_head->getX() * this->_squareSize + this->_squareSize * 3 / 4 - 1, snake->_head->getY() * this->_squareSize + 1 + this->_squareSize * 1 / 4);
-//     this->_win->draw(eyes);
+    printf("pos: (%f, %f)\n", x, y); // OK
 
-//     sf::CircleShape body(this->_squareSize / 2);
-//     body.setFillColor(sf::Color(BODY_COLOR));
+    float sqWidth  = 2.f / this->_x;
+    float sqHeight = 2.f / this->_y;
 
-//     for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
-//     {
-//         body.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
-//         this->_win->draw(body);
-//     }
-// }
+    glColor3ub(PINK);
+    glRectf(x - sqWidth/2, y + sqHeight/2,
+            x + sqWidth/2, y - sqHeight/2);
+}
 
 
 // void            Glfw::_drawApple(std::list<GameEntity *>        apple)

@@ -48,7 +48,7 @@ class Glfw : public IGraphic {
         // Glfw(Glfw const & ref);
         // Glfw &  operator=(Glfw const & ref);
 
-        // void        _drawSnake(Snake *snake);
+        void        _drawSnake(Snake *snake);
         // void        _drawScore(int score);
         // void        _drawApple(std::list<GameEntity *>      apple);
         void        _init(void);
