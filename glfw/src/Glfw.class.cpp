@@ -1,7 +1,7 @@
 #include "Glfw.class.hpp"
 // #include <iostream>
 #include <math.h>
-// #include <list>
+#include <list>
 // #include <cstdlib>
 
 int g_keycode = 0;
@@ -133,6 +133,16 @@ void            Glfw::_drawSnake(Snake *snake)
     glColor3ub(PINK);
     glRectf(x - sqWidth/2, y + sqHeight/2,
             x + sqWidth/2, y - sqHeight/2);
+
+    // body
+    glColor3ub(CYAN);
+    for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
+    {
+        x =   ((float)(*it)->getX() / this->_x) * 2 - 1.f;
+        y = -(((float)(*it)->getY() / this->_y) * 2 - 1.f);
+        glRectf(x - sqWidth/2, y + sqHeight/2,
+            x + sqWidth/2, y - sqHeight/2);
+    }
 }
 
 
