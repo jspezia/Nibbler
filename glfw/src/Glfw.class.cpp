@@ -21,13 +21,34 @@ static void     error_callback(int error, const char* description)
     fputs(description, stderr);
 }
 
+static void     key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
+}
+
 void            Glfw::_init(void)
 {
-    // create window
+    GLFWwindow* window;
+
+    glfwSetErrorCallback(error_callback);
+
     if (!glfwInit())
         exit(EXIT_FAILURE);
-    glfwSetErrorCallback(error_callback);
-    this->_win = glfwCreateWindow(this->_winWidth, this->_winHeight, "Snake", NULL, NULL);
+
+    window = glfwCreateWindow(this->_winWidth, this->_winHeight, "Snake", NULL, NULL);
+    if (!window)
+    {
+        glfwTerminate();
+        exit(EXIT_FAILURE);
+    }
+
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);
+
+    glfwSetKeyCallback(window, key_callback);
+
+    this->_win = window;
 }
 
 void            Glfw::_destroy(void)
