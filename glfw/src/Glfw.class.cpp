@@ -113,11 +113,11 @@ void            Glfw::_drawSnake(Snake *snake)
     y = snake->_head->getY() * this->_squareSize;
 
     // head
-    glColor3ub(PINK);
+    glColor3ub(GREEN);
     glRecti(x, y, x + this->_squareSize, y + this->_squareSize);
 
     // body
-    glColor3ub(CYAN);
+    glColor3ub(NICE_GREEN);
     for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
     {
         x = (*it)->getX() * this->_squareSize;
@@ -130,23 +130,26 @@ void            Glfw::_drawApple(std::list<GameEntity *> apple)
 {
     int   x;
     int   y;
+    int   padding = 3;
 
     glColor3ub(RED);
     for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++)
     {
         x = (*it)->getX() * this->_squareSize;
         y = (*it)->getY() * this->_squareSize;
-        glRecti(x, y, x + this->_squareSize, y + this->_squareSize);
+        glRecti(x + padding, y + padding, x + this->_squareSize - padding, y + this->_squareSize - padding);
     }
 }
 
 void            Glfw::_drawGrid()
 {
-    glColor3ub(GREEN);
-    glRectf(-1.f, 1.f, 1.f, -1.f);
+    int margin = 5;
 
-    glColor3ub(ORANGE);
-    glRecti(0, 0, 60, 60);
+    glColor3ub(BROWN);
+    glRecti(0, 0, this->_winWidth, this->_winHeight);
+
+    glColor3ub(DARK_GREY);
+    glRecti(margin, margin, this->_winWidth - margin, this->_winHeight - margin);
 }
 
 /* INPUT EVENTS */
