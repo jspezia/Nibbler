@@ -35,7 +35,6 @@
 #include "Map.class.hpp"
 #include "GameEntity.class.hpp"
 
-
 class Sfml : public IGraphic {
 
 	public:
