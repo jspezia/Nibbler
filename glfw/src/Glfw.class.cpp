@@ -53,26 +53,36 @@ void            Glfw::_init(void)
 
 void            Glfw::_destroy(void)
 {
+    glfwDestroyWindow(this->_win);
     glfwTerminate();
 }
 
 /* DRAW CALLS */
+void            reset_viewport(GLFWwindow *window)
+{
+    float   ratio;
+    int     width;
+    int     height;
+
+    glfwGetFramebufferSize(window, &width, &height);
+    ratio = width / (float)height;
+    glViewport(0, 0, width, height);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
+}
+
 void            Glfw::draw(Map *map)
 {
-    // if (this->_win->isOpen())
-    // {
-    //     //clear window
-    //     this->_clear();
-
-    //     //draw background (grid)
-    //     this->_drawGrid();
-
-    //     this->_drawApple(map->getApple());
-
-    //     this->_drawSnake(map->getSnake());
-
-    //     this->_win->display();
-    // }
+    if (!glfwWindowShouldClose(this->_win))
+    {
+        reset_viewport(this->_win);
+        glMatrixMode(GL_MODELVIEW);
+        //render(game);
+        glfwSwapBuffers(this->_win);
+        glfwPollEvents();
+    }
 }
 
 // void            Glfw::_clear(void)
