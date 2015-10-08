@@ -13,8 +13,6 @@ Glfw::Glfw(int x, int y) : _x(x), _y(y)
     this->_winWidth = this->_squareSize * x;
     this->_winHeight = this->_squareSize * y;
 
-    printf("sq size: %d, grid: (%d, %d)\n", this->_squareSize, this->_x, this->_y);
-
     this->_init();
 }
 
@@ -32,9 +30,7 @@ static void     key_callback(GLFWwindow* window, int key, int scancode, int acti
         glfwSetWindowShouldClose(window, GL_TRUE);
 
     if (action == GLFW_PRESS)
-        g_keycode = key; // global use
-    // else
-        // g_keycode = 0;
+        g_keycode = key;
 }
 
 void            Glfw::_init(void)
@@ -92,9 +88,7 @@ void            Glfw::draw(Map *map)
 
         // Render
         this->_drawGrid();
-
         this->_drawApple(map->getApple());
-
         this->_drawSnake(map->getSnake());
 
         glfwSwapBuffers(this->_win);
@@ -104,8 +98,6 @@ void            Glfw::draw(Map *map)
 
 void            Glfw::_drawSnake(Snake *snake)
 {
-    printf("head: (%d, %d)\n", snake->_head->getX(), snake->_head->getY());
-
     int x;
     int y;
 
