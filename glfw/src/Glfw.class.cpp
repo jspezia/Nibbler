@@ -4,6 +4,8 @@
 // #include <list>
 // #include <cstdlib>
 
+int g_keycode = 0;
+
 Glfw::Glfw(int x, int y) : _x(x), _y(y)
 {
     this->_squareSize = (int) fmin(MAX_WIDTH / x, MAX_HEIGHT / y);
@@ -23,8 +25,14 @@ static void     error_callback(int error, const char* description)
 
 static void     key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
+
+    if (action == GLFW_PRESS)
+        g_keycode = key; // global use
+    else
+        g_keycode = 0;
 }
 
 void            Glfw::_init(void)
@@ -78,17 +86,25 @@ void            Glfw::draw(Map *map)
     if (!glfwWindowShouldClose(this->_win))
     {
         reset_viewport(this->_win);
+
         glMatrixMode(GL_MODELVIEW);
-        //render(game);
+
+        // Render
+        glLoadIdentity();
+        glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
+        glBegin(GL_TRIANGLES);
+        glColor3f(1.f, 0.f, 0.f);
+        glVertex3f(-0.6f, -0.4f, 0.f);
+        glColor3f(0.f, 1.f, 0.f);
+        glVertex3f(0.6f, -0.4f, 0.f);
+        glColor3f(0.f, 0.f, 1.f);
+        glVertex3f(0.f, 0.6f, 0.f);
+        glEnd();
+
         glfwSwapBuffers(this->_win);
         glfwPollEvents();
     }
 }
-
-// void            Glfw::_clear(void)
-// {
-//     this->_win->clear(sf::Color::Black);
-// }
 
 // void            Glfw::_drawSnake(Snake *snake)
 // {
@@ -165,24 +181,7 @@ void            Glfw::draw(Map *map)
 /* INPUT EVENTS */
 int             Glfw::getInput(void)
 {
-    // sf::Event event;
-
-    // while (this->_win->pollEvent(event))
-    // {
-    //     switch (event.type)
-    //     {
-    //         case sf::Event::Closed:
-    //             this->_win->close();
-    //             return sf::Keyboard::Escape;
-    //             break;
-    //         case sf::Event::KeyPressed:
-    //             return event.key.code;
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
-    // return (0);
+    return g_keycode;
 }
 
 

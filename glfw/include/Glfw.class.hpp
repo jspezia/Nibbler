@@ -44,6 +44,7 @@ class Glfw : public IGraphic {
 
     private:
         Glfw(void);
+
         // Glfw(Glfw const & ref);
         // Glfw &  operator=(Glfw const & ref);
 
@@ -62,7 +63,7 @@ class Glfw : public IGraphic {
         int                 _winWidth;
         int                 _winHeight;
 
-        GLFWwindow *  _win;
+        GLFWwindow *        _win;
 };
 
 #endif

@@ -104,6 +104,7 @@ void		Game::input(int keycode)
 {
 	Snake		*snake;
 
+	printf("key: %d\n", keycode);
 	snake = getMap()->getSnake();
 	if (keycode == KeyEscape)
 		this->_shouldExit = TRUE;
