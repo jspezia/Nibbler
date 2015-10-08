@@ -32,6 +32,7 @@
 # include "Snake.class.hpp"
 # include "Map.class.hpp"
 # include "GameEntity.class.hpp"
+# include "KeyValue.hpp"
 
 class Glfw : public IGraphic {
 
@@ -48,13 +49,13 @@ class Glfw : public IGraphic {
         // Glfw(Glfw const & ref);
         // Glfw &  operator=(Glfw const & ref);
 
+        void        _drawGrid(void);
         void        _drawSnake(Snake *snake);
+        void        _drawApple(std::list<GameEntity *> apple);
         // void        _drawScore(int score);
-        // void        _drawApple(std::list<GameEntity *>      apple);
         void        _init(void);
         void        _destroy(void);
         // void        _clear(void);
-        // void        _drawGrid(void);
 
         int                 _x;
         int                 _y;

@@ -33,8 +33,8 @@ static void     key_callback(GLFWwindow* window, int key, int scancode, int acti
 
     if (action == GLFW_PRESS)
         g_keycode = key; // global use
-    else
-        g_keycode = 0;
+    // else
+        // g_keycode = 0;
 }
 
 void            Glfw::_init(void)
@@ -75,12 +75,11 @@ void            reset_viewport(GLFWwindow *window)
     int     height;
 
     glfwGetFramebufferSize(window, &width, &height);
-    ratio = width / (float)height;
     glViewport(0, 0, width, height);
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
+    glOrtho(0.0f, width, height, 0.0f, 0.0f, 1.0f);
 }
 
 void            Glfw::draw(Map *map)
@@ -92,21 +91,9 @@ void            Glfw::draw(Map *map)
         glMatrixMode(GL_MODELVIEW);
 
         // Render
-        // glLoadIdentity();
-        // glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
-        // glBegin(GL_TRIANGLES);
-        // glColor3f(1.f, 0.f, 0.f);
-        // glVertex3f(-0.6f, -0.4f, 0.f);
-        // glColor3f(0.f, 1.f, 0.f);
-        // glVertex3f(0.6f, -0.4f, 0.f);
-        // glColor3f(0.f, 0.f, 1.f);
-        // glVertex3f(0.f, 0.6f, 0.f);
-        // glEnd();
+        this->_drawGrid();
 
-
-        // this->_drawGrid();
-
-        // this->_drawApple(map->getApple());
+        this->_drawApple(map->getApple());
 
         this->_drawSnake(map->getSnake());
 
@@ -119,80 +106,63 @@ void            Glfw::_drawSnake(Snake *snake)
 {
     printf("head: (%d, %d)\n", snake->_head->getX(), snake->_head->getY());
 
-    float   x;
-    float   y;
+    int x;
+    int y;
 
-    x =   ((float)snake->_head->getX() / this->_x) * 2 - 1.f;
-    y = -(((float)snake->_head->getY() / this->_y) * 2 - 1.f);
+    x = snake->_head->getX() * this->_squareSize;
+    y = snake->_head->getY() * this->_squareSize;
 
-    printf("pos: (%f, %f)\n", x, y); // OK
-
-    float sqWidth  = 2.f / this->_x;
-    float sqHeight = 2.f / this->_y;
-
+    // head
     glColor3ub(PINK);
-    glRectf(x - sqWidth/2, y + sqHeight/2,
-            x + sqWidth/2, y - sqHeight/2);
+    glRecti(x, y, x + this->_squareSize, y + this->_squareSize);
 
     // body
     glColor3ub(CYAN);
     for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
     {
-        x =   ((float)(*it)->getX() / this->_x) * 2 - 1.f;
-        y = -(((float)(*it)->getY() / this->_y) * 2 - 1.f);
-        glRectf(x - sqWidth/2, y + sqHeight/2,
-            x + sqWidth/2, y - sqHeight/2);
+        x = (*it)->getX() * this->_squareSize;
+        y = (*it)->getY() * this->_squareSize;
+        glRecti(x, y, x + this->_squareSize, y + this->_squareSize);
     }
 }
 
+void            Glfw::_drawApple(std::list<GameEntity *> apple)
+{
+    int   x;
+    int   y;
 
-// void            Glfw::_drawApple(std::list<GameEntity *>        apple)
-// {
-//     //draw 1 circle && 2 lozenge
-//     sf::CircleShape shape(this->_squareSize / 2, 8);
-//     sf::CircleShape leaf(this->_squareSize / 8, 4);
-//     sf::CircleShape leaf2(this->_squareSize / 6, 4);
-//     shape.setFillColor(sf::Color(RED));
-//     leaf.setFillColor(sf::Color(GREEN));
-//     leaf2.setFillColor(sf::Color(GREEN));
+    glColor3ub(RED);
+    for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++)
+    {
+        x = (*it)->getX() * this->_squareSize;
+        y = (*it)->getY() * this->_squareSize;
+        glRecti(x, y, x + this->_squareSize, y + this->_squareSize);
+    }
+}
 
-//     for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++)
-//     {
-//         shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
-//         this->_win->draw(shape);
-//         leaf.setPosition((*it)->getX() * this->_squareSize + 1 + this->_squareSize / 4, (*it)->getY() * this->_squareSize + 1);
-//         this->_win->draw(leaf);
-//         leaf2.setPosition((*it)->getX() * this->_squareSize + 1 + this->_squareSize / 2, (*it)->getY() * this->_squareSize + 1);
-//         this->_win->draw(leaf2);
-//     }
-// }
+void            Glfw::_drawGrid()
+{
+    glColor3ub(GREEN);
+    glRectf(-1.f, 1.f, 1.f, -1.f);
 
-// void            Glfw::_drawGrid()
-// {
-//     int margin = 0; //px
-//     int size = this->_squareSize - 2 * margin;
-//     sf::RectangleShape  rect(sf::Vector2f(size * 4, size * 4));
-
-//     sf::Texture texture;
-//     if (!texture.loadFromFile("sfml/texture/grass.png"))
-//         rect.setFillColor(sf::Color(NICE_GREEN));
-//     else
-//     {
-//         rect.setTexture(&texture);
-//         rect.setTextureRect(sf::IntRect(10, 10, 100, 100));
-//     }
-//     for (int y = 0; y < this->_y / 4 + 1; y++) {
-//         for (int x = 0; x < this->_x / 4 + 1; x++) {
-//             rect.setPosition(margin + x * 4 * this->_squareSize, margin + y * 4 * this->_squareSize);
-//             this->_win->draw(rect);
-//         }
-//     }
-// }
+    glColor3ub(ORANGE);
+    glRecti(0, 0, 60, 60);
+}
 
 /* INPUT EVENTS */
 int             Glfw::getInput(void)
 {
-    return g_keycode;
+    if (g_keycode == GLFW_KEY_UP)
+        return KeyUp;
+    if (g_keycode == GLFW_KEY_DOWN)
+        return KeyDown;
+    if (g_keycode == GLFW_KEY_RIGHT)
+        return KeyRight;
+    if (g_keycode == GLFW_KEY_LEFT)
+        return KeyLeft;
+    if (g_keycode == GLFW_KEY_SPACE)
+        return KeySpace;
+    return 0;
 }
 
 
