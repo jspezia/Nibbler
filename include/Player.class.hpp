@@ -3,14 +3,6 @@
 
 # include "Snake.class.hpp"
 
-enum		e_direction
-{
-	NORTH = 0, /*    N    */
-	EAST  = 1, /*  W + E  */
-	SOUTH = 2, /*    S    */
-	WEST  = 3  /*         */
-};
-
 class Player
 {
 	public:

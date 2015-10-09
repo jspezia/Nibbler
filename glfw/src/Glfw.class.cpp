@@ -14,7 +14,10 @@ Glfw::Glfw(int x, int y) : _x(x), _y(y)
     this->_init();
 }
 
-Glfw::~Glfw(void) {}
+Glfw::~Glfw(void)
+{
+    this->_destroy();
+}
 
 static void     error_callback(int error, const char* description)
 {
@@ -23,7 +26,6 @@ static void     error_callback(int error, const char* description)
 
 static void     key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
 
@@ -57,6 +59,7 @@ void            Glfw::_init(void)
 
 void            Glfw::_destroy(void)
 {
+    printf("GLFW _destroy call\n");
     glfwDestroyWindow(this->_win);
     glfwTerminate();
 }
@@ -153,6 +156,13 @@ int             Glfw::getInput(void)
         return KeyLeft;
     if (g_keycode == GLFW_KEY_SPACE)
         return KeySpace;
+    if (g_keycode == GLFW_KEY_1)
+        return KeyNum1;
+    if (g_keycode == GLFW_KEY_2)
+        return KeyNum2;
+    if (g_keycode == GLFW_KEY_3)
+        return KeyNum3;
+
     return 0;
 }
 

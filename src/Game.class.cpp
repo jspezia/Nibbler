@@ -7,6 +7,7 @@
 #include "Lib.hpp"
 #include "Snake.class.hpp"
 #include "GameEntity.class.hpp"
+#include "nibbler.h"
 #include <cstdlib>
 
 /*
@@ -56,6 +57,12 @@ Player *	Game::getPlayer(void) const
 /* CORE */
 void		Game::init(std::string dlib_path)
 {
+	this->_setDLib(dlib_path);
+}
+
+void		Game::_setDLib(std::string dlib_path)
+{
+	printf("%s\n", dlib_path.c_str());
 	DynamicLibHandler::instance().setHandle(dlib_path, this->_width, this->_height);
 	this->_dlib = DynamicLibHandler::instance().getLib();
 }
@@ -96,27 +103,60 @@ int			Game::collision(void)
 	return FALSE;
 }
 
-void		Game::input(int keycode)
+void		Game::_handleMovementInputs(int key)
 {
+	int		direction;
 	Snake		*snake;
 
-	// printf("key: %d\n", keycode);
 	snake = getMap()->getSnake();
+
+	if (key == KeyUp)
+		direction = NORTH;
+	else if (key == KeyDown)
+		direction = SOUTH;
+	else if (key == KeyLeft)
+		direction = WEST;
+	else if (key == KeyRight)
+		direction = EAST;
+	else
+		return ;
+
+	snake->move(direction);
+}
+
+void		Game::_handleLibSwichInputs(int key)
+{
+	std::string		lib;
+
+	if (key == KeyNum1)
+		lib = DLIB_NCURSES;
+	else if (key == KeyNum2)
+		lib = DLIB_SFML;
+	else if (key == KeyNum3)
+		lib = DLIB_GLFW;
+	else
+		return ;
+
+	this->_setDLib(lib);
+}
+
+void		Game::_handleInputs(int keycode)
+{
+	// printf("key: %d\n", keycode);
+
+	// Quit
 	if (keycode == KeyEscape)
 		this->_shouldExit = TRUE;
+
 	// Pause
 	else if (keycode == KeySpace)
 		while ((keycode = this->_dlib->getInput()) != KeySpace) {}
-	// Snake movements
-	else if (keycode == KeyUp)
-		snake->move(NORTH);
-	else if (keycode == KeyDown)
-		snake->move(SOUTH);
-	else if (keycode == KeyLeft)
-		snake->move(WEST);
-	else if (keycode == KeyRight)
-		snake->move(EAST);
 
+	// Snake movements
+	this->_handleMovementInputs(keycode);
+
+	// Lib Swiches
+	this->_handleLibSwichInputs(keycode);
 }
 
 void		Game::update(void)
@@ -129,7 +169,7 @@ void		Game::update(void)
 
 	int keycode = 0;
 	if ((keycode = this->_dlib->getInput()) != 0) {
-		this->input(keycode);
+		this->_handleInputs(keycode);
 	}
 	else
 		snake->move(snake->getDirection());

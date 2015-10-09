@@ -78,9 +78,12 @@ void					DynamicLibHandler::_destroyLib(void)
 
 	if (this->_lib)
 	{
+		printf("destroy lib\n");
 		DL_destroy = (IGraphic *(*)(IGraphic *)) dlsym(this->_handle, "destroy");
 		if (!DL_destroy)
+		{
 			handle_error(dlerror(), IS_CRITIC);
+		}
 		DL_destroy(this->_lib);
 		this->_lib = NULL;
 	}

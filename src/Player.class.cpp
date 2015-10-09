@@ -1,5 +1,6 @@
 #include "Player.class.hpp"
 #include "Snake.class.hpp"
+#include "nibbler.h"
 
 Player::Player(int x, int y)
 {

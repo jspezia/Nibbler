@@ -14,8 +14,10 @@ Sfml::Sfml(int x, int y) : _x(x), _y(y)
 	this->_init();
 }
 
-Sfml::~Sfml(void) {}
-
+Sfml::~Sfml(void)
+{
+	this->_destroy();
+}
 
 void			Sfml::_init(void)
 {
@@ -56,14 +58,13 @@ void			Sfml::_clear(void)
 
 void			Sfml::_drawSnake(Snake *snake)
 {
-
-//head
+	//head
 	sf::CircleShape	head(this->_squareSize / 2);
 	head.setFillColor(sf::Color(BLACK));
 
 	head.setPosition(snake->_head->getX() * this->_squareSize + 1, snake->_head->getY() * this->_squareSize + 1);
 	this->_win->draw(head);
-//eyes
+	//eyes
 	sf::CircleShape	eyes((this->_squareSize / 2 - 1) / 4);
 	eyes.setFillColor(sf::Color(WHITE));
 
@@ -148,7 +149,6 @@ int				Sfml::getInput(void)
 	}
 	return (0);
 }
-
 
 extern "C" IGraphic *		init(int width, int height)
 {

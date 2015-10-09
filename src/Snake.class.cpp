@@ -1,7 +1,8 @@
-#include <list>
 #include "Snake.class.hpp"
 #include "Player.class.hpp"
 #include "GameEntity.class.hpp"
+#include "nibbler.h"
+#include <list>
 
 Snake::Snake(int x, int y) : _direction(NORTH), _speed(1), _state("normal")
 {
