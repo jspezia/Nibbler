@@ -51,6 +51,8 @@ private:
 	/* graphic dynamic lib */
 	IGraphic *	_dlib;
 
+	int			_score;
+
 	/* shutdown condition */
 	bool		_shouldExit;
 

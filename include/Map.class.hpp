@@ -14,10 +14,12 @@ public:
 
 	int 						getHeight(void) const;
 	int 						getWidth(void) const;
+	int 						getScore(void) const;
 	Snake						*getSnake(void) const;
 	std::list<GameEntity *>		getApple(void) const;
 
 	void						setSnake(Snake *snake);
+	void						setScore(int score);
 
 protected:
 
@@ -29,6 +31,8 @@ private:
 	Snake						*_snake;
 	int							_width;
 	int 						_height;
+
+	int							_score;
 };
 
 std::ostream		&operator<<(std::ostream &o, Map const &i);

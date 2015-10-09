@@ -20,9 +20,6 @@ Map::Map(int width, int height) : _width(width), _height(height)
 			this->_apple.push_back(newApple);
 	}
 
-	// // init Snake
-	// this->_snake = new	Snake(width / 2, height / 2);
-
 	return;
 }
 
@@ -33,17 +30,22 @@ Map::~Map(void)
 
 /* GETTER */
 
-int			Map::getHeight(void) const
+int								Map::getHeight(void) const
 {
 	return this->_height;
 }
 
-int			Map::getWidth(void) const
+int								Map::getWidth(void) const
 {
 	return this->_width;
 }
 
-Snake			*Map::getSnake(void) const
+int								Map::getScore(void) const
+{
+	return this->_score;
+}
+
+Snake							*Map::getSnake(void) const
 {
 	return this->_snake;
 }
@@ -55,10 +57,13 @@ std::list<GameEntity *>			Map::getApple(void) const
 
 /* SETTER */
 
-void			Map::setSnake(Snake *snake)
+void							Map::setSnake(Snake *snake)
 {
 	this->_snake = snake;
 }
 
-
+void							Map::setScore(int score)
+{
+	this->_score = score;
+}
 

@@ -89,6 +89,7 @@ void            Glfw::draw(Map *map)
         this->_drawGrid();
         this->_drawApple(map->getApple());
         this->_drawSnake(map->getSnake());
+        this->_drawScore(map->getScore());
 
         glfwSwapBuffers(this->_win);
         glfwPollEvents();
@@ -130,6 +131,31 @@ void            Glfw::_drawApple(std::list<GameEntity *> apple)
         y = (*it)->getY() * this->_squareSize;
         glRecti(x + padding, y + padding, x + this->_squareSize - padding, y + this->_squareSize - padding);
     }
+}
+
+
+void            draw_text(float x, float y, std::string str, void *font)
+{
+    int     len;
+    int     i;
+
+    glRasterPos2f(x, y);
+    len = str.length();
+    i = 0;
+    while (i < len)
+    {
+        glutBitmapCharacter(font, str[i]);
+        i++;
+    }
+}
+
+void            Glfw::_drawScore(int score)
+{
+    std::string     score_str;
+
+    score_str = "SCORE: " + std::to_string(score);
+    glColor3ub(WHITE);
+    draw_text(15, 20, score_str, TEXT_FONT);
 }
 
 void            Glfw::_drawGrid()

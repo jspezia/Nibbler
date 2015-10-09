@@ -8,6 +8,8 @@
 # define MAX_WIDTH      800
 # define MAX_HEIGHT     600
 
+# define TEXT_FONT      GLUT_BITMAP_9_BY_15
+
 /*
 **      COLOR
 **                          |R|, |G|, |B|
@@ -49,7 +51,7 @@ class Glfw : public IGraphic {
         void        _drawGrid(void);
         void        _drawSnake(Snake *snake);
         void        _drawApple(std::list<GameEntity *> apple);
-        // void        _drawScore(int score);
+        void        _drawScore(int score);
         void        _init(void);
         void        _destroy(void);
         // void        _clear(void);

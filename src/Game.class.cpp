@@ -58,11 +58,12 @@ Player *	Game::getPlayer(void) const
 void		Game::init(std::string dlib_path)
 {
 	this->_setDLib(dlib_path);
+	this->_score = 0;
 }
 
 void		Game::_setDLib(std::string dlib_path)
 {
-	printf("%s\n", dlib_path.c_str());
+	printf("lib loaded: %s\n", dlib_path.c_str());
 	DynamicLibHandler::instance().setHandle(dlib_path, this->_width, this->_height);
 	this->_dlib = DynamicLibHandler::instance().getLib();
 }
@@ -97,6 +98,10 @@ int			Game::_handleCollisions(void)
 			snake->setState("grow");
 			snake->upSpeed(1);
 			(*it)->setPosition(-1, -1);
+
+			// printf("Score: %d\n", this->_score);
+			this->_score++;
+			map->setScore(this->_score);
 		}
 	}
 
@@ -142,8 +147,6 @@ void		Game::_handleLibSwichInputs(int key)
 
 void		Game::_handleInputs(int keycode)
 {
-	// printf("key: %d\n", keycode);
-
 	// Quit
 	if (keycode == KeyEscape)
 		this->_shouldExit = TRUE;
@@ -212,4 +215,5 @@ void		Game::loop(void)
 
 		Time::sleep(200 - snake->getSpeed() * 10);
 	}
+	printf("Final score: %d\n", this->_score);
 }
