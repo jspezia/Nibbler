@@ -67,7 +67,7 @@ void		Game::_setDLib(std::string dlib_path)
 	this->_dlib = DynamicLibHandler::instance().getLib();
 }
 
-int			Game::collision(void)
+int			Game::_handleCollisions(void)
 {
 	Snake		*snake;
 	Map			*map;
@@ -149,7 +149,7 @@ void		Game::_handleInputs(int keycode)
 		this->_shouldExit = TRUE;
 
 	// Pause
-	else if (keycode == KeySpace)
+	if (keycode == KeySpace)
 		while ((keycode = this->_dlib->getInput()) != KeySpace) {}
 
 	// Snake movements
@@ -199,15 +199,14 @@ void		Game::loop(void)
 	snake = new	Snake(map->getWidth() / 2, map->getHeight() / 2);
 	map->setSnake(snake);
 
-	srand(time(NULL)); //what for ?
-
+	srand(time(NULL));
 	while (!this->_shouldExit)
 	{
 		Time::update();
 
 		this->_dlib->draw(map);
 
-		this->_shouldExit = this->collision();
+		this->_shouldExit = this->_handleCollisions();
 
 		this->update();
 

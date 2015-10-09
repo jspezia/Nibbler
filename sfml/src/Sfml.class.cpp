@@ -107,7 +107,7 @@ void			Sfml::_drawApple(std::list<GameEntity *>		apple)
 
 void			Sfml::_drawGrid()
 {
-	int	margin = 0; //px
+	int	margin = 0;
 	int size = this->_squareSize - 2 * margin;
 	sf::RectangleShape	rect(sf::Vector2f(size * 4, size * 4));
 

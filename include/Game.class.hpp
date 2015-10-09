@@ -21,11 +21,9 @@ public:
 	Map *		getMap(void) const;
 	Player *	getPlayer(void) const;
 
-	int			collision(void);
-	void		update(void);
 	void		init(std::string dlib_path);
 	void		loop(void);
-
+	void		update(void);
 
 private:
 	Game(void);
@@ -33,6 +31,8 @@ private:
 	Game & operator=(Game const & ref);
 
 	void	_setDLib(std::string dlib_path);
+
+	int		_handleCollisions(void);
 
 	void	_handleMovementInputs(int key);
 	void	_handleLibSwichInputs(int key);
