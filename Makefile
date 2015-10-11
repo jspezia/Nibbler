@@ -65,8 +65,7 @@ C_WARN			=	"\033[33m"
 SUCCESS			=	$(C_GOOD)SUCCESS$(C_NO)
 OK				=	$(C_OK)OK$(C_NO)
 
-all: obj $(NAME) $(GLFW_NAME)
-# $(SFML_NAME) $(NCURSES_NAME)
+all: obj $(NAME) $(GLFW_NAME) $(SFML_NAME) $(NCURSES_NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) -o $@ $^ -I $(INCLUDE)
@@ -86,10 +85,11 @@ $(SFML_NAME): $(SFML) $(SFML_LN) $(SFML_SRCS)
 	@echo "Compiling" [ $@ ] $(SUCCESS)
 
 $(SFML_LN):
-	@ln -s ~/.brew/include/SFML sfml/include/SFML
-
+	rm sfml/include/SFML
+	##42 configuration # @ln -s ~/.brew/include/SFML sfml/include/SFML
+	@ln -s /usr/local/Cellar/sfml/2.3/include/SFML/ sfml/include/SFML
 $(SFML):
-	brew install sfml
+	#brew install sfml
 
 
 # GLFW
@@ -116,6 +116,7 @@ glfw/lib/CMakeLists.txt:
 
 $(NCURSES_NAME): $(NCURSES_SRCS)
 	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(NCURSES_INCLUDE) $(NCURSES_LIB) $(NCURSES_SRCS) obj/GameEntity.class.obj obj/Map.class.obj
+	@echo "Compiling" [ $@ ] $(SUCCESS)
 
 clean:
 	@rm -f $(OBJS)
@@ -125,8 +126,8 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@echo "Delete" [ $(NAME) ] $(OK)
-	@rm -f $(SFML_NAME)
-	@echo "Delete" [ $(SFML_NAME) ] $(OK)
+	@rm -f $(SFML_NAME) $(GLFW_NAME) $(NCURSES_NAME)
+	@echo "Delete" [ $(SFML_NAME) $(GLFW_NAME) $(NCURSES_NAME) ] $(OK)
 
 update_env:
 	sh script.sh

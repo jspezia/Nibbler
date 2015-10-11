@@ -3,8 +3,7 @@
 
 # define DLIB_PATH(X)   "libnibbler_" X ".so"
 # define DLIB_NCURSES   DLIB_PATH("ncurses")
-# define DLIB_SFML      "old_libnibbler_sfml.so"
-// # define DLIB_SFML      DLIB_PATH("sfml")
+# define DLIB_SFML      DLIB_PATH("sfml")
 # define DLIB_GLFW      DLIB_PATH("glfw")
 
 enum        e_dlib

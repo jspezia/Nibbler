@@ -28,8 +28,8 @@ void			Sfml::_init(void)
 
 void			Sfml::_destroy(void)
 {
-	if (this->_win->isOpen())
-		this->_win->close();
+//	if (this->_win->isOpen())
+//		this->_win->close();
 }
 
 /* DRAW CALLS */
@@ -47,8 +47,27 @@ void			Sfml::draw(Map *map)
 
 		this->_drawSnake(map->getSnake());
 
+		this->_drawScore(map->getScore());
+
 		this->_win->display();
 	}
+}
+
+void			Sfml::_drawScore(int score)
+{
+	sf::Text		text;
+	sf::Font		font;
+
+
+if (!font.loadFromFile("sfml/arial.ttf"))
+{
+    printf("unable to open file\n");
+}
+	text.setFont(font);
+	text.setString("SCORE: " + std::to_string(score));
+	text.setCharacterSize(24);
+	text.setColor(sf::Color::Black);
+	this->_win->draw(text);
 }
 
 void			Sfml::_clear(void)
@@ -137,7 +156,6 @@ int				Sfml::getInput(void)
 		switch (event.type)
 		{
 			case sf::Event::Closed:
-				this->_win->close();
 				return sf::Keyboard::Escape;
 				break;
 			case sf::Event::KeyPressed:
