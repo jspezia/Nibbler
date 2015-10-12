@@ -21,6 +21,12 @@ class Ncurses : public IGraphic {
 		Ncurses(Ncurses const & ref);
 		Ncurses & operator=(Ncurses const & ref);
 
+
+		void		_drawSnake(Snake *snake);
+		void		_drawScore(int score);
+		void		_drawApple(std::list<GameEntity *>		apple);
+		void		_drawObstacles(std::list<GameEntity *>	obst);
+
 		void		_drawEdge(void);
 
 		int		_x;
