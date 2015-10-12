@@ -71,10 +71,16 @@ void		Game::_setDLib(std::string dlib_path)
 	}
 
 	this->_currentDLib = dlib_path;
-	DynamicLibHandler::instance().setHandle(dlib_path, this->_width, this->_height);
+	try {
+		DynamicLibHandler::instance().setHandle(dlib_path, this->_width, this->_height);
+	}
+	catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
+		exit(0);
+	}
+
 	this->_dlib = DynamicLibHandler::instance().getLib();
 
-	printf("init lib\n");
 	this->_dlib->init();
 }
 

@@ -51,7 +51,6 @@ void			Sfml::_drawScore(int score)
 	sf::Text		text;
 	sf::Font		font;
 
-
 	if (!font.loadFromFile("sfml/arial.ttf"))
 		printf("unable to open file\n");
 
