@@ -6,6 +6,8 @@
 # define DLIB_SFML      DLIB_PATH("sfml")
 # define DLIB_GLFW      DLIB_PATH("glfw")
 
+# define DLIB_DEFAULT   DLIB_GLFW
+
 enum        e_dlib
 {
     NCURSES,
