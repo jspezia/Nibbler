@@ -169,27 +169,18 @@ void            Glfw::_drawGrid()
 int             Glfw::getInput(void)
 {
     // printf("getInput %d\n", g_keycode);
-
-    if (g_keycode == GLFW_KEY_UP)
-        return KeyUp;
-    if (g_keycode == GLFW_KEY_DOWN)
-        return KeyDown;
-    if (g_keycode == GLFW_KEY_RIGHT)
-        return KeyRight;
-    if (g_keycode == GLFW_KEY_LEFT)
-        return KeyLeft;
-    if (g_keycode == GLFW_KEY_ESCAPE)
-        return KeyEscape;
-    if (g_keycode == GLFW_KEY_SPACE) {
-        return KeySpace;
+    switch (g_keycode) {
+        case GLFW_KEY_UP:       return KeyUp;       break;
+        case GLFW_KEY_DOWN:     return KeyDown;     break;
+        case GLFW_KEY_RIGHT:    return KeyRight;    break;
+        case GLFW_KEY_LEFT:     return KeyLeft;     break;
+        case GLFW_KEY_ESCAPE:   return KeyEscape;   break;
+        case GLFW_KEY_SPACE:    return KeySpace;    break;
+        case GLFW_KEY_1:        return KeyNum1;     break;
+        case GLFW_KEY_2:        return KeyNum2;     break;
+        case GLFW_KEY_3:        return KeyNum3;     break;
+        default:                return 0;
     }
-    if (g_keycode == GLFW_KEY_1)
-        return KeyNum1;
-    if (g_keycode == GLFW_KEY_2)
-        return KeyNum2;
-    if (g_keycode == GLFW_KEY_3)
-        return KeyNum3;
-
     return 0;
 }
 
