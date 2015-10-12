@@ -57,11 +57,21 @@ void		Ncurses::_drawEdge()
 	mvprintw(this->_x + 1, 2 * this->_y + 1, "+");
 }
 
+void		Ncurses::_drawBonus(GameEntity * bonus)
+{
+	attrset(COLOR_PAIR(6));
+	if (bonus->getY() != -1 && bonus->getX() != -1) {
+		mvprintw(bonus->getY() + 1, 2 * bonus->getX() + 1, "[");
+		mvprintw(bonus->getY() + 1, 2 * bonus->getX() + 2, "]");
+	}
+	attrset(COLOR_PAIR(1));
+}
+
 void		Ncurses::_drawApple(std::list<GameEntity *>		apple)
 {
 	attrset(COLOR_PAIR(2));
 	for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++) {
-		if ((*it)->getY() != -1 and (*it)->getX() != -1) {
+		if ((*it)->getY() != -1 && (*it)->getX() != -1) {
 			mvprintw((*it)->getY() + 1, 2 * (*it)->getX() + 1, "(");
 			mvprintw((*it)->getY() + 1, 2 * (*it)->getX() + 2, ")");
 		}
@@ -84,7 +94,7 @@ void		Ncurses::_drawSnake(Snake *snake)
 
 void		Ncurses::_drawObstacles(std::list<GameEntity *> obst)
 {
-	attrset(COLOR_PAIR(6));
+	attrset(COLOR_PAIR(3));
 	for (std::list<GameEntity *>::iterator it = obst.begin(); it != obst.end(); it++) {
 		mvprintw((*it)->getY() + 1, 2 * (*it)->getX() + 1, "[");
 		mvprintw((*it)->getY() + 1, 2 * (*it)->getX() + 2, "]");
@@ -106,6 +116,7 @@ void		Ncurses::draw(Map *map)
 {
 	clear();
 	this->_drawEdge();
+	this->_drawBonus(map->getBonus());
 	this->_drawApple(map->getApple());
 	this->_drawObstacles(map->getObstacles());
 	this->_drawSnake(map->getSnake());

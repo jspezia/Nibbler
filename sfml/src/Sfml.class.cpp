@@ -39,6 +39,7 @@ void			Sfml::draw(Map *map)
 
 		this->_drawGrid();
 		this->_drawApple(map->getApple());
+		this->_drawBonus(map->getBonus());
 		this->_drawObstacles(map->getObstacles());
 		this->_drawSnake(map->getSnake());
 		this->_drawScore(map->getScore());
@@ -58,7 +59,7 @@ void			Sfml::_drawScore(int score)
 	text.setFont(font);
 	text.setString("SCORE: " + std::to_string(score));
 	text.setCharacterSize(24);
-	text.setColor(sf::Color::Black);
+	text.setColor(sf::Color::White);
 	this->_win->draw(text);
 }
 
@@ -114,6 +115,23 @@ void			Sfml::_drawObstacles(std::list<GameEntity *>		obst)
 		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
 		this->_win->draw(shape);
 	}
+}
+
+void			Sfml::_drawBonus(GameEntity *		bonus)
+{
+	sf::CircleShape	shape(this->_squareSize / 2, 8);
+	sf::CircleShape	leaf(this->_squareSize / 8, 4);
+	sf::CircleShape	leaf2(this->_squareSize / 6, 4);
+	shape.setFillColor(sf::Color(CYAN));
+	leaf.setFillColor(sf::Color(PINK));
+	leaf2.setFillColor(sf::Color(PINK));
+
+	shape.setPosition(bonus->getX() * this->_squareSize + 1, bonus->getY() * this->_squareSize + 1);
+	this->_win->draw(shape);
+	leaf.setPosition(bonus->getX() * this->_squareSize + 1 + this->_squareSize / 4, bonus->getY() * this->_squareSize + 1);
+	this->_win->draw(leaf);
+	leaf2.setPosition(bonus->getX() * this->_squareSize + 1 + this->_squareSize / 2, bonus->getY() * this->_squareSize + 1);
+	this->_win->draw(leaf2);
 }
 
 void			Sfml::_drawApple(std::list<GameEntity *>		apple)

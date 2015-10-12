@@ -84,6 +84,7 @@ void            Glfw::draw(Map *map)
 
     // Render
     this->_drawGrid();
+    this->_drawBonus(map->getBonus());
     this->_drawApple(map->getApple());
     this->_drawObstacles(map->getObstacles());
     this->_drawSnake(map->getSnake());
@@ -127,6 +128,18 @@ void            Glfw::_drawObstacles(std::list<GameEntity *> obst)
         y = (*it)->getY() * this->_squareSize;
         glRecti(x, y, x + this->_squareSize, y + this->_squareSize);
     }
+}
+
+void            Glfw::_drawBonus(GameEntity * bonus)
+{
+    int   x;
+    int   y;
+    int   padding = 3;
+
+    glColor3ub(CYAN);
+    x = bonus->getX() * this->_squareSize;
+    y = bonus->getY() * this->_squareSize;
+    glRecti(x + padding, y + padding, x + this->_squareSize - padding, y + this->_squareSize - padding);
 }
 
 void            Glfw::_drawApple(std::list<GameEntity *> apple)

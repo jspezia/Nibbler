@@ -246,7 +246,6 @@ void		Game::update(void)
 	if (timeout && ts > timeout) {
 		bonus->setPosition(-1, -1);
 		timeout = 0;
-		printf("TIMEOUT\n");
 	}
 
 	if (bonus->getX() == -1 && !(ts % 100)) {
@@ -258,7 +257,7 @@ void		Game::update(void)
 			y = rand() % map->getHeight();
 		}
 
-		timeout = ts + 5000; // 5sec
+		timeout = ts + (map->getWidth() * 1000 / 4);
 		bonus->setPosition(x, y);
 	}
 

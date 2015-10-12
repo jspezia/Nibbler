@@ -52,6 +52,7 @@ class Glfw : public IGraphic {
 
         void        _drawGrid(void);
         void        _drawSnake(Snake *snake);
+        void        _drawBonus(GameEntity *bonus);
         void        _drawApple(std::list<GameEntity *> apple);
         void        _drawObstacles(std::list<GameEntity *> obst);
         void        _drawScore(int score);
