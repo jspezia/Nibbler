@@ -16,13 +16,14 @@ SRCS				=	$(patsubst %, src/%, $(SRC))
 OBJS				=	$(SRCS:src/%.cpp=obj/%.obj)
 
 # necessary files for sfml
-BREW_INCLUDE		=	~/.brew/include
-SFML_LIBS			=	~/.brew/lib -lsfml-graphics -lsfml-window -lsfml-system
-SFML				=	~/.brew/lib/libsfml-audio*						\
-						~/.brew/lib/libsfml-graphics*					\
-						~/.brew/lib/libsfml-network*					\
-						~/.brew/lib/libsfml-system*						\
-						~/.brew/lib/libsfml-window*
+BREW				=	/usr/local/bin/brew
+BREW_INCLUDE		=	$(BREW)/include
+SFML_LIBS			=	$(BREW)/lib -lsfml-graphics -lsfml-window -lsfml-system
+SFML				=	$(BREW)/lib/libsfml-audio*						\
+						$(BREW)/lib/libsfml-graphics*					\
+						$(BREW)/lib/libsfml-network*					\
+						$(BREW)/lib/libsfml-system*						\
+						$(BREW)/lib/libsfml-window*
 
 
 # SFML
@@ -32,12 +33,14 @@ SFML_SRC			=	Sfml.class.cpp
 SFML_SRCS			=	$(patsubst %, sfml/src/%, $(SFML_SRC))
 SFML_LN				=	sfml/include/SFML
 
+
 # NCURSES
 NCURSES_NAME		=	libnibbler_ncurses.so
 NCURSES_LIB			=	-lncurses
 NCURSES_INCLUDE		=	ncurses/include
 NCURSES_SRC			=	Ncurses.class.cpp
 NCURSES_SRCS		=	$(patsubst %, ncurses/src/%, $(NCURSES_SRC))
+
 
 # GLFW
 CMAKE				=	cmake
@@ -51,8 +54,6 @@ GLFW_SRCS			=	$(patsubst %, glfw/src/%, $(GLFW_SRC))
 GLFW_LN				=	glfw/include/GLFW
 
 FRAMEWORK			= -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo -framework GLUT
-# LDFLAGS				= -L $(GLFW_LIB_DIR)/src -lglfw3 $(FRAMEWORK)
-# CFLAGS				= -I $(GLFW_LIB_DIR)/include/GLFW -Wno-deprecated
 
 # COLORS
 C_NO			=	"\033[00m"
@@ -89,13 +90,13 @@ $(SFML_LN):
 	##42 configuration # @ln -s ~/.brew/include/SFML sfml/include/SFML
 	@ln -s /usr/local/Cellar/sfml/2.3/include/SFML/ sfml/include/SFML
 $(SFML):
-	#brew install sfml
+	@#brew install sfml
 
 
 # GLFW
 
 $(GLFW_NAME): $(CMAKE) glfw/lib/CMakeLists.txt $(GLFW_LIB)
-	$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(GLFW_INCLUDE) -L $(GLFW_LIB_DIR)/src -lglfw3 $(FRAMEWORK) -I $(GLFW_LIB_DIR)/include/GLFW $(GLFW_SRCS) obj/GameEntity.class.obj obj/Map.class.obj
+	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(GLFW_INCLUDE) -L $(GLFW_LIB_DIR)/src -lglfw3 $(FRAMEWORK) -I $(GLFW_LIB_DIR)/include/GLFW $(GLFW_SRCS) obj/GameEntity.class.obj obj/Map.class.obj
 	@echo "Compiling" [ $@ ] $(SUCCESS)
 
 $(GLFW_LIB):
@@ -104,8 +105,8 @@ $(GLFW_LIB):
 	make
 
 $(CMAKE):
-	#brew update
-	#brew install cmake
+	@#brew update
+	@#brew install cmake
 
 glfw/lib/CMakeLists.txt:
 	git submodule init

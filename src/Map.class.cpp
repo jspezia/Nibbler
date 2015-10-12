@@ -8,8 +8,6 @@
 
 Map::Map(int width, int height) : _width(width), _height(height)
 {
-	std::cout << "Map creation" << std::endl;
-
 	// init Apples
 	for (int i = 0; i < 5; i++)
 	{
@@ -25,7 +23,7 @@ Map::Map(int width, int height) : _width(width), _height(height)
 
 Map::~Map(void)
 {
-	return;
+	return ;
 }
 
 /* GETTER */
