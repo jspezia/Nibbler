@@ -227,7 +227,6 @@ void		Game::loop(void)
 	snake = new	Snake(map->getWidth() / 2, map->getHeight() / 2);
 	map->setSnake(snake);
 
-	srand(time(NULL));
 	while (!this->_shouldExit)
 	{
 		Time::update();

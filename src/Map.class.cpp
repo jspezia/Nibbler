@@ -18,6 +18,7 @@ Map::Map(int width, int height) : _width(width), _height(height)
 	}
 
 	// init Obstacles
+	srand(time(NULL));
 	int	n = width / 2;
 	for (int i = 0; i < n; i++)
 	{
