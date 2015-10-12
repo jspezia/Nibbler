@@ -16,6 +16,7 @@ class Ncurses : public IGraphic {
 		int		getInput(void);
 		void	close(void);
 
+		WINDOW	*_win;
 	private:
 		Ncurses(void);
 		Ncurses(Ncurses const & ref);
