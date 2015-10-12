@@ -10,43 +10,36 @@ Sfml::Sfml(int x, int y) : _x(x), _y(y)
 
 	this->_winWidth = this->_squareSize * x;
 	this->_winHeight = this->_squareSize * y;
-
-	this->_init();
+	this->_win = NULL;
 }
 
 Sfml::~Sfml(void)
 {
-	this->_destroy();
+
 }
 
-void			Sfml::_init(void)
+void			Sfml::init(void)
 {
 	this->_win = new sf::RenderWindow(sf::VideoMode(this->_winWidth, this->_winHeight), "Nibbler");
 	this->_win->setKeyRepeatEnabled(false);
 	this->_clear();
 }
 
-void			Sfml::_destroy(void)
+void			Sfml::close(void)
 {
 	if (this->_win->isOpen())
 		this->_win->close();
 }
 
-/* DRAW CALLS */
 void			Sfml::draw(Map *map)
 {
 	if (this->_win->isOpen())
 	{
-		//clear window
 		this->_clear();
 
-		//draw background (grid)
 		this->_drawGrid();
-
 		this->_drawApple(map->getApple());
-
 		this->_drawSnake(map->getSnake());
-
 		this->_drawScore(map->getScore());
 
 		this->_win->display();
@@ -59,10 +52,9 @@ void			Sfml::_drawScore(int score)
 	sf::Font		font;
 
 
-if (!font.loadFromFile("sfml/arial.ttf"))
-{
-    printf("unable to open file\n");
-}
+	if (!font.loadFromFile("sfml/arial.ttf"))
+		printf("unable to open file\n");
+
 	text.setFont(font);
 	text.setString("SCORE: " + std::to_string(score));
 	text.setCharacterSize(24);
@@ -83,6 +75,7 @@ void			Sfml::_drawSnake(Snake *snake)
 
 	head.setPosition(snake->_head->getX() * this->_squareSize + 1, snake->_head->getY() * this->_squareSize + 1);
 	this->_win->draw(head);
+
 	//eyes
 	sf::CircleShape	eyes((this->_squareSize / 2 - 1) / 4);
 	eyes.setFillColor(sf::Color(WHITE));
@@ -105,7 +98,6 @@ void			Sfml::_drawSnake(Snake *snake)
 
 void			Sfml::_drawApple(std::list<GameEntity *>		apple)
 {
-	//draw 1 circle && 2 lozenge
 	sf::CircleShape	shape(this->_squareSize / 2, 8);
 	sf::CircleShape	leaf(this->_squareSize / 8, 4);
 	sf::CircleShape	leaf2(this->_squareSize / 6, 4);
@@ -146,7 +138,6 @@ void			Sfml::_drawGrid()
 	}
 }
 
-/* INPUT EVENTS */
 int				Sfml::getInput(void)
 {
 	sf::Event event;

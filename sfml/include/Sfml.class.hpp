@@ -41,21 +41,21 @@ class Sfml : public IGraphic {
 		Sfml(int width, int height);
 		~Sfml(void);
 
+		void	init(void);
 		void	draw(Map *map);
 		int		getInput(void);
+		void	close(void);
 
 	private:
 		Sfml(void);
 		Sfml(Sfml const & ref);
 		Sfml &	operator=(Sfml const & ref);
 
+		void		_clear(void);
+		void		_drawGrid(void);
 		void		_drawSnake(Snake *snake);
 		void		_drawScore(int score);
 		void		_drawApple(std::list<GameEntity *>		apple);
-		void		_init(void);
-		void		_destroy(void);
-		void		_clear(void);
-		void		_drawGrid(void);
 
 		int					_x;
 		int					_y;
@@ -63,9 +63,8 @@ class Sfml : public IGraphic {
 		int					_squareSize;
 		int					_winWidth;
 		int					_winHeight;
-		// sf::Font *			_font;
-		sf::RenderWindow *	_win;
 
+		sf::RenderWindow *	_win;
 };
 
 #endif

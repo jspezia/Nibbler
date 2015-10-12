@@ -34,12 +34,12 @@
 Game::Game(int const width, int const height) : _width(width), _height(height), _shouldExit(false)
 {
 	this->_map = new Map(width, height);
+	this->_dlib = NULL;
 }
 
 
 Game::~Game(void)
 {
-	// delete all
 	delete this->_map;
 }
 
@@ -63,10 +63,19 @@ void		Game::init(std::string dlib_path)
 
 void		Game::_setDLib(std::string dlib_path)
 {
-	printf("lib loaded: %s\n", dlib_path.c_str());
+	printf("lib loaded: %s\n", dlib_path.c_str()); //
+
+	if (this->_dlib)
+	{
+		this->_dlib->close();
+	}
+
 	this->_currentDLib = dlib_path;
 	DynamicLibHandler::instance().setHandle(dlib_path, this->_width, this->_height);
 	this->_dlib = DynamicLibHandler::instance().getLib();
+
+	printf("init lib\n");
+	this->_dlib->init();
 }
 
 int			Game::_handleCollisions(void)
@@ -115,16 +124,13 @@ void		Game::_handleMovementInputs(int key)
 
 	snake = getMap()->getSnake();
 
-	if (key == KeyUp)
-		direction = NORTH;
-	else if (key == KeyDown)
-		direction = SOUTH;
-	else if (key == KeyLeft)
-		direction = WEST;
-	else if (key == KeyRight)
-		direction = EAST;
-	else
-		return ;
+	switch (key) {
+		case KeyUp: direction = NORTH; break;
+		case KeyDown: direction = SOUTH; break;
+		case KeyLeft: direction = WEST; break;
+		case KeyRight: direction = EAST; break;
+		default: return ;
+	}
 
 	snake->move(direction);
 }
@@ -133,14 +139,12 @@ void		Game::_handleLibSwichInputs(int key)
 {
 	std::string		lib;
 
-	if (key == KeyNum1)
-		lib = DLIB_NCURSES;
-	else if (key == KeyNum2)
-		lib = DLIB_SFML;
-	else if (key == KeyNum3)
-		lib = DLIB_GLFW;
-	else
-		return ;
+	switch (key) {
+		case KeyNum1: lib = DLIB_NCURSES; break;
+		case KeyNum2: lib = DLIB_SFML; break;
+		case KeyNum3: lib = DLIB_GLFW; break;
+		default: return ;
+	}
 
 	if (lib == this->_currentDLib)
 		return ;
@@ -181,8 +185,8 @@ void		Game::update(void)
 		snake->move(snake->getDirection());
 
 	// Apple generation (at least 1 and more in random)
-	std::list<GameEntity *>			apple = map->getApple();
-	std::list<GameEntity *>::iterator it = apple.begin();
+	std::list<GameEntity *>				apple = map->getApple();
+	std::list<GameEntity *>::iterator	it = apple.begin();
 	if ((*it)->getX() == -1)
 		(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
 	if ((Time::getTime() % 100) == 0) {
@@ -218,5 +222,7 @@ void		Game::loop(void)
 
 		Time::sleep(200 - snake->getSpeed() * 10);
 	}
+	this->_dlib->close();
+
 	printf("Final score: %d\n", this->_score);
 }

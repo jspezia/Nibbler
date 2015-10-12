@@ -42,8 +42,10 @@ class Glfw : public IGraphic {
         Glfw(int width, int height);
         ~Glfw(void);
 
+        void    init(void);
         void    draw(Map *map);
         int     getInput(void);
+        void    close(void);
 
     private:
         Glfw(void);
@@ -52,9 +54,6 @@ class Glfw : public IGraphic {
         void        _drawSnake(Snake *snake);
         void        _drawApple(std::list<GameEntity *> apple);
         void        _drawScore(int score);
-        void        _init(void);
-        void        _destroy(void);
-        // void        _clear(void);
 
         int                 _x;
         int                 _y;

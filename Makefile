@@ -85,7 +85,7 @@ $(SFML_NAME): $(SFML) $(SFML_LN) $(SFML_SRCS)
 	@echo "Compiling" [ $@ ] $(SUCCESS)
 
 $(SFML_LN):
-	rm sfml/include/SFML
+	@rm -f sfml/include/SFML
 	##42 configuration # @ln -s ~/.brew/include/SFML sfml/include/SFML
 	@ln -s /usr/local/Cellar/sfml/2.3/include/SFML/ sfml/include/SFML
 $(SFML):

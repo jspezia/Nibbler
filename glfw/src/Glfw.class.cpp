@@ -10,13 +10,11 @@ Glfw::Glfw(int x, int y) : _x(x), _y(y)
 
     this->_winWidth = this->_squareSize * x;
     this->_winHeight = this->_squareSize * y;
-
-    this->_init();
 }
 
 Glfw::~Glfw(void)
 {
-    this->_destroy();
+
 }
 
 static void     error_callback(int error, const char* description)
@@ -33,7 +31,7 @@ static void     key_callback(GLFWwindow* window, int key, int scancode, int acti
         g_keycode = key;
 }
 
-void            Glfw::_init(void)
+void            Glfw::init(void)
 {
     GLFWwindow* window;
 
@@ -57,10 +55,10 @@ void            Glfw::_init(void)
     this->_win = window;
 }
 
-void            Glfw::_destroy(void)
+void            Glfw::close(void)
 {
-    printf("GLFW _destroy call\n");
-    glfwDestroyWindow(this->_win);
+    if (this->_win)
+        glfwDestroyWindow(this->_win);
     glfwTerminate();
 }
 
@@ -79,22 +77,19 @@ void            reset_viewport(GLFWwindow *window)
 
 void            Glfw::draw(Map *map)
 {
-    if (!glfwWindowShouldClose(this->_win))
-    {
-        reset_viewport(this->_win);
-        g_keycode = 0;
+    reset_viewport(this->_win);
+    g_keycode = 0;
 
-        glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_MODELVIEW);
 
-        // Render
-        this->_drawGrid();
-        this->_drawApple(map->getApple());
-        this->_drawSnake(map->getSnake());
-        this->_drawScore(map->getScore());
+    // Render
+    this->_drawGrid();
+    this->_drawApple(map->getApple());
+    this->_drawSnake(map->getSnake());
+    this->_drawScore(map->getScore());
 
-        glfwSwapBuffers(this->_win);
-        glfwPollEvents();
-    }
+    glfwSwapBuffers(this->_win);
+    glfwPollEvents();
 }
 
 void            Glfw::_drawSnake(Snake *snake)

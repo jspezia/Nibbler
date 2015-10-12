@@ -2,19 +2,20 @@
 
 Ncurses::Ncurses(int x, int y) : _x(x), _y(y)
 {
-	this->_init();
+
 }
 
-Ncurses::~Ncurses(void) {
-	this->_destroy();
+Ncurses::~Ncurses(void)
+{
+
 }
 
-void		Ncurses::_init(void)
+void		Ncurses::init(void)
 {
 	initscr();
 }
 
-void		Ncurses::_destroy(void)
+void		Ncurses::close(void)
 {
 	endwin();
 }

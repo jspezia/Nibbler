@@ -11,18 +11,16 @@ class Ncurses : public IGraphic {
 		Ncurses(int width, int height);
 		~Ncurses(void);
 
+		void	init(void);
 		void	draw(Map *map);
 		int		getInput(void);
-
-
+		void	close(void);
 
 	private:
 		Ncurses(void);
 		Ncurses(Ncurses const & ref);
 		Ncurses & operator=(Ncurses const & ref);
 
-		void		_init(void);
-		void		_destroy(void);
 		void		_drawEdge(void);
 
 		int		_x;
