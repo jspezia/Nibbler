@@ -180,8 +180,9 @@ int             Glfw::getInput(void)
         return KeyLeft;
     if (g_keycode == GLFW_KEY_ESCAPE)
         return KeyEscape;
-    if (g_keycode == GLFW_KEY_SPACE)
+    if (g_keycode == GLFW_KEY_SPACE) {
         return KeySpace;
+    }
     if (g_keycode == GLFW_KEY_1)
         return KeyNum1;
     if (g_keycode == GLFW_KEY_2)

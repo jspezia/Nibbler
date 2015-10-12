@@ -35,6 +35,7 @@ Game::Game(int const width, int const height) : _width(width), _height(height), 
 {
 	this->_map = new Map(width, height);
 	this->_dlib = NULL;
+	this->_isPaused = FALSE;
 }
 
 
@@ -84,7 +85,7 @@ void		Game::_setDLib(std::string dlib_path)
 	this->_dlib->init();
 }
 
-int			Game::_handleCollisions(void)
+void		Game::_handleCollisions(void)
 {
 	Snake		*snake;
 	Map			*map;
@@ -96,14 +97,16 @@ int			Game::_handleCollisions(void)
 	if (snake->_head->getX() < 0  || snake->_head->getX() > map->getWidth() - 1
 		|| snake->_head->getY() < 0 || snake->_head->getY() > map->getHeight() - 1) {
 		printf("bang the wall.\n GAME OVER ! \n");
-		return TRUE;
+		this->_shouldExit = TRUE;
+		return ;
 	}
 
 	// with himself
 	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++) {
 		if ((*it)->getX() == snake->_head->getX() && (*it)->getY() == snake->_head->getY()) {
 			printf("the head in the ass\n GAME OVER ! \n");
-			return TRUE;
+			this->_shouldExit = TRUE;
+			return ;
 		}
 	}
 
@@ -119,8 +122,6 @@ int			Game::_handleCollisions(void)
 			map->setScore(this->_score);
 		}
 	}
-
-	return FALSE;
 }
 
 void		Game::_handleMovementInputs(int key)
@@ -138,7 +139,7 @@ void		Game::_handleMovementInputs(int key)
 		default: return ;
 	}
 
-	snake->move(direction);
+	snake->setDirection(direction);
 }
 
 void		Game::_handleLibSwichInputs(int key)
@@ -162,14 +163,18 @@ void		Game::_handleInputs(int keycode)
 {
 	// Quit
 	if (keycode == KeyEscape)
-		this->_shouldExit = TRUE;
+	{
+		printf("QUIT\n");
+		exit(EXIT_SUCCESS);
+	}
 
 	// Pause
 	if (keycode == KeySpace)
-		while ((keycode = this->_dlib->getInput()) != KeySpace) {}
+		this->_isPaused = !this->_isPaused;
 
 	// Snake movements
-	this->_handleMovementInputs(keycode);
+	if (!this->_isPaused)
+		this->_handleMovementInputs(keycode);
 
 	// Lib Swiches
 	this->_handleLibSwichInputs(keycode);
@@ -183,12 +188,7 @@ void		Game::update(void)
 	map = getMap();
 	snake = getMap()->getSnake();
 
-	int keycode = 0;
-	if ((keycode = this->_dlib->getInput()) != 0) {
-		this->_handleInputs(keycode);
-	}
-	else
-		snake->move(snake->getDirection());
+	snake->move();
 
 	// Apple generation (at least 1 and more in random)
 	std::list<GameEntity *>				apple = map->getApple();
@@ -204,6 +204,8 @@ void		Game::update(void)
 			it++;
 		}
 	}
+
+	this->_handleCollisions();
 }
 
 void		Game::loop(void)
@@ -220,11 +222,12 @@ void		Game::loop(void)
 	{
 		Time::update();
 
+		this->_handleInputs(this->_dlib->getInput());
+
+		if (!this->_isPaused)
+			this->update();
+
 		this->_dlib->draw(map);
-
-		this->_shouldExit = this->_handleCollisions();
-
-		this->update();
 
 		Time::sleep(200 - snake->getSpeed() * 10);
 	}

@@ -17,10 +17,10 @@ enum        e_dlib
 
 enum        e_direction
 {
-    NORTH = 0, /*    N    */
-    EAST  = 1, /*  W + E  */
-    SOUTH = 2, /*    S    */
-    WEST  = 3  /*         */
+    NORTH = -2,
+    WEST  = -1,
+    EAST  =  1,
+    SOUTH =  2
 };
 
 #endif

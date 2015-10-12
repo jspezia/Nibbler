@@ -5,7 +5,6 @@
 #include "Map.class.hpp"
 #include "Lib.hpp"
 
-
 Map::Map(int width, int height) : _width(width), _height(height)
 {
 	// init Apples
@@ -17,6 +16,8 @@ Map::Map(int width, int height) : _width(width), _height(height)
 		if (newApple)
 			this->_apple.push_back(newApple);
 	}
+
+	this->_score = 0;
 
 	return;
 }

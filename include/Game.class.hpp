@@ -32,7 +32,7 @@ private:
 
 	void	_setDLib(std::string dlib_path);
 
-	int		_handleCollisions(void);
+	void	_handleCollisions(void);
 
 	void	_handleMovementInputs(int key);
 	void	_handleLibSwichInputs(int key);
@@ -53,6 +53,8 @@ private:
 	std::string	_currentDLib;
 
 	int			_score;
+
+	bool		_isPaused;
 
 	/* shutdown condition */
 	bool		_shouldExit;

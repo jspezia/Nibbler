@@ -46,6 +46,8 @@ std::string	Snake::getState(void) const
 /* SETTERS */
 void		Snake::setDirection(int const direction)
 {
+	if (direction == -this->_direction)
+		return ;
 	this->_direction = direction;
 }
 
@@ -59,7 +61,7 @@ void		Snake::upSpeed(int const speed)
 	this->_speed += speed;
 }
 
-void		Snake::move(int const direction)
+void		Snake::move(void)
 {
 	if (this->_state == "normal")
 		this->_body.pop_back();
@@ -70,40 +72,12 @@ void		Snake::move(int const direction)
 	newBodyPart = new GameEntity(this->_head->_x, this->_head->_y);
 	this->_body.push_front(newBodyPart);
 
-	if (direction == NORTH){
-		if (this->_direction != SOUTH){
-			this->_head->_y -= 1;
-			this->_direction = direction;
-		}
-		else
-			this->_head->_y += 1;
-	}
-	else if (direction == SOUTH)
-	{
-		if (this->_direction != NORTH) {
-			this->_head->_y += 1;
-			this->_direction = direction;
-		}
-		else
-			this->_head->_y -= 1;
-	}
-	else if (direction == EAST)
-	{
-		if (this->_direction != WEST) {
-			this->_head->_x += 1;
-			this->_direction = direction;
-		}
-		else
-			this->_head->_x -= 1;
-	}
-	else if (direction == WEST)
-	{
-		if (this->_direction != EAST) {
-			this->_head->_x -= 1;
-			this->_direction = direction;
-		}
-		else
-			this->_head->_x += 1;
+	switch (this->_direction) {
+		case NORTH:	this->_head->_y -= 1; break;
+		case SOUTH:	this->_head->_y += 1; break;
+		case WEST:	this->_head->_x -= 1; break;
+		case EAST:	this->_head->_x += 1; break;
+		default: return ;
 	}
 }
 

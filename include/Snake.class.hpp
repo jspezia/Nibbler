@@ -22,7 +22,7 @@ public:
 	void		upSpeed(int const speed);
 
 	void		init(int x, int y);
-	void		move(int const direction);
+	void		move(void);
 
 	GameEntity *				_head;
 	std::list<GameEntity *>		_body;
