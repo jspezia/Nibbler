@@ -96,7 +96,7 @@ void		Game::_handleCollisions(void)
 	// with the edge
 	if (snake->_head->getX() < 0  || snake->_head->getX() > map->getWidth() - 1
 		|| snake->_head->getY() < 0 || snake->_head->getY() > map->getHeight() - 1) {
-		printf("bang the wall.\n GAME OVER ! \n");
+		printf("GAME OVER! (bang the wall)\n");
 		this->_shouldExit = TRUE;
 		return ;
 	}
@@ -104,7 +104,7 @@ void		Game::_handleCollisions(void)
 	// with himself
 	for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++) {
 		if ((*it)->getX() == snake->_head->getX() && (*it)->getY() == snake->_head->getY()) {
-			printf("the head in the ass\n GAME OVER ! \n");
+			printf("GAME OVER! (the head in the ass)\n");
 			this->_shouldExit = TRUE;
 			return ;
 		}
