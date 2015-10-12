@@ -17,8 +17,22 @@ Map::Map(int width, int height) : _width(width), _height(height)
 			this->_apple.push_back(newApple);
 	}
 
-	this->_score = 0;
+	// init Obstacles
+	int	n = width / 2;
+	for (int i = 0; i < n; i++)
+	{
+		GameEntity *	newObstacle;
 
+		int x = rand() % width;
+		int y = rand() % height;
+		if (x != width / 2) {
+			newObstacle = new GameEntity(x, y, "obstacle");
+			if (newObstacle)
+				this->_obstacles.push_back(newObstacle);
+		}
+	}
+
+	this->_score = 0;
 	return;
 }
 
@@ -52,6 +66,11 @@ Snake							*Map::getSnake(void) const
 std::list<GameEntity *>			Map::getApple(void) const
 {
 	return this->_apple;
+}
+
+std::list<GameEntity *>			Map::getObstacles(void) const
+{
+	return this->_obstacles;
 }
 
 /* SETTER */

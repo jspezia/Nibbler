@@ -17,6 +17,7 @@ public:
 	int 						getScore(void) const;
 	Snake						*getSnake(void) const;
 	std::list<GameEntity *>		getApple(void) const;
+	std::list<GameEntity *>		getObstacles(void) const;
 
 	void						setSnake(Snake *snake);
 	void						setScore(int score);
@@ -28,6 +29,8 @@ private:
 	Map &	operator=(Map const & ref);
 
 	std::list<GameEntity *>		_apple;
+	std::list<GameEntity *>		_obstacles;
+
 	Snake						*_snake;
 	int							_width;
 	int 						_height;

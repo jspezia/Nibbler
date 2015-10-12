@@ -39,6 +39,7 @@ void			Sfml::draw(Map *map)
 
 		this->_drawGrid();
 		this->_drawApple(map->getApple());
+		this->_drawObstacles(map->getObstacles());
 		this->_drawSnake(map->getSnake());
 		this->_drawScore(map->getScore());
 
@@ -94,6 +95,25 @@ void			Sfml::_drawSnake(Snake *snake)
 	}
 }
 
+void			Sfml::_drawObstacles(std::list<GameEntity *>		obst)
+{
+	sf::CircleShape	shape(this->_squareSize / 2, 8);
+	sf::CircleShape	leaf(this->_squareSize / 8, 4);
+	sf::CircleShape	leaf2(this->_squareSize / 6, 4);
+	shape.setFillColor(sf::Color(RED));
+	leaf.setFillColor(sf::Color(RED));
+	leaf2.setFillColor(sf::Color(RED));
+
+	for (std::list<GameEntity *>::iterator it = obst.begin(); it != obst.end(); it++)
+	{
+		shape.setPosition((*it)->getX() * this->_squareSize + 1, (*it)->getY() * this->_squareSize + 1);
+		this->_win->draw(shape);
+		leaf.setPosition((*it)->getX() * this->_squareSize + 1 + this->_squareSize / 4, (*it)->getY() * this->_squareSize + 1);
+		this->_win->draw(leaf);
+		leaf2.setPosition((*it)->getX() * this->_squareSize + 1 + this->_squareSize / 2, (*it)->getY() * this->_squareSize + 1);
+		this->_win->draw(leaf2);
+	}
+}
 
 void			Sfml::_drawApple(std::list<GameEntity *>		apple)
 {

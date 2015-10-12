@@ -64,7 +64,7 @@ void		Game::init(std::string dlib_path)
 
 void		Game::_setDLib(std::string dlib_path)
 {
-	printf("lib loaded: %s\n", dlib_path.c_str()); //
+	printf("Loading library: %s\n", dlib_path.c_str());
 
 	if (this->_dlib)
 	{
@@ -110,6 +110,16 @@ void		Game::_handleCollisions(void)
 		}
 	}
 
+	// with an obstacle
+	std::list<GameEntity *> 	obst = map->getObstacles();
+	for (std::list<GameEntity *>::iterator it = obst.begin(); it != obst.end(); it++) {
+		if ((*it)->getX() == snake->_head->getX() && (*it)->getY() == snake->_head->getY()) {
+			printf("GAME OVER! (hit an obstacle)\n");
+			this->_shouldExit = TRUE;
+			return ;
+		}
+	}
+
 	// with an apple
 	std::list<GameEntity *> 	apple = map->getApple();
 	for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++) {
@@ -132,11 +142,11 @@ void		Game::_handleMovementInputs(int key)
 	snake = getMap()->getSnake();
 
 	switch (key) {
-		case KeyUp: direction = NORTH; break;
-		case KeyDown: direction = SOUTH; break;
-		case KeyLeft: direction = WEST; break;
-		case KeyRight: direction = EAST; break;
-		default: return ;
+		case KeyUp:		direction = NORTH;	break;
+		case KeyDown:	direction = SOUTH;	break;
+		case KeyLeft:	direction = WEST;	break;
+		case KeyRight:	direction = EAST;	break;
+		default: return;
 	}
 
 	snake->setDirection(direction);
@@ -147,14 +157,14 @@ void		Game::_handleLibSwichInputs(int key)
 	std::string		lib;
 
 	switch (key) {
-		case KeyNum1: lib = DLIB_NCURSES; break;
-		case KeyNum2: lib = DLIB_SFML; break;
-		case KeyNum3: lib = DLIB_GLFW; break;
-		default: return ;
+		case KeyNum1: lib = DLIB_NCURSES;	break;
+		case KeyNum2: lib = DLIB_SFML;		break;
+		case KeyNum3: lib = DLIB_GLFW;		break;
+		default: return;
 	}
 
 	if (lib == this->_currentDLib)
-		return ;
+		return;
 
 	this->_setDLib(lib);
 }
@@ -222,11 +232,14 @@ void		Game::loop(void)
 	{
 		Time::update();
 
+		/* events */
 		this->_handleInputs(this->_dlib->getInput());
 
+		/* update */
 		if (!this->_isPaused)
 			this->update();
 
+		/* refresh display */
 		this->_dlib->draw(map);
 
 		Time::sleep(200 - snake->getSpeed() * 10);

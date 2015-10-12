@@ -85,6 +85,7 @@ void            Glfw::draw(Map *map)
     // Render
     this->_drawGrid();
     this->_drawApple(map->getApple());
+    this->_drawObstacles(map->getObstacles());
     this->_drawSnake(map->getSnake());
     this->_drawScore(map->getScore());
 
@@ -107,6 +108,20 @@ void            Glfw::_drawSnake(Snake *snake)
     // body
     glColor3ub(NICE_GREEN);
     for (std::list<GameEntity *>::iterator it = snake->_body.begin(); it != snake->_body.end(); it++)
+    {
+        x = (*it)->getX() * this->_squareSize;
+        y = (*it)->getY() * this->_squareSize;
+        glRecti(x, y, x + this->_squareSize, y + this->_squareSize);
+    }
+}
+
+void            Glfw::_drawObstacles(std::list<GameEntity *> obst)
+{
+    int   x;
+    int   y;
+
+    glColor3ub(BROWN);
+    for (std::list<GameEntity *>::iterator it = obst.begin(); it != obst.end(); it++)
     {
         x = (*it)->getX() * this->_squareSize;
         y = (*it)->getY() * this->_squareSize;
