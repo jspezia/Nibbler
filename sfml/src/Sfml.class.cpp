@@ -97,8 +97,17 @@ void			Sfml::_drawSnake(Snake *snake)
 
 void			Sfml::_drawObstacles(std::list<GameEntity *>		obst)
 {
-	sf::CircleShape	shape(this->_squareSize / 2, 8);
-	shape.setFillColor(sf::Color(BROWN));
+	sf::Texture		texture;
+	int size = this->_squareSize;
+	sf::RectangleShape	shape(sf::Vector2f(size, size));
+
+	if (!texture.loadFromFile("sfml/texture/brickwall.png"))
+	    shape.setFillColor(sf::Color(BROWN));
+	else
+	{
+		shape.setTexture(&texture);
+		shape.setTextureRect(sf::IntRect(10, 10, 100, 100));
+	}
 
 	for (std::list<GameEntity *>::iterator it = obst.begin(); it != obst.end(); it++)
 	{
