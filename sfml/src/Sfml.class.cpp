@@ -28,8 +28,8 @@ void			Sfml::_init(void)
 
 void			Sfml::_destroy(void)
 {
-//	if (this->_win->isOpen())
-//		this->_win->close();
+	if (this->_win->isOpen())
+		this->_win->close();
 }
 
 /* DRAW CALLS */

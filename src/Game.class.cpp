@@ -64,6 +64,7 @@ void		Game::init(std::string dlib_path)
 void		Game::_setDLib(std::string dlib_path)
 {
 	printf("lib loaded: %s\n", dlib_path.c_str());
+	this->_currentDLib = dlib_path;
 	DynamicLibHandler::instance().setHandle(dlib_path, this->_width, this->_height);
 	this->_dlib = DynamicLibHandler::instance().getLib();
 }
@@ -99,7 +100,6 @@ int			Game::_handleCollisions(void)
 			snake->upSpeed(1);
 			(*it)->setPosition(-1, -1);
 
-			// printf("Score: %d\n", this->_score);
 			this->_score++;
 			map->setScore(this->_score);
 		}
@@ -140,6 +140,9 @@ void		Game::_handleLibSwichInputs(int key)
 	else if (key == KeyNum3)
 		lib = DLIB_GLFW;
 	else
+		return ;
+
+	if (lib == this->_currentDLib)
 		return ;
 
 	this->_setDLib(lib);

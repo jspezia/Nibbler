@@ -82,6 +82,7 @@ void            Glfw::draw(Map *map)
     if (!glfwWindowShouldClose(this->_win))
     {
         reset_viewport(this->_win);
+        g_keycode = 0;
 
         glMatrixMode(GL_MODELVIEW);
 
@@ -172,6 +173,8 @@ void            Glfw::_drawGrid()
 /* INPUT EVENTS */
 int             Glfw::getInput(void)
 {
+    // printf("getInput %d\n", g_keycode);
+
     if (g_keycode == GLFW_KEY_UP)
         return KeyUp;
     if (g_keycode == GLFW_KEY_DOWN)

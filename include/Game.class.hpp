@@ -50,6 +50,7 @@ private:
 
 	/* graphic dynamic lib */
 	IGraphic *	_dlib;
+	std::string	_currentDLib;
 
 	int			_score;
 
