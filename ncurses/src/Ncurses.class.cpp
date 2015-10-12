@@ -84,16 +84,12 @@ void		Ncurses::_drawSnake(Snake *snake)
 
 void		Ncurses::_drawObstacles(std::list<GameEntity *> obst)
 {
-
 	attrset(COLOR_PAIR(6));
 	for (std::list<GameEntity *>::iterator it = obst.begin(); it != obst.end(); it++) {
 		mvprintw((*it)->getY() + 1, 2 * (*it)->getX() + 1, "[");
 		mvprintw((*it)->getY() + 1, 2 * (*it)->getX() + 2, "]");
 	}
 	attrset(COLOR_PAIR(1));
-
-
-
 }
 
 void		Ncurses::_drawScore(int score)
@@ -120,19 +116,21 @@ void		Ncurses::draw(Map *map)
 int			Ncurses::getInput(void)
 {
 	int		c;
+
 	wtimeout(this->_win, 1);
 	if ((c = getch()) != ERR) {
 		switch (c)
 		{
-			case KEY_DOWN: return(KeyDown);  break;
-			case KEY_UP: return(KeyUp);  break;
-			case KEY_RIGHT: return(KeyRight);  break;
-			case KEY_LEFT:  return(KeyLeft);  break;
-			case 32: return(KeySpace); break;
-			case 27: return(KeyEscape);
-			case 49: return(KeyNum1); break;
-			case 50: return(KeyNum2); break;
-			case 51: return(KeyNum3); break;
+			case KEY_DOWN:	return KeyDown;		break;
+			case KEY_UP:	return KeyUp;		break;
+			case KEY_RIGHT:	return KeyRight;	break;
+			case KEY_LEFT:	return KeyLeft;		break;
+			case 32: 		return KeySpace;	break;
+			case 27: 		return KeyEscape;	break;
+			case 49: 		return KeyNum1;		break;
+			case 50: 		return KeyNum2;		break;
+			case 51: 		return KeyNum3;		break;
+			default:		return 0;
 		}
 	}
 	return (0);

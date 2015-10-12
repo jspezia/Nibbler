@@ -139,7 +139,7 @@ void		Game::_handleMovementInputs(int key)
 	int		direction;
 	Snake		*snake;
 
-	snake = getMap()->getSnake();
+	snake = this->getMap()->getSnake();
 
 	switch (key) {
 		case KeyUp:		direction = NORTH;	break;
@@ -190,30 +190,55 @@ void		Game::_handleInputs(int keycode)
 	this->_handleLibSwichInputs(keycode);
 }
 
+bool		isPositionOccupiedByAnObstacle(std::list<GameEntity *> obst, int x, int y)
+{
+	std::list<GameEntity *>::iterator	it = obst.begin();
+	while (it != obst.end()) {
+		if ((*it)->getX() == x && (*it)->getY() == y) {
+			printf("TRUE\n");
+			return TRUE;
+		}
+		it++;
+	}
+	return FALSE;
+}
+
 void		Game::update(void)
 {
 	Map			*map;
 	Snake		*snake;
 
-	map = getMap();
-	snake = getMap()->getSnake();
+	map = this->getMap();
+	snake = map->getSnake();
 
 	snake->move();
 
 	// Apple generation (at least 1 and more in random)
+	int		x;
+	int		y;
 	std::list<GameEntity *>				apple = map->getApple();
 	std::list<GameEntity *>::iterator	it = apple.begin();
-	if ((*it)->getX() == -1)
-		(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
-	if ((Time::getTime() % 100) == 0) {
-		while (it != apple.end()) {
-			if ((*it)->getX() == -1) {
-				(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
-				break;
-			}
-			it++;
+	if ((*it)->getX() == -1) {
+		x = rand() % map->getWidth();
+		y = rand() % map->getHeight();
+
+		while (isPositionOccupiedByAnObstacle(map->getObstacles(), x, y) == TRUE) {
+			x = rand() % map->getWidth();
+			y = rand() % map->getHeight();
 		}
+		(*it)->setPosition(x, y);
 	}
+
+	// random one
+	// if ((Time::getTime() % 100) == 0) {
+	// 	while (it != apple.end()) {
+	// 		if ((*it)->getX() == -1) {
+	// 			(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
+	// 			break;
+	// 		}
+	// 		it++;
+	// 	}
+	// }
 
 	this->_handleCollisions();
 }
