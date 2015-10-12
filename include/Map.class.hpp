@@ -2,8 +2,8 @@
 # define Map_HPP
 
 # include "Snake.class.hpp"
+# include <iostream>
 
-#include <iostream>
 
 class Map
 {
@@ -15,7 +15,8 @@ public:
 	int 						getHeight(void) const;
 	int 						getWidth(void) const;
 	int 						getScore(void) const;
-	Snake						*getSnake(void) const;
+	Snake *						getSnake(void) const;
+	GameEntity *				getBonus(void) const;
 	std::list<GameEntity *>		getApple(void) const;
 	std::list<GameEntity *>		getObstacles(void) const;
 
@@ -30,8 +31,9 @@ private:
 
 	std::list<GameEntity *>		_apple;
 	std::list<GameEntity *>		_obstacles;
+	GameEntity *				_bonus;
 
-	Snake						*_snake;
+	Snake *						_snake;
 	int							_width;
 	int 						_height;
 

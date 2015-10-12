@@ -132,6 +132,16 @@ void		Game::_handleCollisions(void)
 			map->setScore(this->_score);
 		}
 	}
+
+	// with bonus
+	GameEntity *	bonus = map->getBonus();
+	if (bonus->getX() == snake->_head->getX() && bonus->getY() == snake->_head->getY()) {
+		snake->setState("grow");
+		bonus->setPosition(-1, -1);
+
+		this->_score += 10;
+		map->setScore(this->_score);
+	}
 }
 
 void		Game::_handleMovementInputs(int key)
@@ -190,7 +200,7 @@ void		Game::_handleInputs(int keycode)
 	this->_handleLibSwichInputs(keycode);
 }
 
-bool		isPositionOccupiedByAnObstacle(std::list<GameEntity *> obst, int x, int y)
+bool		isPositionOccupiedBy(std::list<GameEntity *> obst, int x, int y)
 {
 	std::list<GameEntity *>::iterator	it = obst.begin();
 	while (it != obst.end()) {
@@ -213,7 +223,6 @@ void		Game::update(void)
 
 	snake->move();
 
-	// Apple generation (at least 1 and more in random)
 	int		x;
 	int		y;
 	std::list<GameEntity *>				apple = map->getApple();
@@ -222,23 +231,36 @@ void		Game::update(void)
 		x = rand() % map->getWidth();
 		y = rand() % map->getHeight();
 
-		while (isPositionOccupiedByAnObstacle(map->getObstacles(), x, y) == TRUE) {
+		while (isPositionOccupiedBy(map->getObstacles(), x, y) || isPositionOccupiedBy(map->getApple(), x, y) == TRUE) {
 			x = rand() % map->getWidth();
 			y = rand() % map->getHeight();
 		}
 		(*it)->setPosition(x, y);
 	}
 
-	// random one
-	// if ((Time::getTime() % 100) == 0) {
-	// 	while (it != apple.end()) {
-	// 		if ((*it)->getX() == -1) {
-	// 			(*it)->setPosition(rand() % map->getWidth(), rand() % map->getHeight());
-	// 			break;
-	// 		}
-	// 		it++;
-	// 	}
-	// }
+	// BONUS
+	static int		timeout = 0;
+	GameEntity *	bonus = map->getBonus();
+	int ts = Time::getTime();
+
+	if (timeout && ts > timeout) {
+		bonus->setPosition(-1, -1);
+		timeout = 0;
+		printf("TIMEOUT\n");
+	}
+
+	if (bonus->getX() == -1 && !(ts % 100)) {
+		x = rand() % map->getWidth();
+		y = rand() % map->getHeight();
+
+		while (isPositionOccupiedBy(map->getObstacles(), x, y) || isPositionOccupiedBy(map->getApple(), x, y) == TRUE) {
+			x = rand() % map->getWidth();
+			y = rand() % map->getHeight();
+		}
+
+		timeout = ts + 5000; // 5sec
+		bonus->setPosition(x, y);
+	}
 
 	this->_handleCollisions();
 }

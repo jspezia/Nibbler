@@ -34,6 +34,7 @@ Map::Map(int width, int height) : _width(width), _height(height)
 	}
 
 	this->_score = 0;
+	this->_bonus = new GameEntity(-1, -1, "bonus");
 	return;
 }
 
@@ -59,10 +60,16 @@ int								Map::getScore(void) const
 	return this->_score;
 }
 
-Snake							*Map::getSnake(void) const
+Snake *							Map::getSnake(void) const
 {
 	return this->_snake;
 }
+
+GameEntity *					Map::getBonus(void) const
+{
+	return this->_bonus;
+}
+
 
 std::list<GameEntity *>			Map::getApple(void) const
 {
