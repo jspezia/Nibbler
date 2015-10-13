@@ -16,14 +16,12 @@ SRCS				=	$(patsubst %, src/%, $(SRC))
 OBJS				=	$(SRCS:src/%.cpp=obj/%.obj)
 
 # necessary files for sfml
-BREW				=	/usr/local/bin/brew
+BREW				=	$(HOME)/.brew
 BREW_INCLUDE		=	$(BREW)/include
-SFML_LIBS			=	$(BREW)/lib -lsfml-graphics -lsfml-window -lsfml-system
-SFML				=	$(BREW)/lib/libsfml-audio*						\
-						$(BREW)/lib/libsfml-graphics*					\
-						$(BREW)/lib/libsfml-network*					\
-						$(BREW)/lib/libsfml-system*						\
-						$(BREW)/lib/libsfml-window*
+SFML_LIBS			=	$(BREW)/lib -lsfml-system -lsfml-window -lsfml-graphics
+SFML				=	$(BREW)/lib/libsfml-system*						\
+						$(BREW)/lib/libsfml-window*						\
+						$(BREW)/lib/libsfml-graphics*
 
 
 # SFML
@@ -87,8 +85,8 @@ $(SFML_NAME): $(SFML) $(SFML_LN) $(SFML_SRCS)
 
 $(SFML_LN):
 	@rm -f sfml/include/SFML
-	##42 configuration # @ln -s ~/.brew/include/SFML sfml/include/SFML
-	@ln -s /usr/local/Cellar/sfml/2.3/include/SFML/ sfml/include/SFML
+	ln -s ~/.brew/include/SFML sfml/include/SFML
+	#ln -s /usr/local/Cellar/sfml/2.3/include/SFML/ sfml/include/SFML
 $(SFML):
 	@#brew install sfml
 

@@ -49,6 +49,7 @@ void					DynamicLibHandler::setHandle(std::string & path, int width, int heigth)
 
 	this->_handle = dlopen(path.c_str(), RTLD_LAZY);
 	if (!this->_handle) {
+		std::cerr << "Error: " << dlerror() << std::endl;
 		throw DLibOpenException();
 	}
 
