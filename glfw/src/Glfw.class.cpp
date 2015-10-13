@@ -14,7 +14,6 @@ Glfw::Glfw(int x, int y) : _x(x), _y(y)
 
 Glfw::~Glfw(void)
 {
-
 }
 
 static void     error_callback(int error, const char* description)
@@ -134,7 +133,7 @@ void            Glfw::_drawBonus(GameEntity * bonus)
 {
     int   x;
     int   y;
-    int   padding = 3;
+    int   padding = 2;
 
     glColor3ub(CYAN);
     x = bonus->getX() * this->_squareSize;
@@ -146,7 +145,7 @@ void            Glfw::_drawApple(std::list<GameEntity *> apple)
 {
     int   x;
     int   y;
-    int   padding = 3;
+    int   padding = 2;
 
     glColor3ub(RED);
     for (std::list<GameEntity *>::iterator it = apple.begin(); it != apple.end(); it++)

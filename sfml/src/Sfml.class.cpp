@@ -15,7 +15,6 @@ Sfml::Sfml(int x, int y) : _x(x), _y(y)
 
 Sfml::~Sfml(void)
 {
-
 }
 
 void			Sfml::init(void)
