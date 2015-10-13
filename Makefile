@@ -64,7 +64,7 @@ C_WARN			=	"\033[33m"
 SUCCESS			=	$(C_GOOD)SUCCESS$(C_NO)
 OK				=	$(C_OK)OK$(C_NO)
 
-all: obj $(NAME) $(GLFW_NAME) $(SFML_NAME) $(NCURSES_NAME)
+all: update_env obj $(NAME) $(GLFW_NAME) $(SFML_NAME) $(NCURSES_NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) -o $@ $^ -I $(INCLUDE)
