@@ -38,23 +38,23 @@ void		Ncurses::_drawEdge()
 	//map
 	for (int x = 0; x != this->_x + 1; x++) {
 		for (int y = 0; y != this->_y + 1; y ++) {
-			mvprintw(x, 2 * y, " ");
-			mvprintw(x, 2 * y + 1, " ");
+			mvprintw(y, 2 * x, " ");
+			mvprintw(y, 2 * x + 1, " ");
 		}
 	}
 	//axe vertical
-	for (int x = 0; x != this->_x + 1; x++) {
+	for (int x = 0; x != this->_y + 1; x++) {
 		mvprintw(x, 0, "+");
-		mvprintw(x, 2 * this->_y + 1, "+");
+		mvprintw(x, 2 * this->_x + 1, "+");
 	}
 	// axe horizontal
-	for (int y = 0; y != this->_y + 1; y++) {
+	for (int y = 0; y != this->_x + 1; y++) {
 		mvprintw(0, 2 * y, "+");
 		mvprintw(0, 2 * y + 1, "+");
-		mvprintw(this->_x + 1, 2 * y, "+");
-		mvprintw(this->_x + 1, 2 * y + 1, "+");
+		mvprintw(this->_y + 1, 2 * y, "+");
+		mvprintw(this->_y + 1, 2 * y + 1, "+");
 	}
-	mvprintw(this->_x + 1, 2 * this->_y + 1, "+");
+	mvprintw(this->_y + 1, 2 * this->_x + 1, "+");
 }
 
 void		Ncurses::_drawBonus(GameEntity * bonus)
@@ -108,7 +108,7 @@ void		Ncurses::_drawScore(int score)
 
 	result = "Score: " + std::to_string(score);
 	attrset(COLOR_PAIR(3));
-	mvprintw(this->_x + 4, 0, (char*)result.c_str());
+	mvprintw(this->_y + 4, 0, (char*)result.c_str());
 	attrset(COLOR_PAIR(1));
 }
 
