@@ -64,7 +64,7 @@ C_WARN			=	"\033[33m"
 SUCCESS			=	$(C_GOOD)SUCCESS$(C_NO)
 OK				=	$(C_OK)OK$(C_NO)
 
-all: update_env obj $(NAME) $(GLFW_NAME) $(SFML_NAME) $(NCURSES_NAME)
+all: obj $(NAME) $(GLFW_NAME) $(SFML_NAME) $(NCURSES_NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) -o $@ $^ -I $(INCLUDE)
@@ -133,4 +133,4 @@ update_env:
 
 re: fclean all
 
-.PHONY: all clean fclean re update_env
+.PHONY: all clean fclean re
