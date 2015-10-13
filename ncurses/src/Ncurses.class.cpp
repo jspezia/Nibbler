@@ -8,7 +8,6 @@ Ncurses::Ncurses(int x, int y) : _x(x), _y(y)
 
 Ncurses::~Ncurses(void)
 {
-	this->close();
 }
 
 void		Ncurses::init(void)

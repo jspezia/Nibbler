@@ -7,9 +7,9 @@
 # include "IGraphic.class.hpp"
 
 # define MIN_WIDTH		10
-# define MAX_WIDTH		100
+# define MAX_WIDTH		50
 # define MIN_HEIGHT		10
-# define MAX_HEIGHT		100
+# define MAX_HEIGHT		50
 
 class Game
 {
