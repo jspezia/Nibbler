@@ -90,10 +90,9 @@ $(SFML_LN):
 $(SFML):
 	@#brew install sfml
 
-
 # GLFW
 
-$(GLFW_NAME): $(CMAKE) glfw/lib/CMakeLists.txt $(GLFW_LIB)
+$(GLFW_NAME): glfw/lib/CMakeLists.txt $(GLFW_LIB) $(GLFW_SRCS)
 	@$(CC) -o $@ -shared -fPIC -I $(INCLUDE) -I $(GLFW_INCLUDE) -L $(GLFW_LIB_DIR)/src -lglfw3 $(FRAMEWORK) -I $(GLFW_LIB_DIR)/include/GLFW $(GLFW_SRCS) obj/GameEntity.class.obj obj/Map.class.obj
 	@echo "Compiling" [ $@ ] $(SUCCESS)
 
@@ -101,10 +100,6 @@ $(GLFW_LIB):
 	cd $(GLFW_LIB_DIR) && \
 	$(CMAKE) . && \
 	make
-
-$(CMAKE):
-	@#brew update
-	@#brew install cmake
 
 glfw/lib/CMakeLists.txt:
 	git submodule init
